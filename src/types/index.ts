@@ -14,6 +14,7 @@ export interface Question {
   id: string;
   lessonId: string;
   level: QuestionLevel;
+  targetLevel?: StudentLevel;
   question: string;
   options: string[];
   correctAnswer: string;

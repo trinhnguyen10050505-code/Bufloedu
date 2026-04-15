@@ -6,7 +6,7 @@ export const questionBank: Question[] = [
   // =========================
   {
     id: "b2-nb-1",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "nhanbiet",
     question: "Trong các quá trình sau, quá trình nào xảy ra biến đổi vật lí?",
     options: [
@@ -20,7 +20,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-nb-2",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "nhanbiet",
     question: "Trong các quá trình sau, quá trình nào xảy ra biến đổi vật lí?",
     options: [
@@ -34,7 +34,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-nb-3",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "nhanbiet",
     question: "Hiện tượng hoá học khác với biến đổi vật lí ở điểm nào?",
     options: [
@@ -48,7 +48,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-th-1",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "thonghieu",
     question: "Trước và sau phản ứng hóa học, yếu tố nào thay đổi?",
     options: [
@@ -62,7 +62,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-th-2",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "thonghieu",
     question: "Dấu hiệu nào sau đây không chứng tỏ đã có phản ứng hoá học xảy ra?",
     options: [
@@ -76,7 +76,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-th-3",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "thonghieu",
     question: "Phản ứng nào sau đây là phản ứng tỏa nhiệt?",
     options: [
@@ -90,7 +90,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-vd-1",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "vandung",
     question:
       "Cho các quá trình: (1) hòa tan muối ăn vào nước, (2) cồn bay hơi, (3) nước đóng băng, (4) cho CaO tác dụng với nước. Những quá trình là biến đổi vật lí là:",
@@ -105,7 +105,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b2-vd-2",
-    lessonId: "bai-2",
+    lessonId: "lesson-2",
     level: "vandung",
     question:
       "Cho các quá trình: (1) thức ăn để qua đêm bị ôi thiu, (2) đun đường chuyển màu đen, (3) bóng bay nổ, (4) cháy rừng, (5) băng tan ở hai cực. Những quá trình xảy ra biến đổi hóa học là:",
@@ -124,7 +124,7 @@ export const questionBank: Question[] = [
   // =========================
   {
     id: "b3-nb-1",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "nhanbiet",
     question: "Số Avogadro có giá trị là:",
     options: ["6,022×10^22", "6,022×10^23", "6,022×10^24", "6,022×10^25"],
@@ -133,7 +133,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-nb-2",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "nhanbiet",
     question: "Ở điều kiện chuẩn, 1 mol của bất kì chất khí nào đều chiếm thể tích là:",
     options: ["27,49 L", "24,79 L", "24,2 L", "22,4 L"],
@@ -142,7 +142,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-nb-3",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "nhanbiet",
     question: "Khí nào nặng nhất trong các khí sau?",
     options: ["CH4", "CO2", "N2", "H2"],
@@ -151,7 +151,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-th-1",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "thonghieu",
     question: "Trong 1 mol H2O có chứa bao nhiêu nguyên tử hydrogen?",
     options: ["3,055×10^6", "9,033×10^23", "12,044×10^23", "6,022×10^23"],
@@ -160,7 +160,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-th-2",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "thonghieu",
     question: "Ở cùng điều kiện nhiệt độ và áp suất, nếu hai chất khí có thể tích bằng nhau thì chúng:",
     options: [
@@ -174,7 +174,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-th-3",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "thonghieu",
     question: "Khí nào sau đây nhẹ hơn không khí?",
     options: ["NH3", "CO2", "N2O", "H2S"],
@@ -183,7 +183,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-vd-1",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "vandung",
     question: "Tỉ khối của khí X đối với khí hydrogen bằng 16. Khí X có khối lượng mol là:",
     options: ["16 gam", "32 gam", "64 gam", "8 gam"],
@@ -192,7 +192,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b3-vd-2",
-    lessonId: "bai-3",
+    lessonId: "lesson-3",
     level: "vandung",
     question:
       "Một hỗn hợp khí gồm 0,1 mol O2; 0,25 mol N2 và 0,15 mol CO. Khối lượng mol trung bình của hỗn hợp là:",
@@ -206,7 +206,7 @@ export const questionBank: Question[] = [
   // =========================
   {
     id: "b4-nb-1",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "nhanbiet",
     question: "Dung dịch là hỗn hợp:",
     options: [
@@ -220,7 +220,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-nb-2",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "nhanbiet",
     question: "Nồng độ phần trăm là nồng độ cho biết:",
     options: [
@@ -234,7 +234,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-nb-3",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "nhanbiet",
     question: "Nồng độ mol/L của dung dịch là:",
     options: [
@@ -248,7 +248,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-th-1",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "thonghieu",
     question: "Khi tăng nhiệt độ thì độ tan của các chất rắn trong nước:",
     options: ["đều tăng", "đều giảm", "phần lớn là tăng", "phần lớn là giảm"],
@@ -257,7 +257,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-th-2",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "thonghieu",
     question: "Hòa tan 50 gam NaCl vào 450 gam nước thì dung dịch thu được có nồng độ là:",
     options: ["15%", "20%", "10%", "5%"],
@@ -266,7 +266,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-th-3",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "thonghieu",
     question: "Muốn pha 400 mL dung dịch CuSO4 0,2M thì số mol chất tan cần là:",
     options: ["0,08 mol", "0,2 mol", "0,4 mol", "0,02 mol"],
@@ -275,7 +275,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-vd-1",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "vandung",
     question:
       "Hoà tan 4 gam NaOH vào nước để được 400 mL dung dịch. Nồng độ mol của dung dịch thu được là:",
@@ -285,7 +285,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b4-vd-2",
-    lessonId: "bai-4",
+    lessonId: "lesson-4",
     level: "vandung",
     question:
       "Muốn pha 100 mL dung dịch H2SO4 3M thì số mol H2SO4 cần lấy là:",
@@ -299,7 +299,7 @@ export const questionBank: Question[] = [
   // =========================
   {
     id: "b5-nb-1",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "nhanbiet",
     question: "Cho phản ứng: A + B → C + D. Phương trình bảo toàn khối lượng là:",
     options: [
@@ -313,7 +313,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-nb-2",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "nhanbiet",
     question: "Khối lượng trước và sau một phản ứng hóa học được bảo toàn vì:",
     options: [
@@ -327,7 +327,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-nb-3",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "nhanbiet",
     question: "Phương trình hóa học là:",
     options: [
@@ -341,7 +341,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-th-1",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "thonghieu",
     question: "Trong một phản ứng hoá học, các chất phản ứng và chất tạo thành có cùng:",
     options: [
@@ -355,7 +355,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-th-2",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "thonghieu",
     question: "Khi cân bằng phương trình hóa học, điều nào sau đây là đúng?",
     options: [
@@ -369,7 +369,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-th-3",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "thonghieu",
     question: "Cứ 4 mol sắt phản ứng với 3 mol oxygen. Phương trình nào đúng?",
     options: [
@@ -383,7 +383,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-vd-1",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "vandung",
     question:
       "Than cháy tạo ra khí carbon dioxide. Biết khối lượng carbon đã cháy là 4,5 kg và khối lượng oxygen đã phản ứng là 12 kg. Khối lượng CO2 tạo ra là:",
@@ -393,7 +393,7 @@ export const questionBank: Question[] = [
   },
   {
     id: "b5-vd-2",
-    lessonId: "bai-5",
+    lessonId: "lesson-5",
     level: "vandung",
     question:
       "Một chiếc đinh sắt để lâu ngày ngoài không khí thì bị gỉ. Khối lượng của đinh sắt so với ban đầu sẽ:",

@@ -1,28 +1,28 @@
-type Props = {
-  level: "trungbinh" | "kha" | "gioi";
+type LevelBadgeProps = {
+  level: "trung_binh" | "kha" | "gioi";
 };
 
-export default function LevelBadge({ level }: Props) {
-  const config = {
-    trungbinh: {
-      label: "Trung bình",
-      className: "bg-yellow-100 text-yellow-700 border-yellow-300"
-    },
-    kha: {
-      label: "Khá",
-      className: "bg-blue-100 text-blue-700 border-blue-300"
-    },
-    gioi: {
-      label: "Giỏi",
-      className: "bg-green-100 text-green-700 border-green-300"
-    }
-  };
+const levelMap = {
+  trung_binh: {
+    label: "Trung bình",
+    className: "bg-amber-100 text-amber-700",
+  },
+  kha: {
+    label: "Khá",
+    className: "bg-blue-100 text-blue-700",
+  },
+  gioi: {
+    label: "Giỏi",
+    className: "bg-emerald-100 text-emerald-700",
+  },
+};
+
+export default function LevelBadge({ level }: LevelBadgeProps) {
+  const config = levelMap[level];
 
   return (
-    <span
-      className={`inline-flex rounded-full border px-3 py-1 text-sm font-medium ${config[level].className}`}
-    >
-      {config[level].label}
+    <span className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${config.className}`}>
+      {config.label}
     </span>
   );
 }

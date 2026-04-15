@@ -1,5 +1,5 @@
 import { Question, StudentLevel } from "../types";
-import { questionBank } from "../data/question-bank";
+import { questionBank } from "../data/question-bank-raw";
 
 export function getQuestionsByLesson(lessonId: string): Question[] {
   return questionBank.filter((q) => q.lessonId === lessonId);
