@@ -1,11 +1,40 @@
 import { DiagnosticResult, StudentLevel } from "../types";
 
-export function calculateStudentLevel(params: {
+type CalculateStudentLevelParams = {
   correctRate: number;
   hardCorrect: number;
   completionTime: number;
-}): StudentLevel {
-  const { correctRate, hardCorrect, completionTime } = params;
+};
+
+type BuildDiagnosticResultParams = CalculateStudentLevelParams & {
+  weakLessons: string[];
+};
+
+function normalizeCorrectRate(correctRate: number): number {
+  if (Number.isNaN(correctRate) || !Number.isFinite(correctRate)) return 0;
+  return Math.max(0, Math.min(100, correctRate));
+}
+
+function normalizeNonNegativeNumber(value: number): number {
+  if (Number.isNaN(value) || !Number.isFinite(value)) return 0;
+  return Math.max(0, value);
+}
+
+/**
+ * Tính mức độ học sinh dựa trên:
+ * - tỉ lệ đúng
+ * - số câu khó đúng
+ * - thời gian hoàn thành
+ *
+ * Chỉ trả về level hệ thống:
+ * trungbinh | kha | gioi
+ */
+export function calculateStudentLevel(
+  params: CalculateStudentLevelParams
+): StudentLevel {
+  const correctRate = normalizeCorrectRate(params.correctRate);
+  const hardCorrect = normalizeNonNegativeNumber(params.hardCorrect);
+  const completionTime = normalizeNonNegativeNumber(params.completionTime);
 
   if (correctRate >= 80 && hardCorrect >= 2 && completionTime <= 900) {
     return "gioi";
@@ -18,20 +47,28 @@ export function calculateStudentLevel(params: {
   return "trungbinh";
 }
 
-export function buildDiagnosticResult(params: {
-  correctRate: number;
-  hardCorrect: number;
-  completionTime: number;
-  weakLessons: string[];
-}): DiagnosticResult {
-  const level = calculateStudentLevel(params);
+/**
+ * Tạo kết quả bài test chẩn đoán hoàn chỉnh.
+ */
+export function buildDiagnosticResult(
+  params: BuildDiagnosticResultParams
+): DiagnosticResult {
+  const correctRate = normalizeCorrectRate(params.correctRate);
+  const hardCorrect = normalizeNonNegativeNumber(params.hardCorrect);
+  const completionTime = normalizeNonNegativeNumber(params.completionTime);
+
+  const level = calculateStudentLevel({
+    correctRate,
+    hardCorrect,
+    completionTime,
+  });
 
   return {
-    score: Math.round(params.correctRate),
-    correctRate: params.correctRate,
-    hardCorrect: params.hardCorrect,
-    completionTime: params.completionTime,
+    score: Math.round(correctRate),
+    correctRate,
+    hardCorrect,
+    completionTime,
     level,
-    weakLessons: params.weakLessons
+    weakLessons: Array.from(new Set(params.weakLessons)),
   };
 }

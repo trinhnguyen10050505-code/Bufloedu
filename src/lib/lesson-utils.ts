@@ -1,6 +1,6 @@
 import { lessonsContent } from "@/data/lessons.content";
-import { questionBank } from "@/data/question-bank-raw";
-import { Question } from "@/types";
+import { questionBank } from "@/data/question-bank";
+import { Question } from "@/types/question";
 
 export function getLessonById(lessonId: string) {
   return lessonsContent[lessonId];

@@ -1,25 +1,4 @@
 export type StudentLevel = "trungbinh" | "kha" | "gioi";
-export type QuestionLevel = "nhanbiet" | "thonghieu" | "vandung";
-
-export interface Lesson {
-  id: string;
-  title: string;
-  description: string;
-  videoUrl?: string;
-  theory: string[];
-  objectives: string[];
-}
-
-export interface Question {
-  id: string;
-  lessonId: string;
-  level: QuestionLevel;
-  targetLevel?: StudentLevel;
-  question: string;
-  options: string[];
-  correctAnswer: string;
-  explanation?: string;
-}
 
 export interface DiagnosticResult {
   score: number;
@@ -30,11 +9,23 @@ export interface DiagnosticResult {
   weakLessons: string[];
 }
 
-export interface QueueItem {
+export interface StudentProgressRecord {
+  studentId: string;
+  lessonId: string;
+  activityType: "practice" | "quick_test" | "focus_room" | "diagnostic_test";
+  score?: number;
+  totalQuestions?: number;
+  accuracy?: number;
+  level?: StudentLevel;
+  durationInSeconds?: number;
+  createdAt?: string;
+}
+
+export type QueueItem = {
   id: string;
   type: "lesson" | "video" | "practice" | "quiz";
   lessonId: string;
   title: string;
   description: string;
-  recommendedLevel?: StudentLevel;
-}
+  recommendedLevel: StudentLevel;
+};

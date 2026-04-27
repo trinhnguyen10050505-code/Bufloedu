@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { questionBank } from "@/data/question-bank-raw";
-import { Question } from "@/types";
+import { questionBank } from "@/data/question-bank";
+import { Question } from "@/types/question";
 
 type StudentLevel = "trung_binh" | "kha" | "gioi";
 type AnswerMap = Record<string, string>;
@@ -23,7 +23,7 @@ export default function ExercisesPage() {
   }, [activeMode, selectedLevel, selectedLesson]);
 
   const score = filteredQuestions.reduce((total: number, question: Question) => {
-    return total + (answers[question.id] === question.correctAnswer ? 1 : 0);
+    return total + (answers[question.id] === question.correctAnswerId ? 1 : 0);
   }, 0);
 
   const resetState = () => {
@@ -112,7 +112,7 @@ export default function ExercisesPage() {
 
         {filteredQuestions.map((question: Question, index: number) => {
           const selected = answers[question.id];
-          const isCorrect = selected === question.correctAnswer;
+          const isCorrect = selected === question.correctAnswerId;
 
           return (
             <div key={question.id} className="rounded-3xl bg-white p-6 shadow-sm">
@@ -126,21 +126,20 @@ export default function ExercisesPage() {
               </div>
 
               <div className="grid gap-3">
-                {question.options.map((optionText: string, optionIndex: number) => {
-                  const optionId = String.fromCharCode(65 + optionIndex);
-                  const isSelected = selected === optionId;
-                  const showCorrect = submitted && optionText === question.correctAnswer;
-                  const showWrong = submitted && isSelected && optionText !== question.correctAnswer;
+                {question.options.map((option) => {
+                  const isSelected = selected === option.id;
+                  const showCorrect = submitted && option.id === question.correctAnswerId;
+                  const showWrong = submitted && isSelected && option.id !== question.correctAnswerId;
 
                   return (
                     <button
-                      key={optionId}
+                      key={option.id}
                       type="button"
                       disabled={submitted}
                       onClick={() =>
                         setAnswers((prev) => ({
                           ...prev,
-                          [question.id]: optionId,
+                          [question.id]: option.id,
                         }))
                       }
                       className={`rounded-2xl border px-4 py-3 text-left transition ${
@@ -153,7 +152,7 @@ export default function ExercisesPage() {
                           : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                       }`}
                     >
-                      <span className="font-medium">{optionId}.</span> {optionText}
+                      <span className="font-medium">{option.id}.</span> {option.text}
                     </button>
                   );
                 })}

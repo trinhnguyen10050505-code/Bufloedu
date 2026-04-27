@@ -1,4 +1,4 @@
-import { QueueItem, StudentLevel } from "../types";
+import { QueueItem, StudentLevel } from "@/types";
 
 export function generateLearningQueue(
   level: StudentLevel,
