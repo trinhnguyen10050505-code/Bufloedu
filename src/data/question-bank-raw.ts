@@ -1,6 +1,6 @@
 import { RawQuestion } from "@/types/question-raw";
 
-export const questionBank: RawQuestion[] = [
+export const rawQuestionBank: RawQuestion[] = [
   // =========================
   // BÀI 2. PHẢN ỨNG HÓA HỌC
   // =========================

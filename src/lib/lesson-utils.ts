@@ -1,4 +1,4 @@
-import { lessonsContent } from "@/data/lessons.content";
+import { lessonsContent } from "@/data/lessons-content";
 import { questionBank } from "@/data/question-bank";
 import { Question } from "@/types/question";
 

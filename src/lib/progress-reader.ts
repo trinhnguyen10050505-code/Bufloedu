@@ -1,24 +1,17 @@
-import { collection, getDocs, orderBy, query, where, limit } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { StudentLevel } from "@/types";
+import {
+  AssignmentDoc,
+  DiagnosticResultDoc,
+  StudentLevel,
+  StudentProgressDoc,
+  TeacherClassDoc,
+  UserProfile,
+} from "@/types";
+import { lessonsContent } from "@/data/lessons-content";
 
-export type ProgressActivityType =
-  | "practice"
-  | "quick_test"
-  | "focus_room"
-  | "diagnostic_test";
-
-export interface StudentProgressItem {
+export interface StudentProgressItem extends StudentProgressDoc {
   id: string;
-  studentId: string;
-  lessonId: string;
-  activityType: ProgressActivityType;
-  score?: number;
-  totalQuestions?: number;
-  accuracy?: number;
-  level?: StudentLevel;
-  durationInSeconds?: number;
-  createdAt?: unknown;
 }
 
 export interface DashboardProgressSummary {
@@ -31,14 +24,36 @@ export interface DashboardProgressSummary {
   weakTopics: string[];
 }
 
+function getTimestampMs(value: unknown): number {
+  if (!value) return 0;
+
+  if (value instanceof Date) return value.getTime();
+
+  const maybeSeconds = (value as any)?.seconds;
+  if (typeof maybeSeconds === "number") {
+    return maybeSeconds * 1000;
+  }
+
+  return 0;
+}
+
+function sortByCreatedAtDesc<T extends { createdAt?: unknown }>(items: T[]): T[] {
+  return [...items].sort((a, b) => getTimestampMs(b.createdAt) - getTimestampMs(a.createdAt));
+}
+
 function calculateLevelFromProgress(items: StudentProgressItem[]): StudentLevel {
-  const withLevel = items.filter((item) => item.level) as Array<
-    StudentProgressItem & { level: StudentLevel }
-  >;
+  const withLevel = items.filter(
+    (item): item is StudentProgressItem & { level: StudentLevel } =>
+      Boolean(item.level)
+  );
 
   if (withLevel.length === 0) return "trungbinh";
 
-  const scores = { trungbinh: 0, kha: 0, gioi: 0 };
+  const scores: Record<StudentLevel, number> = {
+    trungbinh: 0,
+    kha: 0,
+    gioi: 0,
+  };
 
   withLevel.forEach((item) => {
     scores[item.level] += 1;
@@ -97,34 +112,28 @@ function buildSuggestedLessons(items: StudentProgressItem[]): string[] {
 }
 
 function buildWeakTopics(items: StudentProgressItem[]): string[] {
-  const weakTopics: string[] = [];
+  const weakLessonIds = new Set<string>();
 
-  const lowAccuracyLessons = items.filter(
-    (item) =>
+  items.forEach((item) => {
+    if (
       item.lessonId?.startsWith("lesson-") &&
       typeof item.accuracy === "number" &&
       item.accuracy < 60
-  );
-
-  lowAccuracyLessons.forEach((item) => {
-    if (item.lessonId === "lesson-2") {
-      weakTopics.push("Phản ứng hóa học");
-    }
-    if (item.lessonId === "lesson-3") {
-      weakTopics.push("Mol và tỉ khối chất khí");
-    }
-    if (item.lessonId === "lesson-4") {
-      weakTopics.push("Nồng độ dung dịch");
-    }
-    if (item.lessonId === "lesson-5") {
-      weakTopics.push("Định luật bảo toàn khối lượng");
+    ) {
+      weakLessonIds.add(item.lessonId);
     }
   });
 
-  return Array.from(new Set(weakTopics)).slice(0, 4);
+  return Array.from(weakLessonIds)
+    .map((lessonId) => lessonsContent[lessonId as keyof typeof lessonsContent]?.title)
+    .filter(Boolean)
+    .slice(0, 4) as string[];
 }
 
-function buildSuggestedActions(items: StudentProgressItem[], currentLevel: StudentLevel): string[] {
+function buildSuggestedActions(
+  items: StudentProgressItem[],
+  currentLevel: StudentLevel
+): string[] {
   const actions: string[] = [];
 
   const hasDiagnostic = items.some((item) => item.activityType === "diagnostic_test");
@@ -153,52 +162,89 @@ function buildSuggestedActions(items: StudentProgressItem[], currentLevel: Stude
   return actions.slice(0, 4);
 }
 
-export async function getStudentProgress(studentId: string): Promise<StudentProgressItem[]> {
-  const q = query(
-    collection(db, "student_progress"),
-    where("studentId", "==", studentId),
-    orderBy("createdAt", "desc")
-  );
+export async function getStudentProfile(studentId: string): Promise<UserProfile | null> {
+  const snapshot = await getDoc(doc(db, "users", studentId));
+  return snapshot.exists() ? (snapshot.data() as UserProfile) : null;
+}
 
+export async function getStudentProgress(studentId: string): Promise<StudentProgressItem[]> {
+  const q = query(collection(db, "student_progress"), where("studentId", "==", studentId));
   const snapshot = await getDocs(q);
 
-  return snapshot.docs.map((doc) => ({
+  const items = snapshot.docs.map((doc) => ({
     id: doc.id,
-    ...(doc.data() as Omit<StudentProgressItem, "id">),
+    ...(doc.data() as StudentProgressDoc),
   }));
+
+  return sortByCreatedAtDesc(items);
 }
 
 export async function getRecentStudentProgress(
   studentId: string,
   maxItems = 5
 ): Promise<StudentProgressItem[]> {
+  const items = await getStudentProgress(studentId);
+  return items.slice(0, maxItems);
+}
+
+export async function getLatestDiagnosticResult(
+  studentId: string
+): Promise<DiagnosticResultDoc | null> {
   const q = query(
-    collection(db, "student_progress"),
-    where("studentId", "==", studentId),
-    orderBy("createdAt", "desc"),
-    limit(maxItems)
+    collection(db, "diagnostic_results"),
+    where("studentId", "==", studentId)
   );
 
   const snapshot = await getDocs(q);
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...(doc.data() as Omit<StudentProgressItem, "id">),
-  }));
+  const items = snapshot.docs.map((doc) => doc.data() as DiagnosticResultDoc);
+  const sorted = sortByCreatedAtDesc(items);
+
+  return sorted[0] ?? null;
 }
 
 export async function getDashboardProgressSummary(
   studentId: string
 ): Promise<DashboardProgressSummary> {
-  const items = await getStudentProgress(studentId);
+  const [items, userProfile, latestDiagnostic] = await Promise.all([
+    getStudentProgress(studentId),
+    getStudentProfile(studentId),
+    getLatestDiagnosticResult(studentId),
+  ]);
 
-  const currentLevel = calculateLevelFromProgress(items);
+  const currentLevel =
+    userProfile?.currentLevel ??
+    latestDiagnostic?.level ??
+    calculateLevelFromProgress(items);
+
   const completedLessonsCount = calculateCompletedLessons(items);
   const totalFocusMinutes = calculateFocusMinutes(items);
   const recentResults = items.slice(0, 5);
-  const suggestedLessons = buildSuggestedLessons(items);
-  const suggestedActions = buildSuggestedActions(items, currentLevel);
-  const weakTopics = buildWeakTopics(items);
+
+  const suggestedLessons =
+    userProfile?.recommendedLessonIds?.length
+      ? userProfile.recommendedLessonIds
+      : latestDiagnostic?.recommendedLessonIds?.length
+      ? latestDiagnostic.recommendedLessonIds
+      : buildSuggestedLessons(items);
+
+  const suggestedActions =
+    userProfile?.nextAction
+      ? [userProfile.nextAction]
+      : latestDiagnostic?.nextAction
+      ? [latestDiagnostic.nextAction]
+      : buildSuggestedActions(items, currentLevel);
+
+  const weakTopics =
+    userProfile?.weakLessonIds?.length
+      ? userProfile.weakLessonIds
+          .map((lessonId) => lessonsContent[lessonId as keyof typeof lessonsContent]?.title)
+          .filter(Boolean) as string[]
+      : latestDiagnostic?.weakLessonIds?.length
+      ? latestDiagnostic.weakLessonIds
+          .map((lessonId) => lessonsContent[lessonId as keyof typeof lessonsContent]?.title)
+          .filter(Boolean) as string[]
+      : buildWeakTopics(items);
 
   return {
     currentLevel,
@@ -207,6 +253,65 @@ export async function getDashboardProgressSummary(
     recentResults,
     suggestedLessons,
     suggestedActions,
-    weakTopics,
+    weakTopics: weakTopics.slice(0, 4),
   };
+}
+
+export async function getTeacherDashboardData(teacherId: string) {
+  const classesSnapshot = await getDocs(
+    query(collection(db, "classes"), where("teacherId", "==", teacherId))
+  );
+
+  const classes = classesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as TeacherClassDoc),
+  }));
+
+  const classIds = classes.map((item) => item.id).filter(Boolean) as string[];
+
+  const classStudentsSnapshot = await getDocs(collection(db, "class_students"));
+  const classStudents = classStudentsSnapshot.docs
+    .map((doc) => doc.data() as { classId: string; studentId: string })
+    .filter((item) => classIds.includes(item.classId));
+
+  const studentIds = Array.from(new Set(classStudents.map((item) => item.studentId)));
+
+  const assignmentsSnapshot = await getDocs(
+    query(collection(db, "assignments"), where("teacherId", "==", teacherId))
+  );
+
+  const assignments = assignmentsSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as AssignmentDoc),
+  }));
+
+  const allProgressSnapshot = await getDocs(collection(db, "student_progress"));
+  const allProgress = allProgressSnapshot.docs
+    .map((doc) => doc.data() as StudentProgressDoc)
+    .filter((item) => studentIds.includes(item.studentId));
+
+  const studentsWithProgress = Array.from(
+    new Set(allProgress.map((item) => item.studentId))
+  ).length;
+
+  const completionRate =
+    studentIds.length > 0
+      ? Math.round((studentsWithProgress / studentIds.length) * 100)
+      : 0;
+
+  return {
+    classesCount: classes.length,
+    studentsCount: studentIds.length,
+    assignmentsCount: assignments.length,
+    completionRate,
+    classes,
+    assignments,
+  };
+}
+
+export async function getStudentProfilesByIds(studentIds: string[]) {
+  const snapshot = await getDocs(collection(db, "users"));
+  return snapshot.docs
+    .map((doc) => doc.data() as UserProfile)
+    .filter((item) => studentIds.includes(item.uid));
 }

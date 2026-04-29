@@ -1,53 +1,93 @@
-import { QueueItem, StudentLevel } from "@/types";
+import {
+  DiagnosticResultDoc,
+  PracticeLevel,
+  StudentLevel,
+  StudentRecommendation,
+} from "@/types";
 
-export function generateLearningQueue(
-  level: StudentLevel,
-  weakLessons: string[]
-): QueueItem[] {
-  const queue: QueueItem[] = [];
+export function calculateStudentLevel(params: {
+  correctRate: number;
+  hardCorrect: number;
+  completionTime: number;
+}): StudentLevel {
+  const { correctRate, hardCorrect, completionTime } = params;
 
-  weakLessons.forEach((lessonId, index) => {
-    queue.push({
-      id: `lesson-${index}-${lessonId}`,
-      type: "lesson",
-      lessonId,
-      title: `Ôn lý thuyết ${lessonId}`,
-      description: "Đọc phần tóm tắt kiến thức trọng tâm.",
-      recommendedLevel: level
-    });
+  if (correctRate >= 80 && hardCorrect >= 2 && completionTime <= 900) {
+    return "gioi";
+  }
 
-    queue.push({
-      id: `video-${index}-${lessonId}`,
-      type: "video",
-      lessonId,
-      title: `Xem video bài giảng ${lessonId}`,
-      description: "Học lại nội dung qua video ngắn.",
-      recommendedLevel: level
-    });
+  if (correctRate >= 50 && hardCorrect >= 1 && completionTime <= 1200) {
+    return "kha";
+  }
 
-    queue.push({
-      id: `practice-${index}-${lessonId}`,
-      type: "practice",
-      lessonId,
-      title: `Luyện tập ${lessonId}`,
-      description:
-        level === "trungbinh"
-          ? "Ưu tiên câu nhận biết và thông hiểu."
-          : level === "kha"
-          ? "Luyện thông hiểu và một phần vận dụng."
-          : "Luyện nhiều câu vận dụng và vận dụng cao.",
-      recommendedLevel: level
-    });
+  return "trungbinh";
+}
 
-    queue.push({
-      id: `quiz-${index}-${lessonId}`,
-      type: "quiz",
-      lessonId,
-      title: `Kiểm tra nhanh ${lessonId}`,
-      description: "Làm bài kiểm tra ngắn để củng cố kiến thức.",
-      recommendedLevel: level
-    });
+export function getRecommendedPracticeLevels(
+  level: StudentLevel
+): PracticeLevel[] {
+  if (level === "gioi") return ["thonghieu", "vandung"];
+  if (level === "kha") return ["thonghieu", "vandung"];
+  return ["nhanbiet", "thonghieu"];
+}
+
+export function buildStudentRecommendation(params: {
+  level: StudentLevel;
+  weakLessonIds: string[];
+}): StudentRecommendation {
+  const { level, weakLessonIds } = params;
+
+  const recommendedLessonIds =
+    weakLessonIds.length > 0 ? weakLessonIds.slice(0, 3) : ["lesson-2"];
+
+  const recommendedPracticeLevels = getRecommendedPracticeLevels(level);
+
+  let nextAction = "Tiếp tục học theo lộ trình Bu đang gợi ý.";
+
+  if (level === "trungbinh") {
+    nextAction =
+      "Ôn lại lý thuyết các bài còn yếu rồi luyện trước ở mức nhận biết và thông hiểu.";
+  } else if (level === "kha") {
+    nextAction =
+      "Luyện thêm câu thông hiểu và vận dụng cơ bản ở các bài còn yếu để nâng mức nhanh hơn.";
+  } else {
+    nextAction =
+      "Tiếp tục làm quick-test và luyện câu vận dụng để duy trì mức học tốt hiện tại.";
+  }
+
+  return {
+    recommendedLessonIds,
+    recommendedPracticeLevels,
+    nextAction,
+  };
+}
+
+export function buildDiagnosticResult(params: {
+  studentId: string;
+  correctRate: number;
+  hardCorrect: number;
+  completionTime: number;
+  weakLessonIds: string[];
+  totalQuestions: number;
+}): DiagnosticResultDoc {
+  const level = calculateStudentLevel(params);
+
+  const recommendation = buildStudentRecommendation({
+    level,
+    weakLessonIds: params.weakLessonIds,
   });
 
-  return queue;
+  return {
+    studentId: params.studentId,
+    score: Math.round((params.correctRate / 100) * params.totalQuestions),
+    totalQuestions: params.totalQuestions,
+    correctRate: params.correctRate,
+    hardCorrect: params.hardCorrect,
+    completionTime: params.completionTime,
+    level,
+    weakLessonIds: params.weakLessonIds,
+    recommendedLessonIds: recommendation.recommendedLessonIds,
+    recommendedPracticeLevels: recommendation.recommendedPracticeLevels,
+    nextAction: recommendation.nextAction,
+  };
 }
