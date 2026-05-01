@@ -1,234 +1,192 @@
 import { NextRequest, NextResponse } from "next/server";
-import { lessonsContent } from "@/data/lessons-content";
 
-type IncomingMessage = {
-  role: "bu" | "student";
-  text: string;
+type RateRecord = {
+  count: number;
+  resetAt: number;
 };
 
-function detectMode(message: string): "explain" | "solve" | "next_step" | "general" {
-  const text = message.toLowerCase();
+const rateMap = new Map<string, RateRecord>();
 
-  if (
-    text.includes("giải") ||
-    text.includes("làm bài") ||
-    text.includes("tính") ||
-    text.includes("đáp án") ||
-    text.includes("bài tập")
-  ) {
-    return "solve";
+const RATE_LIMIT_MAX = 20;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const MAX_MESSAGE_LENGTH = 1200;
+const ALLOWED_ORIGINS = new Set([
+  "http://localhost:3000",
+  "http://localhost:3001",
+]);
+
+function getClientIp(request: NextRequest): string {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0].trim();
   }
-
-  if (
-    text.includes("học gì tiếp") ||
-    text.includes("nên học gì") ||
-    text.includes("tiếp theo") ||
-    text.includes("gợi ý")
-  ) {
-    return "next_step";
-  }
-
-  if (
-    text.includes("giải thích") ||
-    text.includes("lý thuyết") ||
-    text.includes("khái niệm") ||
-    text.includes("em chưa hiểu")
-  ) {
-    return "explain";
-  }
-
-  return "general";
+  return "unknown";
 }
 
-/**
- * 🔥 Lấy nội dung bài học từ lessonsContent
- */
-function getLessonContext(lessonTitle?: string) {
-  if (!lessonTitle) return "";
+function checkRateLimit(key: string) {
+  const now = Date.now();
+  const existing = rateMap.get(key);
 
-  const lesson = Object.values(lessonsContent).find(
-    (l: any) => l.title === lessonTitle
-  );
-
-  if (!lesson) return "";
-
-  let context = `Nội dung bài học "${lesson.title}":\n`;
-
-  lesson.theory.forEach((block: any) => {
-    context += `\n${block.title}:\n`;
-
-    block.sections.forEach((section: any) => {
-      context += `- ${section.subtitle}: ${section.content}\n`;
-
-      if (section.examples) {
-        context += `  Ví dụ: ${section.examples.join(", ")}\n`;
-      }
+  if (!existing || now > existing.resetAt) {
+    rateMap.set(key, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
     });
-  });
+    return { allowed: true, remaining: RATE_LIMIT_MAX - 1 };
+  }
 
-  return context;
+  if (existing.count >= RATE_LIMIT_MAX) {
+    return { allowed: false, remaining: 0, retryAfterMs: existing.resetAt - now };
+  }
+
+  existing.count += 1;
+  rateMap.set(key, existing);
+
+  return { allowed: true, remaining: RATE_LIMIT_MAX - existing.count };
 }
 
-function buildSystemPrompt(params: {
-  lessonTitle?: string;
-  currentRoute?: string;
-  weakTopics?: string[];
-  currentLevelLabel?: string;
-  mode: "explain" | "solve" | "next_step" | "general";
-}) {
-  const { lessonTitle, currentRoute, weakTopics, currentLevelLabel, mode } = params;
-
-  const routeHint = currentRoute
-    ? `Em hiện đang ở trang: ${currentRoute}.`
-    : "";
-
-  const lessonHint = lessonTitle
-    ? `Bài học hiện tại của em là: ${lessonTitle}.`
-    : "";
-
-  const levelHint = currentLevelLabel
-    ? `Mức học hiện tại của em là: ${currentLevelLabel}.`
-    : "";
-
-  const weakHint =
-    weakTopics && weakTopics.length > 0
-      ? `Các phần em cần củng cố: ${weakTopics.join(", ")}.`
-      : "";
-
-  const lessonContext = getLessonContext(lessonTitle);
-
-  const modeInstruction =
-    mode === "solve"
-      ? "Nếu em hỏi bài tập, hãy hướng dẫn từng bước ngắn gọn, rõ ràng."
-      : mode === "explain"
-      ? "Nếu em hỏi lý thuyết, hãy giải thích thật dễ hiểu, gần gũi."
-      : mode === "next_step"
-      ? "Nếu em hỏi nên học gì tiếp, hãy đưa ra gợi ý cụ thể theo từng bước."
-      : "Trả lời linh hoạt, thân thiện.";
-
-  return `
-Bạn là Bu, trợ lý học tập thân thiện.
-
-Quy tắc:
-- Luôn xưng "Bu"
-- Gọi người dùng là "em"
-- Trả lời NGẮN GỌN, DỄ HIỂU
-- ƯU TIÊN sử dụng nội dung bài học bên dưới
-- Không nói lan man ngoài bài nếu không cần
-
-Ngữ cảnh:
-${routeHint}
-${lessonHint}
-${levelHint}
-${weakHint}
-
-${lessonContext}
-
-Hướng dẫn:
-${modeInstruction}
-`;
+function sanitizeUserMessage(input: unknown): string {
+  if (typeof input !== "string") return "";
+  return input.trim().slice(0, MAX_MESSAGE_LENGTH);
 }
 
-function toOpenAIInput(history: IncomingMessage[], userMessage: string) {
-  const trimmedHistory = history.slice(-6);
-
-  const mappedHistory = trimmedHistory.map((item) => ({
-    role: item.role === "student" ? "user" : "assistant",
-    content: item.text,
-  }));
-
-  return [
-    ...mappedHistory,
-    {
-      role: "user",
-      content: userMessage,
-    },
-  ];
+function isAllowedOrigin(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  return ALLOWED_ORIGINS.has(origin);
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json(
+        { error: "Origin không hợp lệ." },
+        { status: 403 }
+      );
+    }
 
-    const message = body?.message;
-    const history = Array.isArray(body?.history) ? body.history : [];
-    const lessonTitle = body?.lessonTitle || "";
-    const currentRoute = body?.currentRoute || "";
-    const currentLevelLabel = body?.currentLevelLabel || "";
-    const weakTopics = body?.weakTopics || [];
+    const ip = getClientIp(request);
+    const rate = checkRateLimit(ip);
 
-    if (!message || typeof message !== "string") {
+    if (!rate.allowed) {
+      return NextResponse.json(
+        {
+          error: "Bu đang nhận quá nhiều câu hỏi từ thiết bị này. Em thử lại sau ít phút nhé.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              Math.ceil((rate.retryAfterMs ?? RATE_LIMIT_WINDOW_MS) / 1000)
+            ),
+          },
+        }
+      );
+    }
+
+    const body = await request.json();
+    const message = sanitizeUserMessage(body?.message);
+    const lessonTitle =
+      typeof body?.lessonTitle === "string" ? body.lessonTitle.trim().slice(0, 200) : "";
+    const currentLevelLabel =
+      typeof body?.currentLevelLabel === "string"
+        ? body.currentLevelLabel.trim().slice(0, 100)
+        : "";
+    const weakTopics = Array.isArray(body?.weakTopics)
+      ? body.weakTopics
+          .filter((item: unknown) => typeof item === "string")
+          .map((item: string) => item.trim().slice(0, 100))
+          .slice(0, 5)
+      : [];
+
+    if (!message) {
       return NextResponse.json(
         { error: "Thiếu nội dung câu hỏi." },
         { status: 400 }
       );
     }
 
-    if (message.length > 1200) {
-      return NextResponse.json(
-        { error: "Câu hỏi quá dài, em chia nhỏ ra nhé." },
-        { status: 400 }
-      );
-    }
-
     const apiKey = process.env.OPENAI_API_KEY;
-
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Thiếu OPENAI_API_KEY" },
+        { error: "Thiếu cấu hình OPENAI_API_KEY trên server." },
         { status: 500 }
       );
     }
 
-    const mode = detectMode(message);
+    const model = process.env.BU_CHAT_MODEL || "gpt-4.1-mini";
 
-    const systemPrompt = buildSystemPrompt({
-      lessonTitle,
-      currentRoute,
-      weakTopics,
-      currentLevelLabel,
-      mode,
-    });
+    const systemPrompt = [
+      "Bạn là Bu, linh vật hỗ trợ học tập cho website Khoa học tự nhiên.",
+      "Cách xưng hô: gọi mình là Bu, gọi người dùng là em.",
+      "Giọng điệu: thân thiện, gần gũi, ngắn gọn, khích lệ học sinh.",
+      "Không dùng các mức Trung bình/Khá/Giỏi để gọi trực tiếp học sinh nếu không cần; ưu tiên ngôn ngữ Bu Chăm chỉ, Bu Thông minh, Bu Năng nổ.",
+      "Nếu câu hỏi liên quan học tập, hãy trả lời theo hướng dễ hiểu cho học sinh.",
+      "Nếu không chắc, hãy nói rõ là Bu chưa chắc.",
+      lessonTitle ? `Bài học hiện tại: ${lessonTitle}.` : "",
+      currentLevelLabel ? `Mức hiện tại của em: ${currentLevelLabel}.` : "",
+      weakTopics.length > 0 ? `Phần cần chú ý: ${weakTopics.join(", ")}.` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20_000);
 
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: "gpt-5.4-mini",
+        model,
         input: [
           {
             role: "system",
-            content: systemPrompt,
+            content: [{ type: "input_text", text: systemPrompt }],
           },
-          ...toOpenAIInput(history, message),
+          {
+            role: "user",
+            content: [{ type: "input_text", text: message }],
+          },
         ],
+        max_output_tokens: 350,
       }),
     });
 
+    clearTimeout(timeout);
+
     if (!response.ok) {
       const errorText = await response.text();
+      console.error("OpenAI API error:", errorText);
+
       return NextResponse.json(
-        { error: `OpenAI lỗi: ${errorText}` },
-        { status: 500 }
+        { error: "Bu đang hơi bận, em thử lại sau nhé." },
+        { status: 502 }
       );
     }
 
     const data = await response.json();
 
-    const reply =
-      data.output_text ||
-      data.output?.[0]?.content?.[0]?.text ||
-      "Bu chưa trả lời được, em thử lại nhé.";
+    const text =
+      data?.output_text ||
+      data?.output?.flatMap((item: any) => item?.content || [])
+        ?.filter((content: any) => content?.type === "output_text")
+        ?.map((content: any) => content?.text || "")
+        ?.join("\n")
+        ?.trim() ||
+      "Bu đang suy nghĩ mà chưa trả lời được rõ. Em hỏi lại Bu một chút nhé.";
 
-    return NextResponse.json({ reply, mode });
+    return NextResponse.json({
+      reply: text,
+    });
   } catch (error) {
-    console.error("Bu API error:", error);
+    console.error("Bu chat route error:", error);
 
     return NextResponse.json(
-      { error: "Có lỗi khi Bu xử lý câu hỏi." },
+      { error: "Bu đang gặp sự cố tạm thời. Em thử lại sau nhé." },
       { status: 500 }
     );
   }

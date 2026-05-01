@@ -1,193 +1,141 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { questionBank } from "@/data/question-bank";
-import { Question } from "@/types/question";
+import Link from "next/link";
+import { useMemo } from "react";
+import { useCurrentUser } from "@/hook/useCurrentUser";
+import { getBuLevelMeta } from "@/lib/Bu-level";
+import { getAllLessons, getLessonQuestionCount } from "@/lib/lesson-utils";
+import ProgressCard from "@/components/student/ProgressCard";
+import PracticeCard from "@/components/student/PracticeCard";
 
-type StudentLevel = "trung_binh" | "kha" | "gioi";
-type AnswerMap = Record<string, string>;
+export default function StudentExercisesPage() {
+  const { profile } = useCurrentUser();
 
-export default function ExercisesPage() {
-  const [activeMode, setActiveMode] = useState<"theo_muc" | "theo_bai">("theo_muc");
-  const [selectedLevel, setSelectedLevel] = useState<StudentLevel>("trung_binh");
-  const [selectedLesson, setSelectedLesson] = useState("lesson-2");
-  const [answers, setAnswers] = useState<AnswerMap>({});
-  const [submitted, setSubmitted] = useState(false);
+  const currentLevel = profile?.currentLevel || "trungbinh";
+  const buMeta = getBuLevelMeta(currentLevel);
 
-  const filteredQuestions = useMemo(() => {
-    if (activeMode === "theo_muc") {
-      return questionBank.filter((q: Question) => q.targetLevel === selectedLevel).slice(0, 8);
-    }
-
-    return questionBank.filter((q: Question) => q.lessonId === selectedLesson).slice(0, 8);
-  }, [activeMode, selectedLevel, selectedLesson]);
-
-  const score = filteredQuestions.reduce((total: number, question: Question) => {
-    return total + (answers[question.id] === question.correctAnswerId ? 1 : 0);
-  }, 0);
-
-  const resetState = () => {
-    setAnswers({});
-    setSubmitted(false);
-  };
+  const lessons = useMemo(() => getAllLessons(), []);
 
   return (
-    <div className="min-h-screen bg-slate-50 px-6 py-10">
-      <div className="mx-auto max-w-5xl space-y-6">
-        <div className="rounded-3xl bg-white p-8 shadow-sm">
-          <h1 className="text-3xl font-bold text-slate-800">Luyện tập cá nhân hóa</h1>
-          <p className="mt-2 text-slate-600">
-            Em có thể luyện theo mức độ hoặc chọn đúng bài mình muốn ôn tập.
-          </p>
+    <div className="space-y-8">
+      <section className="rounded-[32px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
+        <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-100">
+          Luyện tập cá nhân hóa
+        </p>
+        <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
+          Bu giúp em luyện đúng phần mình đang cần
+        </h1>
+        <p className="mt-3 max-w-3xl text-blue-50">
+          Tại đây em có thể làm bài đánh giá mức độ, luyện tập theo mức,
+          luyện tập theo từng bài hoặc làm kiểm tra nhanh sau khi học xong.
+        </p>
+
+        <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white">
+          Mức hiện tại: {buMeta.label}
         </div>
+      </section>
 
-        <div className="rounded-3xl bg-white p-6 shadow-sm">
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => {
-                setActiveMode("theo_muc");
-                resetState();
-              }}
-              className={`rounded-2xl px-4 py-3 font-semibold ${
-                activeMode === "theo_muc"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-700"
-              }`}
+      <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <PracticeCard
+          title="Đánh giá mức độ"
+          description="Làm bài test đầu vào để Bu cập nhật mức học phù hợp."
+          href="/student/diagnostic-test"
+          cta="Làm test"
+        />
+        <PracticeCard
+          title="Luyện theo mức"
+          description="Ôn theo mức Bu hiện tại để học chắc dần từng bước."
+          href="/student/exercises"
+          cta="Xem mức hiện tại"
+        />
+        <PracticeCard
+          title="Luyện theo bài"
+          description="Đi vào từng bài cụ thể để luyện câu hỏi đúng phần đang học."
+          href="/student/lessons"
+          cta="Mở danh sách bài"
+        />
+        <PracticeCard
+          title="Kiểm tra nhanh"
+          description="Sau mỗi bài, làm quick-test để Bu kiểm tra độ chắc bài."
+          href="/student/results"
+          cta="Xem kết quả gần đây"
+        />
+      </section>
+
+      <section className="grid gap-5 md:grid-cols-3">
+        <ProgressCard
+          title="Mức hiện tại"
+          value={buMeta.label}
+          subtitle={buMeta.shortDescription}
+        />
+        <ProgressCard
+          title="Hướng luyện phù hợp"
+          value={
+            currentLevel === "gioi"
+              ? "Thông hiểu + Vận dụng"
+              : currentLevel === "kha"
+              ? "Thông hiểu + Vận dụng cơ bản"
+              : "Nhận biết + Thông hiểu"
+          }
+          subtitle="Bu sẽ gợi ý bài tập theo đúng nhịp học hiện tại của em."
+        />
+        <ProgressCard
+          title="Mục tiêu"
+          value="Học chắc"
+          subtitle="Bu ưu tiên học đúng phần còn yếu trước khi nâng độ khó."
+        />
+      </section>
+
+      <section className="rounded-[28px] bg-white p-6 shadow-sm">
+        <p className="text-sm font-medium text-blue-600">Luyện theo bài</p>
+        <h2 className="mt-1 text-2xl font-bold text-slate-800">
+          Chọn bài để bắt đầu luyện tập
+        </h2>
+
+        <div className="mt-6 grid gap-4">
+          {lessons.map((lesson) => (
+            <div
+              key={lesson.lessonId}
+              className="rounded-3xl border border-slate-200 bg-slate-50 p-5"
             >
-              Luyện theo mức
-            </button>
-
-            <button
-              onClick={() => {
-                setActiveMode("theo_bai");
-                resetState();
-              }}
-              className={`rounded-2xl px-4 py-3 font-semibold ${
-                activeMode === "theo_bai"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-700"
-              }`}
-            >
-              Luyện theo bài
-            </button>
-          </div>
-
-          {activeMode === "theo_muc" ? (
-            <div className="mt-5 flex flex-wrap gap-3">
-              {(["trung_binh", "kha", "gioi"] as StudentLevel[]).map((level) => (
-                <button
-                  key={level}
-                  onClick={() => {
-                    setSelectedLevel(level);
-                    resetState();
-                  }}
-                  className={`rounded-2xl px-4 py-2 ${
-                    selectedLevel === level
-                      ? "bg-emerald-600 text-white"
-                      : "bg-slate-100 text-slate-700"
-                  }`}
-                >
-                  {level === "trung_binh" ? "Trung bình" : level === "kha" ? "Khá" : "Giỏi"}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="mt-5">
-              <select
-                value={selectedLesson}
-                onChange={(e) => {
-                  setSelectedLesson(e.target.value);
-                  resetState();
-                }}
-                className="rounded-2xl border border-slate-200 px-4 py-3 text-slate-700"
-              >
-                <option value="lesson-2">Bài 2 - Phản ứng hóa học</option>
-                <option value="lesson-3">Bài 3 - Mol và tỉ khối chất khí</option>
-                <option value="lesson-4">Bài 4 - Nồng độ dung dịch</option>
-                <option value="lesson-5">Bài 5 - Bảo toàn khối lượng</option>
-              </select>
-            </div>
-          )}
-        </div>
-
-        {filteredQuestions.map((question: Question, index: number) => {
-          const selected = answers[question.id];
-          const isCorrect = selected === question.correctAnswerId;
-
-          return (
-            <div key={question.id} className="rounded-3xl bg-white p-6 shadow-sm">
-              <div className="mb-4 flex items-center justify-between gap-3">
-                <p className="text-lg font-semibold text-slate-800">
-                  Câu {index + 1}. {question.question}
-                </p>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600">
-                  {question.level}
-                </span>
-              </div>
-
-              <div className="grid gap-3">
-                {question.options.map((option) => {
-                  const isSelected = selected === option.id;
-                  const showCorrect = submitted && option.id === question.correctAnswerId;
-                  const showWrong = submitted && isSelected && option.id !== question.correctAnswerId;
-
-                  return (
-                    <button
-                      key={option.id}
-                      type="button"
-                      disabled={submitted}
-                      onClick={() =>
-                        setAnswers((prev) => ({
-                          ...prev,
-                          [question.id]: option.id,
-                        }))
-                      }
-                      className={`rounded-2xl border px-4 py-3 text-left transition ${
-                        showCorrect
-                          ? "border-emerald-500 bg-emerald-50 text-emerald-700"
-                          : showWrong
-                          ? "border-red-500 bg-red-50 text-red-700"
-                          : isSelected
-                          ? "border-blue-500 bg-blue-50 text-blue-700"
-                          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
-                      }`}
-                    >
-                      <span className="font-medium">{option.id}.</span> {option.text}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {submitted && (
-                <div className="mt-4 rounded-2xl bg-slate-50 p-4">
-                  <p className={`font-semibold ${isCorrect ? "text-emerald-600" : "text-red-600"}`}>
-                    {isCorrect ? "Đúng" : "Chưa đúng"}
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h3 className="text-lg font-bold text-slate-800">
+                    {lesson.title}
+                  </h3>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">
+                    {lesson.summary}
                   </p>
-                  <p className="mt-2 text-slate-600">{question.explanation}</p>
+                  <p className="mt-2 text-sm text-blue-600">
+                    Số câu hỏi hiện có: {getLessonQuestionCount(lesson.lessonId)}
+                  </p>
                 </div>
-              )}
-            </div>
-          );
-        })}
 
-        {!submitted ? (
-          <button
-            onClick={() => setSubmitted(true)}
-            className="rounded-2xl bg-blue-600 px-6 py-4 font-semibold text-white hover:bg-blue-700"
-          >
-            Nộp bài luyện tập
-          </button>
-        ) : (
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-slate-800">
-              Kết quả: {score}/{filteredQuestions.length}
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Hệ thống sẽ dùng kết quả này để gợi ý nội dung tiếp theo phù hợp với em.
-            </p>
-          </div>
-        )}
-      </div>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href={`/student/lessons/${lesson.lessonId}`}
+                    className="rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+                  >
+                    Học bài
+                  </Link>
+                  <Link
+                    href={`/student/lessons/${lesson.lessonId}/practice`}
+                    className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+                  >
+                    Luyện tập
+                  </Link>
+                  <Link
+                    href={`/student/lessons/${lesson.lessonId}/quick-test`}
+                    className="rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
+                  >
+                    Quick test
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

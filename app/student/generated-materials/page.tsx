@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hook/useCurrentUser";
 import { getGeneratedMaterialsForUser } from "@/lib/materials";
 
-export default function TeacherGeneratedMaterialsPage() {
+export default function StudentGeneratedMaterialsPage() {
   const { profile, loading } = useCurrentUser();
   const [items, setItems] = useState<any[]>([]);
   const [pageLoading, setPageLoading] = useState(true);
@@ -19,11 +20,11 @@ export default function TeacherGeneratedMaterialsPage() {
       try {
         const data = await getGeneratedMaterialsForUser({
           uid: profile.uid,
-          role: "teacher",
+          role: "student",
         });
         setItems(data);
       } catch (error) {
-        console.error("Lỗi tải generated materials cho giáo viên:", error);
+        console.error("Lỗi tải generated materials cho học sinh:", error);
       } finally {
         setPageLoading(false);
       }
@@ -33,25 +34,40 @@ export default function TeacherGeneratedMaterialsPage() {
   }, [profile?.uid]);
 
   if (loading || pageLoading) {
-    return <div className="rounded-[28px] bg-white p-8 shadow-sm">Đang tải nội dung học tập...</div>;
+    return (
+      <div className="rounded-[28px] bg-white p-8 shadow-sm">
+        <p className="text-slate-600">Bu đang tải bộ nội dung học tập cho em...</p>
+      </div>
+    );
   }
 
   if (!profile) {
-    return <div className="rounded-[28px] bg-white p-8 shadow-sm">Cần đăng nhập trước.</div>;
+    return (
+      <div className="rounded-[28px] bg-white p-8 shadow-sm">
+        <h1 className="text-2xl font-bold text-slate-800">Chưa đăng nhập</h1>
+        <p className="mt-3 text-slate-600">Em cần đăng nhập để xem nội dung học tập được tạo từ tài liệu.</p>
+        <Link
+          href="/login"
+          className="mt-5 inline-flex rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+        >
+          Đăng nhập ngay
+        </Link>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-8">
       <section className="rounded-[32px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
         <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-100">
-          Nội dung học tập sinh từ tài liệu
+          Nội dung học tập được tạo từ tài liệu
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-          Kho câu hỏi, ghi chú và tóm tắt từ học liệu
+          Bu đã biến tài liệu thành nội dung để em ôn bài dễ hơn
         </h1>
         <p className="mt-3 max-w-3xl text-blue-50">
-          Cô/thầy có thể xem các bộ nội dung đã được tạo ra từ tài liệu tải lên để
-          dùng cho ôn tập, luyện tập và giao bài cho học sinh.
+          Em có thể xem tóm tắt, ghi chú ôn tập, câu hỏi trắc nghiệm và flashcard
+          được sinh ra từ các tài liệu đã tải lên hệ thống.
         </p>
       </section>
 
@@ -82,7 +98,7 @@ export default function TeacherGeneratedMaterialsPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 <div className="rounded-3xl bg-slate-50 p-5">
-                  <p className="font-semibold text-slate-800">Tóm tắt</p>
+                  <p className="font-semibold text-slate-800">Tóm tắt ôn bài</p>
                   <p className="mt-3 leading-7 text-slate-600">{item.summary}</p>
                 </div>
 
@@ -97,7 +113,7 @@ export default function TeacherGeneratedMaterialsPage() {
               </div>
 
               <div className="mt-6">
-                <p className="text-lg font-bold text-slate-800">Bộ câu hỏi trắc nghiệm</p>
+                <p className="text-lg font-bold text-slate-800">Câu hỏi trắc nghiệm</p>
                 <div className="mt-4 grid gap-4">
                   {(item.mcqQuestions || []).map((question: any, index: number) => (
                     <div key={`${item.id}-q-${index}`} className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
@@ -117,14 +133,32 @@ export default function TeacherGeneratedMaterialsPage() {
                   ))}
                 </div>
               </div>
+
+              <div className="mt-6">
+                <p className="text-lg font-bold text-slate-800">Flashcards</p>
+                <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {(item.flashcards || []).map((card: any, index: number) => (
+                    <div key={`${item.id}-f-${index}`} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                      <p className="text-sm font-medium text-blue-600">{card.front}</p>
+                      <p className="mt-3 leading-7 text-slate-700">{card.back}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </section>
           ))}
         </div>
       ) : (
         <section className="rounded-[28px] bg-white p-8 shadow-sm">
           <p className="text-slate-600">
-            Chưa có bộ nội dung học tập nào được tạo ra từ tài liệu.
+            Chưa có nội dung học tập nào được tạo từ tài liệu. Em có thể vào khu tải dữ liệu để thử ngay.
           </p>
+          <Link
+            href="/student/uploads"
+            className="mt-5 inline-flex rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+          >
+            Tới trang tải dữ liệu
+          </Link>
         </section>
       )}
     </div>
