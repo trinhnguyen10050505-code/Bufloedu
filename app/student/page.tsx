@@ -4,8 +4,14 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useCurrentUser } from "@/hook/useCurrentUser";
 import { getBuLevelMeta } from "@/lib/Bu-level";
-import { getDashboardProgressSummary, getLatestDiagnosticResult } from "@/lib/progress-reader";
+import {
+  getDashboardProgressSummary,
+  getLatestDiagnosticResult,
+} from "@/lib/progress-reader";
 import { lessonsContent } from "@/data/lessons-content";
+import ProgressCard from "@/components/student/ProgressCard";
+import PracticeCard from "@/components/student/PracticeCard";
+import QueueCard from "@/components/student/QueueCard";
 
 export default function StudentDashboardPage() {
   const { profile, loading } = useCurrentUser();
@@ -57,29 +63,25 @@ export default function StudentDashboardPage() {
 
   if (loading || pageLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl rounded-[28px] bg-white p-8 shadow-sm">
-          <p className="text-slate-600">Bu đang tải dữ liệu học tập của em...</p>
-        </div>
+      <div className="rounded-[28px] bg-white p-8 shadow-sm">
+        <p className="text-slate-600">Bu đang tải dữ liệu học tập của em...</p>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl rounded-[28px] bg-white p-8 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-800">Chưa đăng nhập</h1>
-          <p className="mt-3 text-slate-600">
-            Bu chưa nhận ra em. Hãy đăng nhập để xem dashboard học tập cá nhân hóa nhé.
-          </p>
-          <Link
-            href="/login"
-            className="mt-5 inline-flex rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
-          >
-            Đăng nhập ngay
-          </Link>
-        </div>
+      <div className="rounded-[28px] bg-white p-8 shadow-sm">
+        <h1 className="text-2xl font-bold text-slate-800">Chưa đăng nhập</h1>
+        <p className="mt-3 text-slate-600">
+          Bu chưa nhận ra em. Hãy đăng nhập để xem dashboard học tập cá nhân hóa nhé.
+        </p>
+        <Link
+          href="/login"
+          className="mt-5 inline-flex rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+        >
+          Đăng nhập ngay
+        </Link>
       </div>
     );
   }
@@ -95,6 +97,12 @@ export default function StudentDashboardPage() {
           Bu sẽ giúp em học đúng mức độ, luyện đúng phần còn yếu và theo dõi tiến bộ rõ ràng
           sau từng lần học, luyện tập và kiểm tra nhanh.
         </p>
+
+        <div className="mt-5">
+          <span className="inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white">
+            {buMeta.label}
+          </span>
+        </div>
 
         <div className="mt-6 flex flex-wrap gap-4">
           <Link
@@ -113,177 +121,155 @@ export default function StudentDashboardPage() {
       </section>
 
       <section className="grid gap-5 md:grid-cols-3">
-        <div className="rounded-[28px] bg-white p-6 shadow-sm">
-          <p className="text-sm text-slate-500">Mức hiện tại</p>
-          <p className="mt-2 text-3xl font-bold text-slate-800">{buMeta.label}</p>
-          <p className="mt-2 text-sm text-slate-600">{buMeta.shortDescription}</p>
-        </div>
-
-        <div className="rounded-[28px] bg-white p-6 shadow-sm">
-          <p className="text-sm text-slate-500">Số bài đã hoàn thành</p>
-          <p className="mt-2 text-3xl font-bold text-slate-800">
-            {summary?.completedLessonsCount ?? 0}
-          </p>
-          <p className="mt-2 text-sm text-slate-600">
-            Bu đang tính dựa trên dữ liệu luyện tập và kiểm tra nhanh của em.
-          </p>
-        </div>
-
-        <div className="rounded-[28px] bg-white p-6 shadow-sm">
-          <p className="text-sm text-slate-500">Thời gian Focus</p>
-          <p className="mt-2 text-3xl font-bold text-slate-800">
-            {summary?.totalFocusMinutes ?? 0} phút
-          </p>
-          <p className="mt-2 text-sm text-slate-600">
-            Học đều mỗi ngày sẽ giúp em nâng mức nhanh và chắc hơn.
-          </p>
-        </div>
+        <ProgressCard
+          title="Mức hiện tại"
+          value={buMeta.label}
+          subtitle={buMeta.shortDescription}
+        />
+        <ProgressCard
+          title="Số bài đã hoàn thành"
+          value={String(summary?.completedLessonsCount ?? 0)}
+          subtitle="Bu tính từ bài luyện tập và quick-test em đã làm tốt."
+        />
+        <ProgressCard
+          title="Thời gian Focus"
+          value={`${summary?.totalFocusMinutes ?? 0} phút`}
+          subtitle="Giữ nhịp học đều sẽ giúp em tiến bộ nhanh và chắc hơn."
+        />
       </section>
 
       <section className="grid gap-5 lg:grid-cols-2">
-        <div className="rounded-[28px] bg-white p-6 shadow-sm">
-          <p className="text-sm font-medium text-blue-600">Bu gợi ý hôm nay</p>
+        <QueueCard
+          title="Bu gợi ý hôm nay"
+          items={
+            suggestedActions.length > 0
+              ? suggestedActions
+              : ["Làm bài test chẩn đoán để Bu hiểu rõ em hơn."]
+          }
+        />
 
-          <div className="mt-4 space-y-4">
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-800">Hành động nên làm</p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
-                {suggestedActions.length > 0 ? (
-                  suggestedActions.map((action: string) => (
-                    <li key={action}>• {action}</li>
-                  ))
-                ) : (
-                  <li>• Làm bài test chẩn đoán để Bu hiểu rõ em hơn.</li>
-                )}
-              </ul>
-            </div>
-
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-800">Bài nên ưu tiên</p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
-                {suggestedLessonTitles.length > 0 ? (
-                  suggestedLessonTitles.map((title) => <li key={title}>• {title}</li>)
-                ) : (
-                  <li>• Phản ứng hóa học</li>
-                )}
-              </ul>
-            </div>
-
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-800">Phần cần chú ý</p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
-                {weakTopics.length > 0 ? (
-                  weakTopics.map((topic: string) => <li key={topic}>• {topic}</li>)
-                ) : (
-                  <li>• Bu chưa thấy phần yếu nổi bật nào, em hãy tiếp tục giữ nhịp học nhé.</li>
-                )}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-[28px] bg-white p-6 shadow-sm">
-          <p className="text-sm font-medium text-emerald-600">Kết quả chẩn đoán gần nhất</p>
-
-          {latestDiagnostic ? (
-            <>
-              <div className="mt-4 grid gap-4 md:grid-cols-3">
-                <div className="rounded-2xl bg-slate-50 p-4">
-                  <p className="text-sm text-slate-500">Tỉ lệ đúng</p>
-                  <p className="mt-2 text-2xl font-bold text-slate-800">
-                    {Math.round(latestDiagnostic.correctRate)}%
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-slate-50 p-4">
-                  <p className="text-sm text-slate-500">Câu vận dụng đúng</p>
-                  <p className="mt-2 text-2xl font-bold text-slate-800">
-                    {latestDiagnostic.hardCorrect}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-slate-50 p-4">
-                  <p className="text-sm text-slate-500">Mức của Bu</p>
-                  <p className="mt-2 text-2xl font-bold text-slate-800">
-                    {getBuLevelMeta(latestDiagnostic.level).label}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-5 rounded-3xl bg-slate-50 p-5">
-                <p className="font-semibold text-slate-800">Bu nhận xét</p>
-                <p className="mt-2 text-slate-600">{latestDiagnostic.nextAction}</p>
-              </div>
-            </>
-          ) : (
-            <div className="mt-4 rounded-3xl bg-slate-50 p-5">
-              <p className="text-slate-600">
-                Em chưa có dữ liệu chẩn đoán. Bu gợi ý em làm bài test đầu vào trước
-                để nhận lộ trình học phù hợp.
-              </p>
-              <Link
-                href="/student/diagnostic-test"
-                className="mt-4 inline-flex rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700"
-              >
-                Làm test ngay
-              </Link>
-            </div>
-          )}
-        </div>
+        <QueueCard
+          title="Phần cần chú ý"
+          items={
+            weakTopics.length > 0
+              ? weakTopics
+              : ["Bu chưa thấy phần yếu nổi bật nào, em hãy tiếp tục giữ nhịp học nhé."]
+          }
+        />
       </section>
 
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        <Link
+        <PracticeCard
+          title="Đánh giá mức độ"
+          description="Làm bài test để Bu cập nhật mức học và gợi ý lộ trình phù hợp."
           href="/student/diagnostic-test"
-          className="rounded-[28px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-        >
-          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-2xl text-blue-700">
-            🧪
-          </div>
-          <h2 className="text-xl font-bold text-slate-800">Đánh giá mức độ</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Làm bài test để Bu cập nhật mức học và gợi ý lộ trình phù hợp.
-          </p>
-        </Link>
-
-        <Link
+          cta="Làm test"
+        />
+        <PracticeCard
+          title="Luyện tập"
+          description="Luyện theo bài và theo mức để học chắc phần Bu đang gợi ý."
           href="/student/exercises"
-          className="rounded-[28px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-        >
-          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-2xl text-emerald-700">
-            ✍️
-          </div>
-          <h2 className="text-xl font-bold text-slate-800">Luyện tập</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Luyện theo bài và theo mức để học chắc phần Bu đang gợi ý.
-          </p>
-        </Link>
-
-        <Link
+          cta="Vào luyện tập"
+        />
+        <PracticeCard
+          title="Focus Room"
+          description="Học tập trung theo phiên ngắn để duy trì nhịp học ổn định."
           href="/student/focus-room"
-          className="rounded-[28px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-        >
-          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-2xl text-violet-700">
-            ⏱️
-          </div>
-          <h2 className="text-xl font-bold text-slate-800">Focus Room</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Học tập trung theo phiên ngắn để duy trì nhịp học ổn định.
-          </p>
-        </Link>
-
-        <Link
+          cta="Bắt đầu focus"
+        />
+        <PracticeCard
+          title="Kết quả học tập"
+          description="Xem tiến bộ, kết quả gần đây và phần kiến thức còn cần củng cố."
           href="/student/results"
-          className="rounded-[28px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-        >
-          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-2xl text-amber-700">
-            📊
+          cta="Xem kết quả"
+        />
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="rounded-[28px] bg-white p-6 shadow-sm">
+          <p className="text-sm font-medium text-blue-600">Bài nên ưu tiên</p>
+          <h2 className="mt-1 text-2xl font-bold text-slate-800">
+            Lộ trình Bu đang gợi ý cho em
+          </h2>
+
+          <div className="mt-6 grid gap-4">
+            {suggestedLessonTitles.length > 0 ? (
+              suggestedLessonTitles.map((title, index) => (
+                <div
+                  key={title}
+                  className="rounded-3xl border border-slate-200 bg-slate-50 p-5"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-600 font-bold text-white">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-800">{title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">
+                        Bu gợi ý em ưu tiên bài này để củng cố phần còn yếu hoặc tiếp tục nâng mức.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="rounded-3xl bg-slate-50 p-5 text-slate-600">
+                Bu chưa có lộ trình cụ thể. Hãy làm bài test chẩn đoán trước nhé.
+              </div>
+            )}
           </div>
-          <h2 className="text-xl font-bold text-slate-800">Kết quả học tập</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Xem tiến bộ, kết quả gần đây và phần kiến thức còn cần củng cố.
-          </p>
-        </Link>
+        </div>
+
+        <div className="space-y-6">
+          <div className="rounded-[28px] bg-white p-6 shadow-sm">
+            <p className="text-sm font-medium text-emerald-600">Kết quả chẩn đoán gần nhất</p>
+
+            {latestDiagnostic ? (
+              <>
+                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <p className="text-sm text-slate-500">Tỉ lệ đúng</p>
+                    <p className="mt-2 text-2xl font-bold text-slate-800">
+                      {Math.round(latestDiagnostic.correctRate)}%
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <p className="text-sm text-slate-500">Câu vận dụng đúng</p>
+                    <p className="mt-2 text-2xl font-bold text-slate-800">
+                      {latestDiagnostic.hardCorrect}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <p className="text-sm text-slate-500">Mức Bu</p>
+                    <p className="mt-2 text-2xl font-bold text-slate-800">
+                      {getBuLevelMeta(latestDiagnostic.level).label}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-5 rounded-3xl bg-slate-50 p-5">
+                  <p className="font-semibold text-slate-800">Bu nhận xét</p>
+                  <p className="mt-2 text-slate-600">{latestDiagnostic.nextAction}</p>
+                </div>
+              </>
+            ) : (
+              <div className="mt-4 rounded-3xl bg-slate-50 p-5 text-slate-600">
+                Em chưa có dữ liệu chẩn đoán. Bu gợi ý em làm bài test đầu vào trước để nhận lộ trình học phù hợp.
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-[28px] bg-white p-6 shadow-sm">
+            <p className="text-sm font-medium text-blue-600">Nhịp học hôm nay</p>
+            <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
+              <li>• Học theo thứ tự: lý thuyết → luyện tập → quick-test.</li>
+              <li>• Dành thêm 15 đến 25 phút trong Focus Room để giữ tập trung.</li>
+              <li>• Sau mỗi bài, quay lại xem kết quả để Bu điều chỉnh gợi ý cho em.</li>
+            </ul>
+          </div>
+        </div>
       </section>
     </div>
   );
