@@ -1,40 +1,34 @@
-import { DiagnosticResult, StudentLevel } from "../types";
+import { PracticeLevel, StudentLevel } from "@/types";
 
-type CalculateStudentLevelParams = {
+export type DiagnosticBuildInput = {
+  studentId: string;
   correctRate: number;
   hardCorrect: number;
   completionTime: number;
+  weakLessonIds: string[];
+  totalQuestions: number;
 };
 
-type BuildDiagnosticResultParams = CalculateStudentLevelParams & {
-  weakLessons: string[];
+export type DiagnosticBuildOutput = {
+  studentId: string;
+  score: number;
+  totalQuestions: number;
+  correctRate: number;
+  hardCorrect: number;
+  completionTime: number;
+  level: StudentLevel;
+  weakLessonIds: string[];
+  recommendedLessonIds: string[];
+  recommendedPracticeLevels: PracticeLevel[];
+  nextAction: string;
 };
 
-function normalizeCorrectRate(correctRate: number): number {
-  if (Number.isNaN(correctRate) || !Number.isFinite(correctRate)) return 0;
-  return Math.max(0, Math.min(100, correctRate));
-}
-
-function normalizeNonNegativeNumber(value: number): number {
-  if (Number.isNaN(value) || !Number.isFinite(value)) return 0;
-  return Math.max(0, value);
-}
-
-/**
- * Tính mức độ học sinh dựa trên:
- * - tỉ lệ đúng
- * - số câu khó đúng
- * - thời gian hoàn thành
- *
- * Chỉ trả về level hệ thống:
- * trungbinh | kha | gioi
- */
-export function calculateStudentLevel(
-  params: CalculateStudentLevelParams
-): StudentLevel {
-  const correctRate = normalizeCorrectRate(params.correctRate);
-  const hardCorrect = normalizeNonNegativeNumber(params.hardCorrect);
-  const completionTime = normalizeNonNegativeNumber(params.completionTime);
+export function calculateStudentLevel(params: {
+  correctRate: number;
+  hardCorrect: number;
+  completionTime: number;
+}): StudentLevel {
+  const { correctRate, hardCorrect, completionTime } = params;
 
   if (correctRate >= 80 && hardCorrect >= 2 && completionTime <= 900) {
     return "gioi";
@@ -47,28 +41,70 @@ export function calculateStudentLevel(
   return "trungbinh";
 }
 
-/**
- * Tạo kết quả bài test chẩn đoán hoàn chỉnh.
- */
-export function buildDiagnosticResult(
-  params: BuildDiagnosticResultParams
-): DiagnosticResult {
-  const correctRate = normalizeCorrectRate(params.correctRate);
-  const hardCorrect = normalizeNonNegativeNumber(params.hardCorrect);
-  const completionTime = normalizeNonNegativeNumber(params.completionTime);
+export function getRecommendedPracticeLevels(
+  level: StudentLevel
+): PracticeLevel[] {
+  if (level === "gioi") return ["thonghieu", "vandung"];
+  if (level === "kha") return ["thonghieu", "vandung"];
+  return ["nhanbiet", "thonghieu"];
+}
 
-  const level = calculateStudentLevel({
-    correctRate,
-    hardCorrect,
-    completionTime,
+export function buildStudentRecommendation(params: {
+  level: StudentLevel;
+  weakLessonIds: string[];
+}): {
+  recommendedLessonIds: string[];
+  recommendedPracticeLevels: PracticeLevel[];
+  nextAction: string;
+} {
+  const { level, weakLessonIds } = params;
+
+  const recommendedLessonIds =
+    weakLessonIds.length > 0 ? weakLessonIds.slice(0, 3) : ["lesson-2"];
+
+  const recommendedPracticeLevels = getRecommendedPracticeLevels(level);
+
+  let nextAction = "Tiếp tục học theo lộ trình Bu đang gợi ý.";
+
+  if (level === "trungbinh") {
+    nextAction =
+      "Ôn lại lý thuyết các bài còn yếu rồi luyện trước ở mức nhận biết và thông hiểu.";
+  } else if (level === "kha") {
+    nextAction =
+      "Luyện thêm câu thông hiểu và vận dụng cơ bản ở các bài còn yếu để nâng mức nhanh hơn.";
+  } else {
+    nextAction =
+      "Tiếp tục làm quick-test và luyện câu vận dụng để giữ phong độ Bu Năng nổ.";
+  }
+
+  return {
+    recommendedLessonIds,
+    recommendedPracticeLevels,
+    nextAction,
+  };
+}
+
+export function buildDiagnosticResult(
+  params: DiagnosticBuildInput
+): DiagnosticBuildOutput {
+  const level = calculateStudentLevel(params);
+
+  const recommendation = buildStudentRecommendation({
+    level,
+    weakLessonIds: params.weakLessonIds,
   });
 
   return {
-    score: Math.round(correctRate),
-    correctRate,
-    hardCorrect,
-    completionTime,
+    studentId: params.studentId,
+    score: Math.round((params.correctRate / 100) * params.totalQuestions),
+    totalQuestions: params.totalQuestions,
+    correctRate: params.correctRate,
+    hardCorrect: params.hardCorrect,
+    completionTime: params.completionTime,
     level,
-    weakLessons: Array.from(new Set(params.weakLessons)),
+    weakLessonIds: params.weakLessonIds,
+    recommendedLessonIds: recommendation.recommendedLessonIds,
+    recommendedPracticeLevels: recommendation.recommendedPracticeLevels,
+    nextAction: recommendation.nextAction,
   };
 }

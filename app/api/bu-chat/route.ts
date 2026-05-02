@@ -10,10 +10,6 @@ const rateMap = new Map<string, RateRecord>();
 const RATE_LIMIT_MAX = 20;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_MESSAGE_LENGTH = 1200;
-const ALLOWED_ORIGINS = new Set([
-  "http://localhost:3000",
-  "http://localhost:3001",
-]);
 
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
@@ -36,35 +32,29 @@ function checkRateLimit(key: string) {
   }
 
   if (existing.count >= RATE_LIMIT_MAX) {
-    return { allowed: false, remaining: 0, retryAfterMs: existing.resetAt - now };
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfterMs: existing.resetAt - now,
+    };
   }
 
   existing.count += 1;
   rateMap.set(key, existing);
 
-  return { allowed: true, remaining: RATE_LIMIT_MAX - existing.count };
+  return {
+    allowed: true,
+    remaining: RATE_LIMIT_MAX - existing.count,
+  };
 }
 
-function sanitizeUserMessage(input: unknown): string {
+function sanitizeText(input: unknown, maxLength: number) {
   if (typeof input !== "string") return "";
-  return input.trim().slice(0, MAX_MESSAGE_LENGTH);
-}
-
-function isAllowedOrigin(request: NextRequest) {
-  const origin = request.headers.get("origin");
-  if (!origin) return true;
-  return ALLOWED_ORIGINS.has(origin);
+  return input.trim().slice(0, maxLength);
 }
 
 export async function POST(request: NextRequest) {
   try {
-    if (!isAllowedOrigin(request)) {
-      return NextResponse.json(
-        { error: "Origin không hợp lệ." },
-        { status: 403 }
-      );
-    }
-
     const ip = getClientIp(request);
     const rate = checkRateLimit(ip);
 
@@ -85,13 +75,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const message = sanitizeUserMessage(body?.message);
-    const lessonTitle =
-      typeof body?.lessonTitle === "string" ? body.lessonTitle.trim().slice(0, 200) : "";
-    const currentLevelLabel =
-      typeof body?.currentLevelLabel === "string"
-        ? body.currentLevelLabel.trim().slice(0, 100)
-        : "";
+
+    const message = sanitizeText(body?.message, MAX_MESSAGE_LENGTH);
+    const lessonTitle = sanitizeText(body?.lessonTitle, 200);
+    const currentLevelLabel = sanitizeText(body?.currentLevelLabel, 100);
     const weakTopics = Array.isArray(body?.weakTopics)
       ? body.weakTopics
           .filter((item: unknown) => typeof item === "string")
@@ -109,7 +96,7 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Thiếu cấu hình OPENAI_API_KEY trên server." },
+        { error: "Thiếu OPENAI_API_KEY trên server." },
         { status: 500 }
       );
     }
@@ -117,12 +104,13 @@ export async function POST(request: NextRequest) {
     const model = process.env.BU_CHAT_MODEL || "gpt-4.1-mini";
 
     const systemPrompt = [
-      "Bạn là Bu, linh vật hỗ trợ học tập cho website Khoa học tự nhiên.",
-      "Cách xưng hô: gọi mình là Bu, gọi người dùng là em.",
-      "Giọng điệu: thân thiện, gần gũi, ngắn gọn, khích lệ học sinh.",
-      "Không dùng các mức Trung bình/Khá/Giỏi để gọi trực tiếp học sinh nếu không cần; ưu tiên ngôn ngữ Bu Chăm chỉ, Bu Thông minh, Bu Năng nổ.",
-      "Nếu câu hỏi liên quan học tập, hãy trả lời theo hướng dễ hiểu cho học sinh.",
-      "Nếu không chắc, hãy nói rõ là Bu chưa chắc.",
+      "Bạn là Bu, linh vật hỗ trợ học tập trên website Khoa học tự nhiên.",
+      "Bạn luôn gọi mình là Bu và gọi người dùng là em.",
+      "Giọng điệu phải thân thiện, ngắn gọn, rõ ràng, gần gũi với học sinh.",
+      "Ưu tiên giải thích dễ hiểu, chia nhỏ từng bước, khích lệ học sinh.",
+      "Không dùng giọng quá máy móc. Không lan man. Không quá học thuật.",
+      "Nếu học sinh hỏi về cách học, hãy đề xuất chiến lược cụ thể, ngắn và phù hợp.",
+      "Nếu không chắc, hãy nói rõ Bu chưa chắc và đề nghị em hỏi lại cụ thể hơn.",
       lessonTitle ? `Bài học hiện tại: ${lessonTitle}.` : "",
       currentLevelLabel ? `Mức hiện tại của em: ${currentLevelLabel}.` : "",
       weakTopics.length > 0 ? `Phần cần chú ý: ${weakTopics.join(", ")}.` : "",
@@ -161,7 +149,6 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("OpenAI API error:", errorText);
-
       return NextResponse.json(
         { error: "Bu đang hơi bận, em thử lại sau nhé." },
         { status: 502 }
@@ -170,21 +157,19 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
 
-    const text =
+    const reply =
       data?.output_text ||
-      data?.output?.flatMap((item: any) => item?.content || [])
+      data?.output
+        ?.flatMap((item: any) => item?.content || [])
         ?.filter((content: any) => content?.type === "output_text")
         ?.map((content: any) => content?.text || "")
         ?.join("\n")
         ?.trim() ||
-      "Bu đang suy nghĩ mà chưa trả lời được rõ. Em hỏi lại Bu một chút nhé.";
+      "Bu đang suy nghĩ mà chưa trả lời rõ được. Em hỏi lại Bu một chút nhé.";
 
-    return NextResponse.json({
-      reply: text,
-    });
+    return NextResponse.json({ reply });
   } catch (error) {
     console.error("Bu chat route error:", error);
-
     return NextResponse.json(
       { error: "Bu đang gặp sự cố tạm thời. Em thử lại sau nhé." },
       { status: 500 }

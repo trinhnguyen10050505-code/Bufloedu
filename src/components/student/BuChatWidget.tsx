@@ -30,7 +30,7 @@ export default function BuChatWidget({
     {
       role: "assistant",
       content:
-        "Xin chào em, Bu ở đây rồi. Em muốn Bu giải thích bài học, gợi ý cách học hay ôn lại phần nào nè?",
+        "Xin chào em, Bu ở đây rồi. Em muốn Bu giải thích bài, gợi ý cách học hay ôn lại phần nào?",
     },
   ]);
 
@@ -45,12 +45,7 @@ export default function BuChatWidget({
     const content = input.trim();
     if (!content || loading) return;
 
-    const nextUserMessage: ChatMessage = {
-      role: "user",
-      content,
-    };
-
-    setMessages((prev) => [...prev, nextUserMessage]);
+    setMessages((prev) => [...prev, { role: "user", content }]);
     setInput("");
     setLoading(true);
 
@@ -78,7 +73,9 @@ export default function BuChatWidget({
         ...prev,
         {
           role: "assistant",
-          content: data.reply || "Bu chưa có câu trả lời rõ ràng, em hỏi lại Bu nhé.",
+          content:
+            data.reply ||
+            "Bu chưa có câu trả lời rõ ràng, em hỏi lại Bu nhé.",
         },
       ]);
     } catch (error: any) {
@@ -99,19 +96,19 @@ export default function BuChatWidget({
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {open ? (
-        <div className="w-[340px] overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl">
+        <div className="w-[350px] overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl">
           <div className="flex items-center justify-between bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 px-4 py-4 text-white">
             <div className="flex items-center gap-3">
               <div className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-white/40 bg-white">
                 <Image
-                  src="/bu-logo.png"
+                  src="/bu-mascot.png"
                   alt="Bu"
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold">Bu Đồng hành</p>
+                <p className="text-sm font-semibold">Bu đồng hành</p>
                 <p className="text-xs text-blue-100">{finalLevelLabel}</p>
               </div>
             </div>
@@ -148,7 +145,10 @@ export default function BuChatWidget({
 
           <div className="border-t border-slate-200 bg-white p-3">
             <div className="mb-2 rounded-2xl bg-blue-50 px-3 py-2 text-xs text-slate-600">
-              Bài hiện tại: <span className="font-semibold text-slate-800">{finalLessonTitle}</span>
+              Bài hiện tại:{" "}
+              <span className="font-semibold text-slate-800">
+                {finalLessonTitle}
+              </span>
             </div>
 
             <div className="flex items-end gap-2">
@@ -178,14 +178,14 @@ export default function BuChatWidget({
         >
           <div className="relative h-10 w-10 overflow-hidden rounded-full bg-white">
             <Image
-              src="/bu-logo.png"
+              src="/bu-mascot.png"
               alt="Bu"
               fill
               className="object-cover"
             />
           </div>
           <div className="text-left">
-            <p className="text-sm font-semibold">Bu Đồng hành</p>
+            <p className="text-sm font-semibold">Hỏi Bu</p>
             <p className="text-xs text-blue-100">Bu luôn ở đây với em</p>
           </div>
         </button>
