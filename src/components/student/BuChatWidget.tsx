@@ -30,7 +30,7 @@ export default function BuChatWidget({
     {
       role: "assistant",
       content:
-        "Xin chào em, Bu ở đây rồi. Em muốn Bu giải thích bài, gợi ý cách học hay ôn lại phần nào?",
+        "Xin chào em, Bu ở đây rồi. Em muốn Bu giải thích bài học, gợi ý cách học hay ôn lại phần nào nè?",
     },
   ]);
 
@@ -104,14 +104,14 @@ export default function BuChatWidget({
             <div className="flex items-center gap-3">
               <div className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-white/40 bg-white">
                 <Image
-                  src="/bu-mascot.png"
+                  src="/bu-logo.png"
                   alt="Bu"
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold">Bu đồng hành</p>
+                <p className="text-sm font-semibold">Bu Đồng hành</p>
                 <p className="text-xs text-blue-100">{finalLevelLabel}</p>
               </div>
             </div>
@@ -178,14 +178,14 @@ export default function BuChatWidget({
         >
           <div className="relative h-10 w-10 overflow-hidden rounded-full bg-white">
             <Image
-              src="/bu-mascot.png"
+              src="/bu-logo.png"
               alt="Bu"
               fill
               className="object-cover"
             />
           </div>
           <div className="text-left">
-            <p className="text-sm font-semibold">Hỏi Bu</p>
+            <p className="text-sm font-semibold">Bu Đồng hành</p>
             <p className="text-xs text-blue-100">Bu luôn ở đây với em</p>
           </div>
         </button>

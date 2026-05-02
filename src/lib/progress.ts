@@ -3,24 +3,34 @@ import {
   collection,
   doc,
   serverTimestamp,
-  updateDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import {
-  DiagnosticResultDoc,
-  ProgressActivityType,
-  StudentLevel,
-} from "@/types";
+import { StudentLevel } from "@/types";
 
-type SaveStudentProgressPayload = {
+export type SaveStudentProgressPayload = {
   studentId: string;
   lessonId: string;
-  activityType: ProgressActivityType;
+  activityType: "practice" | "quick_test" | "focus_room" | "diagnostic_test";
   score?: number;
   totalQuestions?: number;
   accuracy?: number;
   level?: StudentLevel;
   durationInSeconds?: number;
+};
+
+export type SaveDiagnosticResultPayload = {
+  studentId: string;
+  score: number;
+  totalQuestions: number;
+  correctRate: number;
+  hardCorrect: number;
+  completionTime: number;
+  level: StudentLevel;
+  weakLessonIds: string[];
+  recommendedLessonIds: string[];
+  recommendedPracticeLevels: string[];
+  nextAction: string;
 };
 
 export async function saveStudentProgress(payload: SaveStudentProgressPayload) {
@@ -30,9 +40,9 @@ export async function saveStudentProgress(payload: SaveStudentProgressPayload) {
   });
 }
 
-export async function saveDiagnosticResult(result: DiagnosticResultDoc) {
+export async function saveDiagnosticResult(payload: SaveDiagnosticResultPayload) {
   await addDoc(collection(db, "diagnostic_results"), {
-    ...result,
+    ...payload,
     createdAt: serverTimestamp(),
   });
 }
@@ -42,16 +52,20 @@ export async function updateStudentPersonalization(params: {
   currentLevel: StudentLevel;
   weakLessonIds: string[];
   recommendedLessonIds: string[];
-  recommendedPracticeLevels: ("nhanbiet" | "thonghieu" | "vandung")[];
+  recommendedPracticeLevels: string[];
   nextAction: string;
 }) {
-  await updateDoc(doc(db, "users", params.studentId), {
-    diagnosticCompleted: true,
-    currentLevel: params.currentLevel,
-    weakLessonIds: params.weakLessonIds,
-    recommendedLessonIds: params.recommendedLessonIds,
-    recommendedPracticeLevels: params.recommendedPracticeLevels,
-    nextAction: params.nextAction,
-    updatedAt: serverTimestamp(),
-  });
+  await setDoc(
+    doc(db, "users", params.studentId),
+    {
+      diagnosticCompleted: true,
+      currentLevel: params.currentLevel,
+      weakLessonIds: params.weakLessonIds,
+      recommendedLessonIds: params.recommendedLessonIds,
+      recommendedPracticeLevels: params.recommendedPracticeLevels,
+      nextAction: params.nextAction,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
 }

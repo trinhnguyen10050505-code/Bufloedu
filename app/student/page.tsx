@@ -42,9 +42,14 @@ export default function StudentDashboardPage() {
     }
 
     void run();
-  }, [profile?.uid]);
+  }, [profile?.uid, profile?.currentLevel]);
 
-  const currentLevel = summary?.currentLevel || profile?.currentLevel || "trungbinh";
+  const currentLevel =
+    summary?.currentLevel ??
+    latestDiagnostic?.level ??
+    profile?.currentLevel ??
+    "trungbinh";
+
   const buMeta = getBuLevelMeta(currentLevel);
 
   const suggestedLessonTitles = useMemo(() => {
@@ -58,7 +63,10 @@ export default function StudentDashboardPage() {
       .slice(0, 3);
   }, [summary?.suggestedLessons, profile?.recommendedLessonIds]);
 
-  const suggestedActions = summary?.suggestedActions || (profile?.nextAction ? [profile.nextAction] : []);
+  const suggestedActions =
+    summary?.suggestedActions ||
+    (profile?.nextAction ? [profile.nextAction] : []);
+
   const weakTopics = summary?.weakTopics || [];
 
   if (loading || pageLoading) {

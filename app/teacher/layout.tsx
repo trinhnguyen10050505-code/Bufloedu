@@ -1,6 +1,5 @@
 import Link from "next/link";
 import BuLogo from "@/components/common/BuLogo";
-import BuChatWidget from "@/components/student/BuChatWidget";
 
 const teacherNavItems = [
   { href: "/teacher/dashboard", label: "Dashboard", icon: "📊" },
@@ -66,11 +65,6 @@ export default function TeacherLayout({
         </div>
       </div>
 
-      <BuChatWidget
-        lessonTitle="Hỗ trợ giáo viên cùng Bu"
-        currentLevelLabel="Bu hỗ trợ điều hành"
-        weakTopics={[]}
-      />
     </>
   );
 }
