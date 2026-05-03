@@ -2,7 +2,7 @@ import { Question, QuestionLevel, StudentTargetLevel } from "@/types/question";
 import { RawQuestion } from "@/types/question-raw";
 
 function mapTargetLevel(level: QuestionLevel): StudentTargetLevel {
-  if (level === "nhanbiet") return "trung_binh";
+  if (level === "nhanbiet") return "trungbinh";
   if (level === "thonghieu") return "kha";
   return "gioi";
 }
