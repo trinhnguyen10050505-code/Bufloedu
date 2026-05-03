@@ -1,5 +1,7 @@
 import Link from "next/link";
 import BuLogo from "@/components/common/BuLogo";
+import BuChatWidget from "@/components/student/BuChatWidget";
+import AuthGuard from "@/components/common/AuthGuard";
 
 const teacherNavItems = [
   { href: "/teacher/dashboard", label: "Dashboard", icon: "📊" },
@@ -17,7 +19,7 @@ export default function TeacherLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <AuthGuard allowRole="teacher">
       <div className="min-h-screen bg-slate-50">
         <div className="grid min-h-screen lg:grid-cols-[300px_1fr]">
           <aside className="border-r border-slate-200 bg-white/95 px-5 py-6 backdrop-blur">
@@ -54,8 +56,7 @@ export default function TeacherLayout({
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 Cô/thầy nên theo dõi theo thứ tự:
                 <span className="font-medium text-slate-800">
-                  {" "}
-                  lớp học → học sinh → học liệu → giao bài → báo cáo
+                  {" "}lớp học → học sinh → học liệu → giao bài → báo cáo
                 </span>
               </p>
             </div>
@@ -65,6 +66,11 @@ export default function TeacherLayout({
         </div>
       </div>
 
-    </>
+      <BuChatWidget
+        lessonTitle="Hỗ trợ giáo viên cùng Bu"
+        currentLevelLabel="Bu hỗ trợ điều hành"
+        weakTopics={[]}
+      />
+    </AuthGuard>
   );
 }

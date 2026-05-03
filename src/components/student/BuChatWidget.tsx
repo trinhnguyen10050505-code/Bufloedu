@@ -78,13 +78,15 @@ export default function BuChatWidget({
             "Bu chưa có câu trả lời rõ ràng, em hỏi lại Bu nhé.",
         },
       ]);
-    } catch (error: any) {
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Bu chưa thể trả lời lúc này.";
+      console.error("Bu chat error:", error);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
           content:
-            error?.message ||
+            errorMessage ||
             "Bu đang gặp chút sự cố. Em thử lại sau một lát nhé.",
         },
       ]);

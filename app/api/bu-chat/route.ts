@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = process.env.BU_CHAT_MODEL || "gpt-4.1-mini";
+    const model = process.env.BU_CHAT_MODEL || "gpt-4o-mini";
 
     const systemPrompt = [
       "Bạn là Bu, linh vật hỗ trợ học tập trên website Khoa học tự nhiên.",
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20_000);
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       signal: controller.signal,
       headers: {
@@ -130,17 +130,17 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         model,
-        input: [
+        messages: [
           {
             role: "system",
-            content: [{ type: "input_text", text: systemPrompt }],
+            content: systemPrompt,
           },
           {
             role: "user",
-            content: [{ type: "input_text", text: message }],
+            content: message,
           },
         ],
-        max_output_tokens: 350,
+        max_tokens: 350,
       }),
     });
 
@@ -158,13 +158,7 @@ export async function POST(request: NextRequest) {
     const data = await response.json();
 
     const reply =
-      data?.output_text ||
-      data?.output
-        ?.flatMap((item: any) => item?.content || [])
-        ?.filter((content: any) => content?.type === "output_text")
-        ?.map((content: any) => content?.text || "")
-        ?.join("\n")
-        ?.trim() ||
+      data?.choices?.[0]?.message?.content?.trim() ||
       "Bu đang suy nghĩ mà chưa trả lời rõ được. Em hỏi lại Bu một chút nhé.";
 
     return NextResponse.json({ reply });

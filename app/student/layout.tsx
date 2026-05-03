@@ -1,6 +1,7 @@
 import Link from "next/link";
 import BuLogo from "@/components/common/BuLogo";
 import BuChatWidget from "@/components/student/BuChatWidget";
+import AuthGuard from "@/components/common/AuthGuard";
 
 const navItems = [
   { href: "/student", label: "Trang học tập", icon: "🏠" },
@@ -10,11 +11,7 @@ const navItems = [
   { href: "/student/mindmap", label: "Mindmap", icon: "🧠" },
   { href: "/student/results", label: "Kết quả", icon: "📊" },
   { href: "/student/uploads", label: "Tải dữ liệu", icon: "📁" },
-  {
-    href: "/student/generated-materials",
-    label: "Nội dung từ tài liệu",
-    icon: "✨",
-  },
+  { href: "/student/generated-materials", label: "Nội dung từ tài liệu", icon: "✨" },
 ];
 
 export default function StudentLayout({
@@ -23,7 +20,7 @@ export default function StudentLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <AuthGuard allowRole="student">
       <div className="min-h-screen bg-slate-50">
         <div className="grid min-h-screen lg:grid-cols-[290px_1fr]">
           <aside className="border-r border-slate-200 bg-white/95 px-5 py-6 backdrop-blur">
@@ -37,8 +34,7 @@ export default function StudentLayout({
               </p>
               <h2 className="mt-2 text-2xl font-bold">Khu học sinh</h2>
               <p className="mt-2 text-sm leading-6 text-blue-50">
-                Bu sẽ cùng em học theo đúng năng lực, luyện tập từng bước và theo dõi
-                tiến bộ mỗi ngày.
+                Bu sẽ cùng em học theo đúng năng lực, luyện tập từng bước và theo dõi tiến bộ mỗi ngày.
               </p>
             </div>
 
@@ -60,8 +56,7 @@ export default function StudentLayout({
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 Nếu em chưa chắc bài, Bu gợi ý em học theo thứ tự:
                 <span className="font-medium text-slate-800">
-                  {" "}
-                  lý thuyết → luyện tập → kiểm tra nhanh → xem kết quả
+                  {" "}lý thuyết → luyện tập → kiểm tra nhanh → xem kết quả
                 </span>
               </p>
             </div>
@@ -76,6 +71,6 @@ export default function StudentLayout({
         currentLevelLabel="Bu luôn đồng hành"
         weakTopics={[]}
       />
-    </>
+    </AuthGuard>
   );
 }

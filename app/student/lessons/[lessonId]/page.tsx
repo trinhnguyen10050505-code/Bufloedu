@@ -59,13 +59,19 @@ export default function LessonDetailPage() {
             <p className="text-sm text-slate-500">Tổng câu hỏi</p>
             <p className="mt-2 text-2xl font-bold text-slate-800">{questions.length}</p>
           </div>
+
           <div className="rounded-2xl bg-slate-50 p-4">
             <p className="text-sm text-slate-500">Mục tiêu</p>
-            <p className="mt-2 text-slate-700">Hiểu bài, nhớ bài, luyện đúng phần cần học</p>
+            <p className="mt-2 text-slate-700">
+              Hiểu bài, nhớ bài, luyện đúng phần cần học
+            </p>
           </div>
+
           <div className="rounded-2xl bg-slate-50 p-4">
             <p className="text-sm text-slate-500">Khuyến nghị</p>
-            <p className="mt-2 text-slate-700">Xem E-learning trước rồi mới sang luyện tập</p>
+            <p className="mt-2 text-slate-700">
+              Xem E-learning trước rồi mới sang luyện tập
+            </p>
           </div>
         </div>
       </section>

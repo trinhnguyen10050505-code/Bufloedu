@@ -1,5 +1,5 @@
 export type QuestionLevel = "nhanbiet" | "thonghieu" | "vandung";
-export type StudentTargetLevel = "trung_binh" | "kha" | "gioi";
+export type StudentTargetLevel = "trungbinh" | "kha" | "gioi";
 export type QuestionType = "practice" | "diagnostic" | "quick_test";
 
 export interface QuestionOption {

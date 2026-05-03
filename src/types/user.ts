@@ -1,6 +1,6 @@
 export type UserRole = "student" | "teacher";
 
-export type StudentLevel = "trung_binh" | "kha" | "gioi";
+export type StudentLevel = "trungbinh" | "kha" | "gioi";
 
 export interface AppUser {
   uid: string;
