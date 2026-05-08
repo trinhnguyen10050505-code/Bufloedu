@@ -4,7 +4,7 @@ import BuChatWidget from "@/components/student/BuChatWidget";
 import AuthGuard from "@/components/common/AuthGuard";
 
 const teacherNavItems = [
-  { href: "/teacher/dashboard", label: "Dashboard", icon: "📊" },
+  { href: "/teacher/dashboard", label: "dashboard", icon: "📊" },
   { href: "/teacher/classes", label: "Lớp học", icon: "🏫" },
   { href: "/teacher/students", label: "Học sinh", icon: "👨‍🎓" },
   { href: "/teacher/materials", label: "Học liệu", icon: "📚" },
@@ -29,7 +29,7 @@ export default function TeacherLayout({
 
             <div className="rounded-[28px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-5 text-white shadow-sm">
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-blue-100">
-                Khu quản lý giáo viên
+                Khu Giáo viên
               </p>
               <h2 className="mt-2 text-2xl font-bold">Bảng điều hành lớp học</h2>
               <p className="mt-2 text-sm leading-6 text-blue-50">

@@ -1,86 +1,83 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type ElearningFrameProps = {
   title: string;
-  mode: "local_html" | "external_url" | "placeholder";
-  entry?: string;
-  externalUrl?: string;
-  note?: string;
+  src: string;
+  fallbackSrc?: string;
 };
 
 export default function ElearningFrame({
   title,
-  mode,
-  entry,
-  externalUrl,
-  note,
+  src,
+  fallbackSrc,
 }: ElearningFrameProps) {
   const [loading, setLoading] = useState(true);
-  const src = useMemo(() => {
-    if (mode === "local_html") return entry;
-    if (mode === "external_url") return externalUrl;
-    return "";
-  }, [mode, entry, externalUrl]);
+  const [currentSrc, setCurrentSrc] = useState(src);
 
-  if (!src) {
-    return (
-      <section className="rounded-[28px] bg-white p-6 shadow-sm">
-        <p className="text-sm font-medium text-blue-600">Khu E-learning</p>
-        <h2 className="mt-1 text-2xl font-bold text-slate-800">{title}</h2>
-
-        <div className="mt-6 rounded-[24px] border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-          <p className="text-lg font-semibold text-slate-800">
-            Chưa có gói E-learning cho bài này
-          </p>
-          <p className="mt-2 text-slate-600">
-            {note || "Hãy gắn package hoặc link E-learning."}
-          </p>
-        </div>
-      </section>
-    );
+  function useFallback() {
+    if (fallbackSrc) {
+      setLoading(true);
+      setCurrentSrc(fallbackSrc);
+    }
   }
 
   return (
-    <section className="rounded-[28px] bg-white p-6 shadow-sm">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <section className="rounded-[32px] bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-sm font-medium text-blue-600">Khu E-learning</p>
+          <p className="text-sm font-semibold text-blue-600">Khu E-learning</p>
           <h2 className="mt-1 text-2xl font-bold text-slate-800">{title}</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Khung này có thể chạy bài E-learning từ GitHub Pages hoặc từ thư mục local
+            trong public.
+          </p>
         </div>
 
-        <a
-          href={src}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700"
-        >
-          Mở trực tiếp toàn màn hình
-        </a>
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={currentSrc}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+          >
+            Mở toàn màn hình
+          </a>
+
+          {fallbackSrc ? (
+            <button
+              type="button"
+              onClick={useFallback}
+              className="rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+            >
+              Dùng bản local
+            </button>
+          ) : null}
+        </div>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-100">
+      <div className="mt-6 overflow-hidden rounded-[28px] border border-slate-200 bg-slate-100">
         {loading ? (
           <div className="flex h-[720px] items-center justify-center text-slate-500">
-            Bu đang mở E-learning cho em...
+            Bu đang mở bài E-learning...
           </div>
         ) : null}
 
         <iframe
-          key={src}
-          src={src}
+          key={currentSrc}
+          src={currentSrc}
           title={title}
           className={`h-[720px] w-full bg-white ${loading ? "hidden" : "block"}`}
-          onLoad={() => setLoading(false)}
           allowFullScreen
+          onLoad={() => setLoading(false)}
         />
       </div>
 
-      <div className="mt-4 rounded-2xl bg-blue-50 p-4 text-sm text-slate-600">
-        Nếu khung E-learning không chạy trong trang này, em bấm{" "}
-        <span className="font-semibold text-slate-800">“Mở trực tiếp toàn màn hình”</span>{" "}
-        để học bình thường. Một số package E-learning không tương thích hoàn toàn với iframe.
+      <div className="mt-4 rounded-2xl bg-blue-50 p-4 text-sm leading-6 text-slate-600">
+        Nếu bài không chạy trong khung, hãy bấm “Mở toàn màn hình”. Khi dùng GitHub,
+        link cần là link GitHub Pages dạng <b>github.io</b>, không phải link repo dạng
+        <b> github.com/.../blob/...</b>.
       </div>
     </section>
   );

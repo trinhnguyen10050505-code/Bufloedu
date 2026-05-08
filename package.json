@@ -6,12 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate:khtn": "node scripts/generate-khtn-data.mjs"
   },
   "dependencies": {
     "firebase": "^11.0.0",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.460.0",
+    "mammoth": "^1.12.0",
     "next": "16.2.4",
     "openai": "^4.77.0",
     "react": "^19.0.0",

@@ -7,7 +7,7 @@ import { getBuLevelMeta } from "@/lib/Bu-level";
 import {
   getDashboardProgressSummary,
   getLatestDiagnosticResult,
-} from "@/lib/progress-reader";
+} from "@/lib/practice-reader";
 import { lessonsContent } from "@/data/lessons-content";
 import ProgressCard from "@/components/student/ProgressCard";
 import PracticeCard from "@/components/student/PracticeCard";

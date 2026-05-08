@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCurrentUser } from "@/hook/useCurrentUser";
-import { getTeacherDashboardData } from "@/lib/progress-reader";
+import { getTeacherDashboardData } from "@/lib/practice-reader";
 
 export default function TeacherDashboardPage() {
   const { profile, loading } = useCurrentUser();

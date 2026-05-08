@@ -1,95 +1,179 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getPracticeLessons } from "@/data/practice-bank.generated";
 import { useCurrentUser } from "@/hook/useCurrentUser";
-import { getTeacherAssignments } from "@/lib/teacher-reader";
-import { lessonsContent } from "@/data/lessons-content";
+import { ClassDoc, getTeacherClasses } from "@/lib/class-service";
+import { AssignmentType, createAssignment } from "@/lib/assignment-service";
 
 export default function TeacherAssignmentsPage() {
-  const { profile, loading } = useCurrentUser();
-  const [assignments, setAssignments] = useState<any[]>([]);
-  const [pageLoading, setPageLoading] = useState(true);
+  const { profile } = useCurrentUser();
+
+  const lessons = getPracticeLessons();
+
+  const [classes, setClasses] = useState<ClassDoc[]>([]);
+  const [classId, setClassId] = useState("");
+  const [lessonId, setLessonId] = useState(lessons[0]?.lessonId || "lesson-2");
+  const [type, setType] = useState<AssignmentType>("practice");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    async function run() {
-      if (!profile?.uid || profile.role !== "teacher") {
-        setPageLoading(false);
-        return;
-      }
+    async function load() {
+      if (!profile?.uid) return;
+      const items = await getTeacherClasses(profile.uid);
+      setClasses(items);
 
-      try {
-        const data = await getTeacherAssignments(profile.uid);
-        setAssignments(data);
-      } catch (error) {
-        console.error("Lỗi tải assignment:", error);
-      } finally {
-        setPageLoading(false);
+      if (items[0]) {
+        setClassId(items[0].id);
       }
     }
 
-    void run();
-  }, [profile?.uid, profile?.role]);
+    void load();
+  }, [profile?.uid]);
 
-  if (loading || pageLoading) {
-    return <div className="p-10">Đang tải nhiệm vụ học tập...</div>;
+  async function handleCreateAssignment() {
+    if (!profile?.uid) return;
+
+    const selectedClass = classes.find((item) => item.id === classId);
+
+    if (!selectedClass) {
+      setMessage("Vui lòng chọn lớp.");
+      return;
+    }
+
+    const selectedLesson = lessons.find((item) => item.lessonId === lessonId);
+
+    try {
+      await createAssignment({
+        teacherId: profile.uid,
+        classId: selectedClass.id,
+        classCode: selectedClass.classCode,
+        title:
+          title ||
+          `${type === "practice" ? "Luyện tập" : type === "quick_test" ? "Quick-test" : "Bài học"} - ${selectedLesson?.lessonTitle || lessonId}`,
+        description:
+          description ||
+          "Giáo viên giao bài qua hệ thống Bu. Học sinh hoàn thành và hệ thống sẽ lưu tiến độ.",
+        lessonId,
+        type,
+        dueDate,
+      });
+
+      setTitle("");
+      setDescription("");
+      setDueDate("");
+      setMessage("Đã giao bài thành công cho lớp.");
+    } catch (error: any) {
+      setMessage(error?.message || "Không giao được bài.");
+    }
   }
 
   return (
-    <div className="space-y-6">
-      <section className="rounded-[32px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
-        <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-100">
+    <div className="space-y-8">
+      <section className="rounded-[36px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
           Giao bài
         </p>
-        <h1 className="mt-3 text-3xl font-bold sm:text-4xl">Nhiệm vụ học tập cho học sinh</h1>
-        <p className="mt-3 max-w-3xl text-blue-50">
-          Quản lý các bài luyện tập, kiểm tra nhanh và nhiệm vụ học tập đã giao
-          cho từng lớp trong hệ thống.
+
+        <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
+          Giao bài học, luyện tập, quick-test hoặc mindmap cho lớp
+        </h1>
+
+        <p className="mt-4 max-w-3xl text-blue-50">
+          Học sinh thuộc đúng mã lớp sẽ nhìn thấy bài được giao trong khu học sinh.
         </p>
       </section>
 
-      {assignments.length > 0 ? (
-        <div className="rounded-[28px] bg-white p-6 shadow-sm">
-          <div className="grid gap-4">
-            {assignments.map((item) => (
-              <div
-                key={item.id}
-                className="rounded-3xl border border-slate-200 bg-slate-50 p-5"
-              >
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold text-slate-800">{item.title}</h2>
-                    <p className="mt-1 text-sm text-slate-600">
-                      {lessonsContent[item.lessonId as keyof typeof lessonsContent]?.title ||
-                        item.lessonId}
-                    </p>
-                  </div>
+      <section className="rounded-[30px] bg-white p-6 shadow-sm">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div>
+            <label className="text-sm font-semibold text-slate-700">Chọn lớp</label>
+            <select
+              value={classId}
+              onChange={(event) => setClassId(event.target.value)}
+              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            >
+              {classes.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.className} · {item.classCode}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                  <div className="flex flex-wrap gap-3">
-                    <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">
-                      Class ID: {item.classId}
-                    </span>
-                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
-                      Hạn nộp: {item.dueDate}
-                    </span>
-                  </div>
-                </div>
+          <div>
+            <label className="text-sm font-semibold text-slate-700">Chọn bài</label>
+            <select
+              value={lessonId}
+              onChange={(event) => setLessonId(event.target.value)}
+              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            >
+              {lessons.map((lesson) => (
+                <option key={lesson.lessonId} value={lesson.lessonId}>
+                  Bài {lesson.lessonOrder}. {lesson.lessonTitle}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                <div className="mt-4 rounded-2xl bg-white px-4 py-3 text-sm text-slate-600">
-                  {item.description}
-                </div>
-              </div>
-            ))}
+          <div>
+            <label className="text-sm font-semibold text-slate-700">Loại bài</label>
+            <select
+              value={type}
+              onChange={(event) => setType(event.target.value as AssignmentType)}
+              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            >
+              <option value="lesson">Học bài</option>
+              <option value="practice">Luyện tập</option>
+              <option value="quick_test">Quick-test</option>
+              <option value="mindmap">Mindmap</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-sm font-semibold text-slate-700">Hạn nộp</label>
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(event) => setDueDate(event.target.value)}
+              className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
           </div>
         </div>
-      ) : (
-        <div className="rounded-[28px] bg-white p-8 shadow-sm">
-          <p className="text-slate-600">
-            Chưa có assignment nào trong Firebase. Hãy thêm dữ liệu vào collection
-            <span className="font-semibold text-slate-800"> assignments </span>
-            để hiển thị tại đây.
-          </p>
+
+        <div className="mt-5 grid gap-4">
+          <input
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            placeholder="Tiêu đề bài giao"
+            className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+          />
+
+          <textarea
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            placeholder="Mô tả hoặc lời nhắn cho học sinh"
+            rows={4}
+            className="resize-none rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+          />
+
+          {message ? (
+            <div className="rounded-2xl bg-blue-50 px-4 py-3 text-sm text-slate-700">
+              {message}
+            </div>
+          ) : null}
+
+          <button
+            onClick={handleCreateAssignment}
+            className="rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+          >
+            Giao bài cho lớp
+          </button>
         </div>
-      )}
+      </section>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hook/useCurrentUser";
-import { getTeacherDashboardData } from "@/lib/progress-reader";
+import { getTeacherDashboardData } from "@/lib/practice-reader";
 import { getTeacherStudents } from "@/lib/teacher-reader";
 import { getBuLevelMeta } from "@/lib/Bu-level";
 

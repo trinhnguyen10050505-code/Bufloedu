@@ -400,5 +400,55 @@ export const rawQuestionBank: RawQuestion[] = [
     options: ["Tăng", "Giảm", "Không thay đổi", "Không thể biết"],
     correctAnswer: "Tăng",
     explanation: "Sắt kết hợp với oxygen trong không khí tạo gỉ nên khối lượng tăng."
+  },
+  {
+    id: "b5-vd-3",
+    lessonId: "lesson-5",
+    level: "vandung",
+    question:
+      "Khi đốt cháy hoàn toàn 1 mol metan (CH4) trong oxi, sản phẩm tạo thành là:",
+    options: ["1 mol CO2 và 2 mol H2O", "1 mol CO2 và 4 mol H2O", "2 mol CO2 và 2 mol H2O", "2 mol CO2 và 4 mol H2O"],
+    correctAnswer: "1 mol CO2 và 2 mol H2O",
+    explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O"
+  },
+  {
+    id: "b5-vd-4",
+    lessonId: "lesson-5",
+    level: "vandung",
+    question:
+      "Khi 2 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng nước tạo thành là:",
+    options: ["18 gam", "36 gam", "9 gam", "27 gam"],
+    correctAnswer: "18 gam",
+    explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
+  },
+  {
+    id: "b5-vd-5",
+    lessonId: "lesson-5",
+    level: "vandung",
+    question:
+      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxy (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
+    options: ["44 gam", "36 gam", "80 gam", "58 gam"],
+    correctAnswer: "80 gam",
+    explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O. Khối lượng mol của CO2 là 44 g/mol và H2O là 18 g/mol."
+  },
+  {
+    id: "b5-vd-6",
+    lessonId: "lesson-5",
+    level: "vandung",
+    question:
+      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
+    options: ["18 gam", "36 gam", "9 gam", "27 gam"],
+    correctAnswer: "18 gam",
+    explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
+  },
+  {
+    id: "b5-vd-7",
+    lessonId: "lesson-5",
+    level: "vandung",
+    question:
+      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxy (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
+    options: ["44 gam", "36 gam", "80 gam", "58 gam"],
+    correctAnswer: "80 gam",
+    explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O. Khối lượng mol của CO2 là 44 g/mol và H2O là 18 g/mol."
   }
 ];

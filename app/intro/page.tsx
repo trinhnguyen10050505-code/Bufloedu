@@ -1,77 +1,195 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FadeInUp from "@/components/FadeInUp";
-import SectionTitle from "@/components/SectionTitle";
+import Image from "next/image";
+import Link from "next/link";
+import BuLogo from "@/components/common/BuLogo";
+import Footer from "@/components/common/Footer";
+
+const features = [
+  {
+    icon: "🧪",
+    title: "Test chẩn đoán",
+    desc: "Bu xác định mức học hiện tại để đề xuất lộ trình phù hợp.",
+  },
+  {
+    icon: "🎥",
+    title: "E-learning",
+    desc: "Học theo từng bài bằng khung bài giảng tương tác.",
+  },
+  {
+    icon: "✍️",
+    title: "Luyện tập thông minh",
+    desc: "Trộn câu hỏi theo bài, theo mức và theo phần còn yếu.",
+  },
+  {
+    icon: "📊",
+    title: "Theo dõi tiến bộ",
+    desc: "Lưu lịch sử học tập, quick-test, focus và hoạt động gần đây.",
+  },
+];
+
+const team = [
+  {
+    name: "Nhóm phát triển nội dung",
+    role: "Xây dựng lý thuyết, bài tập và định hướng học tập.",
+  },
+  {
+    name: "Nhóm thiết kế trải nghiệm",
+    role: "Thiết kế giao diện thân thiện, dễ dùng với học sinh.",
+  },
+  {
+    name: "Bu AI Companion",
+    role: "Đồng hành, gợi ý học tập và giúp học sinh không bị lạc hướng.",
+  },
+];
 
 export default function IntroPage() {
   return (
-    <main className="bg-gradient-to-b from-white via-blue-50/40 to-cyan-50/30 min-h-screen">
-      <Navbar />
+    <div className="min-h-screen bg-slate-50">
+      <header className="border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+          <BuLogo href="/" />
 
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <FadeInUp>
-          <SectionTitle
-            badge="Giới thiệu Buflo AI"
-            title="Một nền tảng học tập được thiết kế để hiểu người học"
-            desc="Buflo AI là website học tập Khoa học tự nhiên được xây dựng theo tư duy giáo dục số hiện đại: cá nhân hóa, trực quan, đo được hiệu quả và mở rộng được lâu dài."
-          />
-        </FadeInUp>
+          <div className="flex gap-3">
+            <Link
+              href="/login"
+              className="rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+            >
+              Đăng nhập
+            </Link>
 
-        <div className="grid md:grid-cols-2 gap-8 mt-12">
-          <FadeInUp delay={0.05}>
-            <div className="rounded-[2rem] bg-white p-8 border border-blue-100 shadow-[0_10px_40px_rgba(37,99,235,0.08)]">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Buflo AI làm ra cho ai?
-              </h3>
-              <p className="text-slate-600 leading-8">
-                Dành cho học sinh cần học đúng năng lực, đúng trọng tâm và dành
-                cho giáo viên cần một công cụ quản lý lớp, giao bài, tải học liệu
-                và theo dõi hiệu quả học tập.
-              </p>
-            </div>
-          </FadeInUp>
-
-          <FadeInUp delay={0.1}>
-            <div className="rounded-[2rem] bg-white p-8 border border-cyan-100 shadow-[0_10px_40px_rgba(6,182,212,0.08)]">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Dùng như thế nào?
-              </h3>
-              <p className="text-slate-600 leading-8">
-                Học sinh làm test đầu vào, học theo lộ trình, dùng Focus Room,
-                mindmap và bài tập. Giáo viên tạo lớp, tải tài liệu, giao bài
-                và xem báo cáo tiến bộ.
-              </p>
-            </div>
-          </FadeInUp>
-
-          <FadeInUp delay={0.15}>
-            <div className="rounded-[2rem] bg-white p-8 border border-blue-100 shadow-[0_10px_40px_rgba(37,99,235,0.08)]">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Dữ liệu từ đâu?
-              </h3>
-              <p className="text-slate-600 leading-8">
-                Dữ liệu đến từ học liệu hệ thống, tài liệu giáo viên tải lên và
-                cả dữ liệu học sinh đưa vào dưới dạng video, Word, PDF để chuyển
-                thành nội dung học tập.
-              </p>
-            </div>
-          </FadeInUp>
-
-          <FadeInUp delay={0.2}>
-            <div className="rounded-[2rem] bg-white p-8 border border-cyan-100 shadow-[0_10px_40px_rgba(6,182,212,0.08)]">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Hiệu quả được đo ra sao?
-              </h3>
-              <p className="text-slate-600 leading-8">
-                Hệ thống tổng hợp thời gian học, điểm số, mức độ hoàn thành, kết
-                quả trước và sau học để chứng minh hiệu quả của cách học bằng dữ liệu.
-              </p>
-            </div>
-          </FadeInUp>
+            <Link
+              href="/register"
+              className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+            >
+              Đăng ký
+            </Link>
+          </div>
         </div>
-      </section>
+      </header>
+
+      <main className="mx-auto max-w-7xl px-6 py-10">
+        <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="rounded-[42px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-xl md:p-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
+              Website học tập cùng Bu
+            </p>
+
+            <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-6xl">
+              Học Khoa học tự nhiên theo cách thông minh và gần gũi hơn
+            </h1>
+
+            <p className="mt-6 max-w-3xl text-base leading-8 text-blue-50">
+              Bu giúp học sinh học đúng năng lực, luyện đúng phần còn thiếu, nhận
+              bài giáo viên giao và theo dõi tiến bộ qua dữ liệu thật.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/register"
+                className="rounded-2xl bg-white px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50"
+              >
+                Bắt đầu cùng Bu
+              </Link>
+
+              <Link
+                href="/login"
+                className="rounded-2xl border border-white/30 bg-white/10 px-6 py-3 font-semibold text-white hover:bg-white/20"
+              >
+                Tôi đã có tài khoản
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative min-h-[420px] overflow-hidden rounded-[42px] bg-white p-8 shadow-sm">
+            <div className="absolute inset-x-8 bottom-8 rounded-[36px] bg-emerald-100 p-6">
+              <p className="text-sm font-semibold text-emerald-700">
+                Khu vườn học tập
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Mỗi phút học, mỗi lượt luyện và mỗi quick-test sẽ giúp khu vườn của
+                Bu xanh hơn.
+              </p>
+              <div className="mt-4 text-4xl">🌱 🌿 🥕 🌳</div>
+            </div>
+
+            <div className="relative mx-auto h-72 w-72">
+              <Image
+                src="/bu-mascot.png"
+                alt="Bu"
+                fill
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {features.map((feature) => (
+            <article
+              key={feature.title}
+              className="rounded-[30px] bg-white p-6 shadow-sm"
+            >
+              <p className="text-4xl">{feature.icon}</p>
+              <h2 className="mt-4 text-xl font-bold text-slate-800">
+                {feature.title}
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                {feature.desc}
+              </p>
+            </article>
+          ))}
+        </section>
+
+        <section className="mt-10 rounded-[38px] bg-white p-8 shadow-sm">
+          <p className="text-sm font-semibold text-blue-600">Hành trình học tập</p>
+          <h2 className="mt-2 text-3xl font-bold text-slate-800">
+            Một vòng học rõ ràng, không chồng chéo
+          </h2>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-5">
+            {[
+              "Test đầu vào",
+              "Học E-learning",
+              "Mindmap",
+              "Luyện tập",
+              "Quick-test và kết quả",
+            ].map((step, index) => (
+              <div
+                key={step}
+                className="rounded-3xl border border-slate-200 bg-slate-50 p-5"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 font-bold text-white">
+                  {index + 1}
+                </div>
+                <p className="mt-4 text-sm font-bold text-slate-800">{step}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10 rounded-[38px] bg-white p-8 shadow-sm">
+          <p className="text-sm font-semibold text-blue-600">Đội ngũ dự án</p>
+          <h2 className="mt-2 text-3xl font-bold text-slate-800">
+            Được xây dựng cho việc dạy và học thật
+          </h2>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {team.map((item) => (
+              <article
+                key={item.name}
+                className="rounded-[28px] bg-slate-50 p-6"
+              >
+                <h3 className="text-lg font-bold text-slate-800">{item.name}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  {item.role}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
 
       <Footer />
-    </main>
+    </div>
   );
 }

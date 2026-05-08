@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { saveStudentProgress } from "@/lib/progress";
+import { saveStudentProgress } from "@/lib/practice-progress";
 import { useCurrentUser } from "@/hook/useCurrentUser";
 import FocusRoomPanel from "@/components/student/focus-room/FocusRoomPanel";
 import { buildFocusPlan, EnergyMode } from "@/lib/focus-room";

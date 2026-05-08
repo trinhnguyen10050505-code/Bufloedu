@@ -1,151 +1,204 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { loginUser } from "@/lib/auth-service";
-import { GRADIENT_PRIMARY, CARD_BASE, BUTTON_PRIMARY } from "@/lib/theme";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import BuLogo from "@/components/common/BuLogo";
+import { loginWithEmail, resetPassword } from "@/lib/auth-service";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"error" | "success">("error");
+  const [loading, setLoading] = useState(false);
+  const [resetting, setResetting] = useState(false);
+
+  async function handleLogin() {
+    if (!email.trim() || !password.trim()) {
+      setMessageType("error");
+      setMessage("Vui lòng nhập email và mật khẩu.");
+      return;
+    }
 
     try {
       setLoading(true);
-      const profile = await loginUser(email, password);
+      setMessage("");
 
-      if (profile.role === "student") {
-        router.push("/student");
-      } else {
-        router.push("/teacher/dashboard");
+      const user = await loginWithEmail(email, password);
+
+      if (user.role === "student") {
+        router.push(redirect.startsWith("/student") ? redirect : "/student");
+        return;
       }
-    } catch (err: any) {
-      setError(err?.message || "Bu chưa thể đăng nhập cho em lúc này.");
+
+      if (user.role === "teacher") {
+        router.push(
+          redirect.startsWith("/teacher") ? redirect : "/teacher/dashboard"
+        );
+        return;
+      }
+
+      router.push("/");
+    } catch (error: any) {
+      setMessageType("error");
+      setMessage(
+        error?.message ||
+          "Đăng nhập thất bại. Vui lòng kiểm tra lại email hoặc mật khẩu."
+      );
     } finally {
       setLoading(false);
     }
   }
 
+  async function handleResetPassword() {
+    if (!email.trim()) {
+      setMessageType("error");
+      setMessage("Em cần nhập email trước để Bu gửi link đặt lại mật khẩu.");
+      return;
+    }
+
+    try {
+      setResetting(true);
+      await resetPassword(email);
+
+      setMessageType("success");
+      setMessage(
+        "Bu đã gửi email đặt lại mật khẩu. Em kiểm tra hộp thư hoặc mục spam nhé."
+      );
+    } catch (error: any) {
+      setMessageType("error");
+      setMessage(
+        error?.message ||
+          "Bu chưa gửi được email đặt lại mật khẩu. Em kiểm tra lại email nhé."
+      );
+    } finally {
+      setResetting(false);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        {/* LEFT */}
-        <section className={`${GRADIENT_PRIMARY} overflow-hidden rounded-[32px] p-8 text-white shadow-lg md:p-10`}>
-          <div className="mb-6">
-            <BuLogo showText={false} size={52} />
-          </div>
+      <div className="mx-auto mb-8 max-w-7xl">
+        <BuLogo href="/" />
+      </div>
 
-          <div className="grid gap-8 md:grid-cols-[1fr_220px] md:items-center">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-100">
-                Chào mừng trở lại
-              </p>
+      <main className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <section className="relative overflow-hidden rounded-[40px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-xl md:p-12">
+          <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10" />
+          <div className="absolute -bottom-20 left-20 h-56 w-56 rounded-full bg-cyan-300/20" />
 
-              <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-                Bu đang đợi em quay lại hệ thống học tập
-              </h1>
+          <div className="relative z-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
+              Đăng nhập hệ thống
+            </p>
 
-              <p className="mt-4 max-w-2xl text-base leading-7 text-blue-50">
-                Đăng nhập để Bu tiếp tục đồng hành cùng em trong bài test chẩn đoán,
-                luyện tập cá nhân hóa, Focus Room, mindmap và theo dõi tiến bộ học tập.
-              </p>
+            <h1 className="mt-4 max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
+              Vào lớp học thông minh cùng Bu
+            </h1>
 
-              <div className="mt-6 space-y-3 text-sm text-white">
-                <div className="rounded-2xl bg-white/10 px-4 py-3">
-                  Học sinh: học theo bài, luyện tập, Focus Room, mindmap, kết quả
+            <p className="mt-5 max-w-2xl text-base leading-8 text-blue-50">
+              Học sinh học theo bài, luyện tập, quick-test, nhận bài giáo viên giao.
+              Giáo viên quản lý lớp, giao bài và theo dõi tiến độ học sinh.
+            </p>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {[
+                ["🧪", "Test đầu vào", "Xác định mức học"],
+                ["🎥", "E-learning", "Học theo từng bài"],
+                ["📊", "Theo dõi", "Lịch sử và tiến bộ"],
+              ].map(([icon, title, desc]) => (
+                <div key={title} className="rounded-3xl bg-white/12 p-5">
+                  <p className="text-3xl">{icon}</p>
+                  <p className="mt-3 font-bold">{title}</p>
+                  <p className="mt-1 text-sm text-blue-50">{desc}</p>
                 </div>
-                <div className="rounded-2xl bg-white/10 px-4 py-3">
-                  Giáo viên: quản lý lớp, giao bài, theo dõi tiến độ học sinh
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="mx-auto w-full max-w-[220px]">
-              <div className="relative aspect-square overflow-hidden rounded-[28px] bg-white/10 p-4 backdrop-blur">
-                <div className="relative h-full w-full">
-                  <Image
-                    src="/logos/bu-login.png"
-                    alt="Bu linh vật"
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              </div>
-              <p className="mt-3 text-center text-sm font-medium text-blue-100">
-                Bu luôn ở đây để hỗ trợ em
-              </p>
+            <div className="relative mt-10 h-56 w-full max-w-md">
+              <Image
+                src="/bu-mascot.png"
+                alt="Bu"
+                fill
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
             </div>
           </div>
         </section>
 
-        {/* RIGHT */}
-        <section className={`${CARD_BASE} p-6 sm:p-8`}>
-          <h2 className="text-2xl font-bold text-slate-800">Đăng nhập</h2>
-          <p className="mt-2 text-slate-600">
-            Nhập thông tin để Bu đưa em quay lại đúng khu vực học tập của mình.
+        <section className="rounded-[36px] bg-white p-6 shadow-sm sm:p-8">
+          <p className="text-sm font-semibold text-blue-600">Chào mừng trở lại</p>
+          <h2 className="mt-2 text-3xl font-bold text-slate-800">
+            Đăng nhập tài khoản
+          </h2>
+
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            Nếu là học sinh, tài khoản của em sẽ tự liên kết với lớp qua mã lớp đã
+            nhập khi đăng ký. Nếu là giáo viên, em sẽ vào bảng quản lý lớp học.
           </p>
 
-          <form onSubmit={handleLogin} className="mt-6 space-y-4">
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-400"
-                placeholder="nhapemail@example.com"
-              />
-            </div>
+          <div className="mt-6 grid gap-4">
+            <input
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Email"
+              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
 
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Mật khẩu
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-400"
-                placeholder="••••••••"
-              />
-            </div>
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Mật khẩu"
+              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
 
-            {error && (
-              <div className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-600">
-                {error}
+            {message ? (
+              <div
+                className={`rounded-2xl px-4 py-3 text-sm ${
+                  messageType === "success"
+                    ? "bg-emerald-50 text-emerald-700"
+                    : "bg-red-50 text-red-600"
+                }`}
+              >
+                {message}
               </div>
-            )}
+            ) : null}
 
             <button
-              type="submit"
+              onClick={handleLogin}
               disabled={loading}
-              className={`${BUTTON_PRIMARY} w-full rounded-2xl px-5 py-3 font-semibold disabled:opacity-60`}
+              className="rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
             >
-              {loading ? "Bu đang đăng nhập cho em..." : "Đăng nhập"}
+              {loading ? "Đang đăng nhập..." : "Đăng nhập"}
             </button>
-          </form>
 
-          <p className="mt-5 text-sm text-slate-600">
-            Chưa có tài khoản?{" "}
-            <Link href="/register" className="font-semibold text-blue-600 hover:underline">
-              Đăng ký ngay
-            </Link>
-          </p>
+            <button
+              type="button"
+              onClick={handleResetPassword}
+              disabled={resetting}
+              className="text-sm font-semibold text-blue-600 hover:text-blue-700 disabled:opacity-60"
+            >
+              {resetting ? "Đang gửi email..." : "Quên mật khẩu?"}
+            </button>
+
+            <p className="text-sm text-slate-600">
+              Chưa có tài khoản?{" "}
+              <Link href="/register" className="font-bold text-blue-600">
+                Đăng ký ngay
+              </Link>
+            </p>
+          </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }

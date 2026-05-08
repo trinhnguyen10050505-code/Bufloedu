@@ -36,6 +36,48 @@ export const elearningRegistry: Record<string, ElearningSource> = {
     entry: "/elearning/lesson-5/index.html",
     note: "Đặt nguyên package vào public/elearning/lesson-5/",
   },
+  "lesson-6": {
+    lessonId: "lesson-6",
+    title: "E-learning - Tính chất của oxi và không khí",
+    mode: "local_html",
+    entry: "/elearning/lesson-6/index.html",
+    note: "Đặt nguyên package vào public/elearning/lesson-6/",
+  },
+  "lesson-7": {
+    lessonId: "lesson-7",
+    title: "E-learning - Tính chất của hiđro và khí cacbonic",
+    mode: "local_html",
+    entry: "/elearning/lesson-7/index.html",
+    note: "Đặt nguyên package vào public/elearning/lesson-7/",
+  },
+  "lesson-8": {
+    lessonId: "lesson-8",
+    title: "E-learning - Tính chất của lưu huỳnh đioxit và khí amoniac",
+    mode: "local_html",
+    entry: "/elearning/lesson-8/index.html",
+    note: "Đặt nguyên package vào public/elearning/lesson-8/",
+  },
+  "lesson-9": {
+    lessonId: "lesson-9",
+    title: "E-learning - Tính chất của axit, bazơ và muối",
+    mode: "local_html",
+    entry: "/elearning/lesson-9/index.html",
+    note: "Đặt nguyên package vào public/elearning/lesson-9/",
+  },
+  "lesson-10": {
+    lessonId: "lesson-10",
+    title: "E-learning - Dung dịch và sự điện li",
+    mode: "local_html",
+    entry: "/elearning/lesson-10/index.html",
+    note: "Đặt nguyên package vào public/elearning/lesson-10/",
+  },
+  "lesson-11": {
+    lessonId: "lesson-11",
+    title: "E-learning - Phản ứng trao đổi ion trong dung dịch",
+    mode: "local_html",
+    entry: "/elearning/lesson-11/index.html",
+    note: "Đặt nguyên package vào public/elearning/lesson-11/",
+  }
 };
 
 export function getElearningByLessonId(lessonId: string) {

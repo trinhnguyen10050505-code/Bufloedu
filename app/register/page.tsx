@@ -1,50 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { registerStudent, registerTeacher } from "@/lib/auth-service";
-import { GRADIENT_PRIMARY, CARD_BASE, BUTTON_PRIMARY } from "@/lib/theme";
-
-type RoleTab = "student" | "teacher";
+import { useState } from "react";
+import BuLogo from "@/components/common/BuLogo";
+import { registerUser, UserRole } from "@/lib/auth-service";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [role, setRole] = useState<RoleTab>("student");
+
+  const [role, setRole] = useState<UserRole>("student");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [school, setSchool] = useState("");
+  const [grade, setGrade] = useState("");
+  const [className, setClassName] = useState("");
+  const [classCode, setClassCode] = useState("");
+  const [subject, setSubject] = useState("Khoa học tự nhiên");
+
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const [studentForm, setStudentForm] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    school: "",
-    grade: "",
-  });
+  async function handleRegister() {
+    if (!fullName.trim() || !email.trim() || !password.trim()) {
+      setMessage("Vui lòng nhập đầy đủ họ tên, email và mật khẩu.");
+      return;
+    }
 
-  const [teacherForm, setTeacherForm] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    school: "",
-    subject: "",
-  });
+    if (password.length < 6) {
+      setMessage("Mật khẩu cần ít nhất 6 ký tự.");
+      return;
+    }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
+    if (role === "student" && !classCode.trim()) {
+      setMessage("Học sinh cần nhập mã lớp do giáo viên cung cấp.");
+      return;
+    }
 
     try {
       setLoading(true);
+      setMessage("");
 
-      if (role === "student") {
-        await registerStudent(studentForm);
+      const result = await registerUser({
+        email,
+        password,
+        fullName,
+        role,
+        school,
+        grade,
+        className,
+        classCode,
+        subject,
+      });
+
+      if (result.role === "student") {
         router.push("/student");
       } else {
-        await registerTeacher(teacherForm);
         router.push("/teacher/dashboard");
       }
-    } catch (err: any) {
-      setError(err?.message || "Đăng ký thất bại.");
+    } catch (error: any) {
+      setMessage(error?.message || "Đăng ký thất bại.");
     } finally {
       setLoading(false);
     }
@@ -52,26 +70,40 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <section className={`${GRADIENT_PRIMARY} rounded-[32px] p-8 text-white shadow-lg md:p-10`}>
-          <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-100">
-            Tạo tài khoản mới
+      <div className="mx-auto mb-8 max-w-7xl">
+        <BuLogo href="/" />
+      </div>
+
+      <main className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <section className="rounded-[40px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-xl md:p-12">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
+            Tạo tài khoản
           </p>
-          <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-            Bắt đầu sử dụng nền tảng học tập Khoa học tự nhiên
+
+          <h1 className="mt-4 text-3xl font-bold leading-tight sm:text-5xl">
+            Tham gia lớp học thông minh cùng Bu
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-blue-50">
-            Hệ thống sẽ hiển thị giao diện và tính năng phù hợp theo đúng đối tượng
-            đăng nhập là học sinh hoặc giáo viên.
+
+          <p className="mt-5 max-w-2xl leading-8 text-blue-50">
+            Học sinh cần mã lớp để vào đúng lớp giáo viên đã tạo. Giáo viên có thể
+            tạo lớp, đặt mã lớp và giao bài cho học sinh.
           </p>
+
+          <div className="relative mt-10 h-64">
+            <Image
+              src="/bu-mascot.png"
+              alt="Bu"
+              fill
+              className="object-contain drop-shadow-2xl"
+            />
+          </div>
         </section>
 
-        <section className={`${CARD_BASE} p-6 sm:p-8`}>
+        <section className="rounded-[36px] bg-white p-6 shadow-sm sm:p-8">
           <div className="flex gap-3">
             <button
-              type="button"
               onClick={() => setRole("student")}
-              className={`rounded-2xl px-4 py-3 font-semibold ${
+              className={`rounded-2xl px-5 py-3 font-semibold ${
                 role === "student"
                   ? "bg-blue-600 text-white"
                   : "bg-slate-100 text-slate-700"
@@ -79,10 +111,10 @@ export default function RegisterPage() {
             >
               Học sinh
             </button>
+
             <button
-              type="button"
               onClick={() => setRole("teacher")}
-              className={`rounded-2xl px-4 py-3 font-semibold ${
+              className={`rounded-2xl px-5 py-3 font-semibold ${
                 role === "teacher"
                   ? "bg-blue-600 text-white"
                   : "bg-slate-100 text-slate-700"
@@ -92,113 +124,98 @@ export default function RegisterPage() {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <div className="mt-6 grid gap-4">
+            <input
+              value={fullName}
+              onChange={(event) => setFullName(event.target.value)}
+              placeholder="Họ và tên"
+              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
+
+            <input
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Email"
+              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
+
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Mật khẩu"
+              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
+
+            <input
+              value={school}
+              onChange={(event) => setSchool(event.target.value)}
+              placeholder="Trường học"
+              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+            />
+
             {role === "student" ? (
               <>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <input
+                    value={grade}
+                    onChange={(event) => setGrade(event.target.value)}
+                    placeholder="Khối"
+                    className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+                  />
+
+                  <input
+                    value={className}
+                    onChange={(event) => setClassName(event.target.value)}
+                    placeholder="Tên lớp ở trường"
+                    className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+                  />
+                </div>
+
                 <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Họ và tên"
-                  value={studentForm.fullName}
-                  onChange={(e) =>
-                    setStudentForm({ ...studentForm, fullName: e.target.value })
-                  }
+                  value={classCode}
+                  onChange={(event) => setClassCode(event.target.value.toUpperCase())}
+                  placeholder="Mã lớp giáo viên cung cấp, ví dụ: KHTN8A1"
+                  className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 font-semibold uppercase outline-none focus:border-blue-500"
                 />
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Email"
-                  value={studentForm.email}
-                  onChange={(e) =>
-                    setStudentForm({ ...studentForm, email: e.target.value })
-                  }
-                />
-                <input
-                  type="password"
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Mật khẩu"
-                  value={studentForm.password}
-                  onChange={(e) =>
-                    setStudentForm({ ...studentForm, password: e.target.value })
-                  }
-                />
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Trường học"
-                  value={studentForm.school}
-                  onChange={(e) =>
-                    setStudentForm({ ...studentForm, school: e.target.value })
-                  }
-                />
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Lớp"
-                  value={studentForm.grade}
-                  onChange={(e) =>
-                    setStudentForm({ ...studentForm, grade: e.target.value })
-                  }
-                />
+
+                <div className="rounded-2xl bg-blue-50 p-4 text-sm leading-6 text-slate-600">
+                  Bu nhắc: Mã lớp giúp em nhận đúng bài giáo viên giao và được giáo
+                  viên theo dõi tiến độ.
+                </div>
               </>
             ) : (
-              <>
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Họ và tên"
-                  value={teacherForm.fullName}
-                  onChange={(e) =>
-                    setTeacherForm({ ...teacherForm, fullName: e.target.value })
-                  }
-                />
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Email"
-                  value={teacherForm.email}
-                  onChange={(e) =>
-                    setTeacherForm({ ...teacherForm, email: e.target.value })
-                  }
-                />
-                <input
-                  type="password"
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Mật khẩu"
-                  value={teacherForm.password}
-                  onChange={(e) =>
-                    setTeacherForm({ ...teacherForm, password: e.target.value })
-                  }
-                />
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Trường học"
-                  value={teacherForm.school}
-                  onChange={(e) =>
-                    setTeacherForm({ ...teacherForm, school: e.target.value })
-                  }
-                />
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3"
-                  placeholder="Bộ môn"
-                  value={teacherForm.subject}
-                  onChange={(e) =>
-                    setTeacherForm({ ...teacherForm, subject: e.target.value })
-                  }
-                />
-              </>
+              <input
+                value={subject}
+                onChange={(event) => setSubject(event.target.value)}
+                placeholder="Môn phụ trách"
+                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
+              />
             )}
 
-            {error && (
+            {message ? (
               <div className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-600">
-                {error}
+                {message}
               </div>
-            )}
+            ) : null}
 
             <button
-              type="submit"
+              onClick={handleRegister}
               disabled={loading}
-              className={`${BUTTON_PRIMARY} w-full rounded-2xl px-5 py-3 font-semibold disabled:opacity-60`}
+              className="rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
             >
               {loading ? "Đang tạo tài khoản..." : "Tạo tài khoản"}
             </button>
-          </form>
+
+            <p className="text-sm text-slate-600">
+              Đã có tài khoản?{" "}
+              <Link href="/login" className="font-bold text-blue-600">
+                Đăng nhập
+              </Link>
+            </p>
+          </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }
