@@ -300,7 +300,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Khái niệm oxide, phân loại oxide, tên gọi oxide và tính chất hóa học của oxide.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-10/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-10-Oxide-Tiet2/",
     localEntry: "/elearning/lesson-10/index.html",
     theory: [
       {

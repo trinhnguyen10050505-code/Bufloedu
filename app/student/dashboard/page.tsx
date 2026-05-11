@@ -2,7 +2,7 @@ import Link from "next/link";
 import LevelBadge from "@/components/student/LevelBadge";
 import ProgressCard from "@/components/student/ProgressCard";
 import PracticeCard from "@/components/student/PracticeCard";
-import QueueCard from "../QueueCard";
+import QueueCard from "@/components/student/QueueCard";
 import { science8Chapter1Queue } from "@/data/science8-chapter1.constant";
 import { GRADIENT_PRIMARY, BUTTON_PRIMARY, CARD_BASE } from "@/lib/theme";
 

@@ -1,303 +1,202 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
-import { getPracticeLessons } from "@/data/practice-bank.generated";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
-  getMindmapByLesson,
-  getMindmapPuzzleByLesson,
-  MindmapDoc,
-  MindmapPuzzleDoc,
-} from "@/lib/mindmap-final";
-import { saveLearningActivity } from "@/lib/practice-progress";
-import { useCurrentUser } from "@/hook/useCurrentUser";
+  getLocalMindmapByLessonId,
+  localMindmapLessons,
+} from "@/data/mindmap-local";
 
 export default function MindmapPage() {
   const searchParams = useSearchParams();
-  const { profile } = useCurrentUser();
-  const lessons = useMemo(() => getPracticeLessons(), []);
+  const defaultLessonId = searchParams.get("lessonId") || "lesson-1";
 
-  const initialLessonId = searchParams.get("lessonId") || lessons[0]?.lessonId || "lesson-2";
+  const [selectedLessonId, setSelectedLessonId] = useState(defaultLessonId);
 
-  const [lessonId, setLessonId] = useState(initialLessonId);
-  const [mindmap, setMindmap] = useState<MindmapDoc | null>(null);
-  const [puzzle, setPuzzle] = useState<MindmapPuzzleDoc | null>(null);
-  const [matches, setMatches] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(true);
-  const [resultMessage, setResultMessage] = useState("");
-
-  useEffect(() => {
-    async function load() {
-      setLoading(true);
-      setResultMessage("");
-      setMatches({});
-
-      const [mindmapData, puzzleData] = await Promise.all([
-        getMindmapByLesson(lessonId),
-        getMindmapPuzzleByLesson(lessonId),
-      ]);
-
-      setMindmap(mindmapData);
-      setPuzzle(puzzleData);
-      setLoading(false);
-    }
-
-    void load();
-  }, [lessonId]);
-
-  const centerNode = mindmap?.nodes?.find((node) => node.type === "center");
-  const branchNodes = mindmap?.nodes?.filter((node) => node.type !== "center") || [];
-  const selectedLesson = lessons.find((lesson) => lesson.lessonId === lessonId);
-
-  async function checkPuzzle() {
-    if (!puzzle || !profile?.uid) return;
-
-    let correct = 0;
-    const total = puzzle.targets.length;
-
-    puzzle.targets.forEach((target) => {
-      if (target.accepts.includes(matches[target.id])) {
-        correct += 1;
-      }
-    });
-
-    const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-    await saveLearningActivity({
-      studentId: profile.uid,
-      lessonId,
-      activityType: "mindmap_puzzle",
-      score: correct,
-      totalQuestions: total,
-      accuracy,
-      level: accuracy >= 80 ? "gioi" : accuracy >= 50 ? "kha" : "trungbinh",
-    });
-
-    setResultMessage(
-      `Bu thấy em ghép đúng ${correct}/${total} mảnh (${accuracy}%). ${
-        accuracy >= 80
-          ? "Em nhớ cấu trúc bài rất tốt."
-          : accuracy >= 50
-          ? "Em đã nhớ một phần, nên xem lại các nhánh còn sai."
-          : "Em nên xem lại lý thuyết rồi ghép lại."
-      }`
-    );
-  }
+  const selectedLesson = useMemo(() => {
+    return getLocalMindmapByLessonId(selectedLessonId) || localMindmapLessons[0];
+  }, [selectedLessonId]);
 
   return (
     <div className="space-y-8">
       <section className="rounded-[36px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
-          Mindmap thông minh
+          Mindmap theo từng bài
         </p>
 
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-          Nhớ bài bằng sơ đồ, ảnh minh họa và ghép nối kiến thức
+          Chọn bài để xem sơ đồ tư duy và ảnh minh họa
         </h1>
 
         <p className="mt-4 max-w-3xl text-blue-50">
-          Mindmap được chia theo từng bài. Nếu em luyện tập bị sai nhiều, Bu sẽ dẫn
-          em về đúng mindmap của bài đang vấp.
+          Ảnh mindmap được lưu trực tiếp trong VS Code tại thư mục public/mindmaps.
+          Em chỉ cần thay ảnh đúng tên lesson là giao diện tự cập nhật.
         </p>
       </section>
 
-      <section className="rounded-[30px] bg-white p-6 shadow-sm">
-        <label className="text-sm font-semibold text-slate-700">Chọn bài</label>
-        <select
-          value={lessonId}
-          onChange={(event) => setLessonId(event.target.value)}
-          className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
-        >
-          {lessons.map((lesson) => (
-            <option key={lesson.lessonId} value={lesson.lessonId}>
-              Bài {lesson.lessonOrder}. {lesson.lessonTitle}
-            </option>
-          ))}
-        </select>
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {localMindmapLessons.map((lesson) => (
+          <button
+            key={lesson.lessonId}
+            onClick={() => setSelectedLessonId(lesson.lessonId)}
+            className={`rounded-[26px] border p-5 text-left transition hover:-translate-y-1 hover:shadow-md ${
+              selectedLessonId === lesson.lessonId
+                ? "border-blue-500 bg-blue-50"
+                : "border-slate-200 bg-white"
+            }`}
+          >
+            <p className="text-sm font-semibold text-blue-600">
+              Bài {lesson.lessonOrder}
+            </p>
+
+            <h2 className="mt-2 text-lg font-bold text-slate-800">
+              {lesson.shortTitle}
+            </h2>
+
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              {lesson.description}
+            </p>
+          </button>
+        ))}
       </section>
 
-      {loading ? (
-        <section className="rounded-[30px] bg-white p-8 shadow-sm">
-          Bu đang tải mindmap...
-        </section>
-      ) : null}
+      <section className="rounded-[36px] bg-white p-6 shadow-sm">
+        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold text-blue-600">
+              Bài {selectedLesson.lessonOrder}
+            </p>
 
-      {!loading && !mindmap ? (
-        <section className="rounded-[30px] bg-white p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-800">
-            Bài này chưa có mindmap
-          </h2>
-          <p className="mt-3 text-slate-600">
-            Hãy tạo document trong Firestore collection <b>mindmaps</b> với
-            lessonId là <b>{lessonId}</b>.
-          </p>
+            <h2 className="mt-2 text-3xl font-bold text-slate-800">
+              {selectedLesson.title}
+            </h2>
 
-          <Link
-            href={`/student/lessons/${lessonId}`}
-            className="mt-5 inline-flex rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
-          >
-            Quay lại lý thuyết bài này
-          </Link>
-        </section>
-      ) : null}
+            <p className="mt-3 leading-7 text-slate-600">
+              {selectedLesson.description}
+            </p>
 
-      {mindmap ? (
-        <section className="rounded-[32px] bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold text-blue-600">
-            {selectedLesson?.lessonTitle || mindmap.title}
-          </p>
-
-          <div className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-[30px] bg-blue-50 p-6">
-              <p className="text-sm font-semibold text-blue-700">
-                Trung tâm bài học
-              </p>
-
-              <h2 className="mt-2 text-3xl font-bold text-slate-800">
-                {mindmap.centerText || centerNode?.label}
-              </h2>
-
-              {centerNode?.description ? (
-                <p className="mt-3 leading-7 text-slate-600">
-                  {centerNode.description}
-                </p>
-              ) : null}
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  href={`/student/lessons/${lessonId}`}
-                  className="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+            <div className="mt-5 flex flex-wrap gap-2">
+              {selectedLesson.keywords.map((keyword) => (
+                <span
+                  key={keyword}
+                  className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700"
                 >
-                  Ôn lý thuyết
-                </Link>
-
-                <Link
-                  href={`/student/exercises?lessonId=${lessonId}&mode=by_lesson`}
-                  className="rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100"
-                >
-                  Luyện lại bài này
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {branchNodes.map((node) => (
-                <article
-                  key={node.id}
-                  className="overflow-hidden rounded-[26px] border border-slate-200 bg-slate-50"
-                >
-                  {node.imageUrl ? (
-                    <img
-                      src={node.imageUrl}
-                      alt={node.label}
-                      className="h-44 w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-44 items-center justify-center bg-slate-100 text-slate-400">
-                      Chưa có ảnh
-                    </div>
-                  )}
-
-                  <div className="p-5">
-                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                      {node.type}
-                    </span>
-
-                    <h3 className="mt-3 text-lg font-bold text-slate-800">
-                      {node.label}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-6 text-slate-600">
-                      {node.description}
-                    </p>
-                  </div>
-                </article>
+                  {keyword}
+                </span>
               ))}
             </div>
-          </div>
-        </section>
-      ) : null}
 
-      {puzzle ? (
-        <section className="rounded-[32px] bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold text-emerald-600">
-            Ghép nối kiến thức
-          </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={`/student/lessons/${selectedLesson.lessonId}`}
+                className="rounded-2xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+              >
+                Ôn lý thuyết bài này
+              </Link>
 
-          <h2 className="mt-1 text-2xl font-bold text-slate-800">
-            {puzzle.title}
-          </h2>
-
-          <div className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-[26px] bg-slate-50 p-5">
-              <p className="font-semibold text-slate-800">Mảnh kiến thức</p>
-
-              <div className="mt-4 grid gap-3">
-                {puzzle.pieces.map((piece) => (
-                  <div
-                    key={piece.id}
-                    className="rounded-2xl bg-white px-4 py-3 text-sm text-slate-700 shadow-sm"
-                  >
-                    <span className="mr-2 rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700">
-                      {piece.type}
-                    </span>
-                    {piece.text}
-                  </div>
-                ))}
-              </div>
+              <Link
+                href={`/student/exercises?lessonId=${selectedLesson.lessonId}&mode=by_lesson`}
+                className="rounded-2xl bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+              >
+                Luyện tập bài này
+              </Link>
             </div>
 
-            <div className="rounded-[26px] bg-slate-50 p-5">
-              <p className="font-semibold text-slate-800">
-                Chọn mảnh đúng cho từng ô
+            <div className="mt-6 rounded-[28px] border border-amber-200 bg-amber-50 p-5">
+              <p className="font-semibold text-amber-700">Bu hướng dẫn</p>
+              <p className="mt-2 text-sm leading-6 text-slate-700">
+                Nếu em luyện tập sai nhiều ở bài này, hãy xem ảnh mindmap trước,
+                đọc từng nhánh kiến thức, sau đó quay lại luyện thêm một bộ câu mới.
               </p>
-
-              <div className="mt-4 grid gap-4">
-                {puzzle.targets.map((target, index) => (
-                  <div key={target.id} className="rounded-2xl bg-white p-4 shadow-sm">
-                    <p className="font-semibold text-slate-800">
-                      Ô {index + 1}. {target.title}
-                    </p>
-                    <p className="mt-1 text-sm text-slate-500">{target.hint}</p>
-
-                    <select
-                      value={matches[target.id] || ""}
-                      onChange={(event) =>
-                        setMatches((prev) => ({
-                          ...prev,
-                          [target.id]: event.target.value,
-                        }))
-                      }
-                      className="mt-3 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500"
-                    >
-                      <option value="">Chọn mảnh ghép</option>
-                      {puzzle.pieces.map((piece) => (
-                        <option key={piece.id} value={piece.id}>
-                          {piece.text}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
-          <button
-            onClick={checkPuzzle}
-            className="mt-6 rounded-2xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
-          >
-            Bu kiểm tra phần ghép nối
-          </button>
-
-          {resultMessage ? (
-            <div className="mt-5 rounded-3xl bg-blue-50 p-5 text-sm font-semibold text-slate-700">
-              {resultMessage}
+          <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-slate-50">
+            <div className="relative aspect-[4/3] w-full bg-white">
+              <Image
+                src={selectedLesson.imageUrl}
+                alt={selectedLesson.title}
+                fill
+                className="object-contain p-4"
+              />
             </div>
-          ) : null}
-        </section>
-      ) : null}
+
+            <div className="border-t border-slate-200 bg-white p-4">
+              <p className="text-sm text-slate-500">
+                Ảnh đang lấy từ:
+              </p>
+              <code className="mt-2 block rounded-2xl bg-slate-100 px-4 py-3 text-sm text-slate-700">
+                {selectedLesson.imageUrl}
+              </code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[36px] bg-white p-6 shadow-sm">
+        <p className="text-sm font-semibold text-blue-600">
+          Các nhánh kiến thức chính
+        </p>
+
+        <h2 className="mt-2 text-2xl font-bold text-slate-800">
+          Bu tóm tắt bài này thành các mảnh kiến thức dễ nhớ
+        </h2>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {selectedLesson.nodes.map((node, index) => (
+            <article
+              key={`${selectedLesson.lessonId}-${node.title}`}
+              className="rounded-[26px] border border-slate-200 bg-slate-50 p-5"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 font-bold text-white">
+                {index + 1}
+              </div>
+
+              <h3 className="mt-4 text-lg font-bold text-slate-800">
+                {node.title}
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                {node.content}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-[36px] bg-gradient-to-r from-emerald-50 to-blue-50 p-6">
+        <p className="text-sm font-semibold text-emerald-700">
+          Cách thêm hoặc thay ảnh mindmap
+        </p>
+
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          <div className="rounded-[24px] bg-white p-5 shadow-sm">
+            <p className="text-2xl">1️⃣</p>
+            <h3 className="mt-3 font-bold text-slate-800">Chuẩn bị ảnh</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Tạo ảnh PNG/JPG cho từng bài.
+            </p>
+          </div>
+
+          <div className="rounded-[24px] bg-white p-5 shadow-sm">
+            <p className="text-2xl">2️⃣</p>
+            <h3 className="mt-3 font-bold text-slate-800">Đưa vào VS Code</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Kéo ảnh vào thư mục public/mindmaps.
+            </p>
+          </div>
+
+          <div className="rounded-[24px] bg-white p-5 shadow-sm">
+            <p className="text-2xl">3️⃣</p>
+            <h3 className="mt-3 font-bold text-slate-800">Đặt đúng tên</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Ví dụ: lesson-2.png, lesson-3.png, lesson-12.png.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

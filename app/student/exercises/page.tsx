@@ -81,20 +81,25 @@ export default function ExercisesPage() {
   const currentLesson = lessons.find((lesson) => lesson.lessonId === lessonId);
 
   function generate() {
-    const set = buildPracticeSet({
-      mode,
-      studentLevel,
-      lessonId,
-      weakLessonIds: profile?.weakLessonIds || [],
-      recentQuestionIds: recentIds,
-      limit: 10,
-    });
+  const rotatedRecentIds =
+    recentIds.length > 0
+      ? recentIds.slice(Math.floor(Math.random() * recentIds.length))
+      : [];
 
-    setQuestions(set);
-    setAnswers({});
-    setSubmitted(false);
-    setMessage("");
-  }
+  const set = buildPracticeSet({
+    mode,
+    studentLevel,
+    lessonId,
+    weakLessonIds: profile?.weakLessonIds || [],
+    recentQuestionIds: rotatedRecentIds,
+    limit: 12,
+  });
+
+  setQuestions(set);
+  setAnswers({});
+  setSubmitted(false);
+  setMessage("");
+}
 
   async function submit() {
     if (!profile?.uid || questions.length === 0) return;

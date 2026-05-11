@@ -124,9 +124,10 @@ export default function LoginPage() {
 
             <div className="relative mt-10 h-56 w-full max-w-md">
               <Image
-                src="/bu-mascot.png"
+                src="/logos/bu-login.png"
                 alt="Bu"
                 fill
+                sizes="448px"
                 className="object-contain drop-shadow-2xl"
                 priority
               />

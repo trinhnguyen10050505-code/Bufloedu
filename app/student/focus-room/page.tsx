@@ -1,158 +1,92 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { saveStudentProgress } from "@/lib/practice-progress";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hook/useCurrentUser";
-import FocusRoomPanel from "@/components/student/focus-room/FocusRoomPanel";
-import { buildFocusPlan, EnergyMode } from "@/lib/focus-room";
-
-const FOCUS_PRESETS = [
-  { label: "Phiên ngắn", minutes: 15 },
-  { label: "Phiên chuẩn", minutes: 25 },
-  { label: "Phiên bứt tốc", minutes: 40 },
-];
+import { saveLearningActivity } from "@/lib/practice-progress";
 
 export default function FocusRoomPage() {
   const { profile } = useCurrentUser();
-
-  const weakTopics = profile?.weakLessonIds || [];
-
-  const [energyMode, setEnergyMode] = useState<EnergyMode>("vua");
-  const [selectedMinutes, setSelectedMinutes] = useState(25);
-  const [remainingSeconds, setRemainingSeconds] = useState(25 * 60);
-  const [isRunning, setIsRunning] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [completedSessions, setCompletedSessions] = useState(0);
-  const [sessionFinishedMessage, setSessionFinishedMessage] = useState("");
-
-  const focusPlan = useMemo(() => {
-    return buildFocusPlan({
-      level: profile?.currentLevel || "trungbinh",
-      energyMode,
-      weakTopics,
-    });
-  }, [profile?.currentLevel, energyMode, weakTopics]);
+  const [seconds, setSeconds] = useState(0);
+  const [running, setRunning] = useState(true);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    setSelectedMinutes(focusPlan.recommendedMinutes);
-    setRemainingSeconds(focusPlan.recommendedMinutes * 60);
-  }, [focusPlan.recommendedMinutes]);
-
-  useEffect(() => {
-    if (!isRunning) return;
+    if (!running) return;
 
     const timer = window.setInterval(() => {
-      setRemainingSeconds((prev) => {
-        if (prev <= 1) {
-          window.clearInterval(timer);
-          setIsRunning(false);
-          void handleCompleteSession();
-          return 0;
-        }
-        return prev - 1;
-      });
+      setSeconds((prev) => prev + 1);
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [isRunning, selectedMinutes]);
+  }, [running]);
 
-  async function handleCompleteSession() {
-    if (!profile?.uid) return;
+  const minutes = Math.floor(seconds / 60);
+  const remainSeconds = seconds % 60;
 
-    try {
-      setIsSaving(true);
+  async function saveSession() {
+    if (!profile?.uid || seconds < 10) return;
 
-      await saveStudentProgress({
-        studentId: profile.uid,
-        lessonId: "focus-room",
-        activityType: "focus_room",
-        durationInSeconds: selectedMinutes * 60,
-        level: profile.currentLevel || "trungbinh",
-      });
+    await saveLearningActivity({
+      studentId: profile.uid,
+      lessonId: "focus-room",
+      activityType: "focus_room",
+      durationInSeconds: seconds,
+    });
 
-      setCompletedSessions((prev) => prev + 1);
-      setSessionFinishedMessage(
-        `Bu thấy em vừa hoàn thành 1 phiên ${selectedMinutes} phút. ${focusPlan.postSessionAction}`
-      );
-    } catch (error) {
-      console.error("Lưu Focus Room thất bại:", error);
-    } finally {
-      setIsSaving(false);
-    }
+    setSaved(true);
+    setRunning(false);
   }
-
-  function handleStart() {
-    setSessionFinishedMessage("");
-    if (remainingSeconds <= 0) {
-      setRemainingSeconds(selectedMinutes * 60);
-    }
-    setIsRunning(true);
-  }
-
-  function handlePause() {
-    setIsRunning(false);
-  }
-
-  function handleReset() {
-    setIsRunning(false);
-    setRemainingSeconds(selectedMinutes * 60);
-    setSessionFinishedMessage("");
-  }
-
-  const timeDisplay = useMemo(() => {
-    const minutes = Math.floor(remainingSeconds / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = (remainingSeconds % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  }, [remainingSeconds]);
 
   return (
-    <div className="space-y-6">
-      <section className="rounded-[32px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
-        <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-100">
-          Focus Room thông minh
+    <div className="space-y-8">
+      <section className="rounded-[36px] bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 p-8 text-white shadow-lg">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
+          Focus Room
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-          Bu không chỉ đếm giờ, Bu còn dẫn nhịp học cho em
+          Bu cùng em giữ nhịp học tập trung
         </h1>
-        <p className="mt-3 max-w-3xl text-blue-50">
-          Focus Room sẽ điều chỉnh theo mức học hiện tại, phần em còn yếu và trạng thái năng lượng
-          của em để tạo ra phiên học phù hợp nhất.
+        <p className="mt-4 max-w-3xl text-blue-50">
+          Thời gian học trong Focus Room sẽ được lưu vào lịch sử để Bu theo dõi nhịp học.
         </p>
       </section>
 
-      <FocusRoomPanel
-        presets={FOCUS_PRESETS}
-        selectedMinutes={selectedMinutes}
-        remainingTime={timeDisplay}
-        isRunning={isRunning}
-        completedSessions={completedSessions}
-        isSaving={isSaving}
-        energyMode={energyMode}
-        focusPlan={focusPlan}
-        onSelectPreset={(minutes) => {
-          if (!isRunning) {
-            setSelectedMinutes(minutes);
-            setRemainingSeconds(minutes * 60);
-          }
-        }}
-        onChangeEnergyMode={(value) => {
-          if (!isRunning) {
-            setEnergyMode(value);
-          }
-        }}
-        onStart={handleStart}
-        onPause={handlePause}
-        onReset={handleReset}
-      />
+      <section className="rounded-[36px] bg-white p-8 text-center shadow-sm">
+        <p className="text-sm font-semibold text-blue-600">Phiên học hiện tại</p>
+        <div className="mt-6 text-7xl font-black text-slate-800">
+          {String(minutes).padStart(2, "0")}:{String(remainSeconds).padStart(2, "0")}
+        </div>
 
-      {sessionFinishedMessage ? (
-        <section className="rounded-[28px] border border-emerald-200 bg-emerald-50 p-6 shadow-sm">
-          <p className="text-sm font-medium text-emerald-700">Bu nhận xét sau phiên học</p>
-          <p className="mt-2 text-slate-700">{sessionFinishedMessage}</p>
-        </section>
-      ) : null}
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <button
+            onClick={() => setRunning((prev) => !prev)}
+            className="rounded-2xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+          >
+            {running ? "Tạm dừng" : "Tiếp tục"}
+          </button>
+
+          <button
+            onClick={saveSession}
+            className="rounded-2xl bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700"
+          >
+            Lưu phiên học
+          </button>
+
+          <Link
+            href="/student/results"
+            className="rounded-2xl bg-slate-100 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-200"
+          >
+            Xem kết quả
+          </Link>
+        </div>
+
+        {saved ? (
+          <p className="mt-5 rounded-2xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-700">
+            Bu đã lưu phiên học tập trung của em.
+          </p>
+        ) : null}
+      </section>
     </div>
   );
 }

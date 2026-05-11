@@ -40,6 +40,38 @@ export function getLessonStats(lessonId: string) {
   };
 }
 
+function uniqueQuestions(items: PracticeQuestion[]) {
+  return Array.from(new Map(items.map((item) => [item.id, item])).values());
+}
+
+function balancedByLevel(pool: PracticeQuestion[], level: StudentLevel, limit: number) {
+  const easy = shuffle(pool.filter((q) => q.level === "nhanbiet"));
+  const medium = shuffle(pool.filter((q) => q.level === "thonghieu"));
+  const hard = shuffle(pool.filter((q) => q.level === "vandung"));
+
+  if (level === "trungbinh") {
+    return uniqueQuestions([
+      ...easy.slice(0, Math.ceil(limit * 0.45)),
+      ...medium.slice(0, Math.ceil(limit * 0.4)),
+      ...hard.slice(0, Math.ceil(limit * 0.15)),
+    ]);
+  }
+
+  if (level === "kha") {
+    return uniqueQuestions([
+      ...easy.slice(0, Math.ceil(limit * 0.25)),
+      ...medium.slice(0, Math.ceil(limit * 0.45)),
+      ...hard.slice(0, Math.ceil(limit * 0.3)),
+    ]);
+  }
+
+  return uniqueQuestions([
+    ...easy.slice(0, Math.ceil(limit * 0.15)),
+    ...medium.slice(0, Math.ceil(limit * 0.35)),
+    ...hard.slice(0, Math.ceil(limit * 0.5)),
+  ]);
+}
+
 export function buildPracticeSet(params: {
   mode: PracticeMode;
   studentLevel: StudentLevel;
@@ -54,17 +86,17 @@ export function buildPracticeSet(params: {
     lessonId,
     weakLessonIds = [],
     recentQuestionIds = [],
-    limit = 10,
+    limit = 12,
   } = params;
 
   let pool = [...practiceBank];
-  const allowedLevels = getQuestionLevelsForStudent(studentLevel);
 
   if (mode === "by_lesson" && lessonId) {
     pool = pool.filter((question) => question.lessonId === lessonId);
   }
 
   if (mode === "by_level") {
+    const allowedLevels = getQuestionLevelsForStudent(studentLevel);
     pool = pool.filter((question) => allowedLevels.includes(question.level));
 
     if (lessonId) {
@@ -89,14 +121,29 @@ export function buildPracticeSet(params: {
       pool = pool.filter((question) => targetLessons.includes(question.lessonId));
     }
 
+    const allowedLevels = getQuestionLevelsForStudent(studentLevel);
     pool = pool.filter((question) => allowedLevels.includes(question.level));
   }
 
-  const nonRepeated = pool.filter(
+  if (pool.length === 0 && lessonId) {
+    pool = practiceBank.filter((question) => question.lessonId === lessonId);
+  }
+
+  if (pool.length === 0) {
+    pool = [...practiceBank];
+  }
+
+  const balanced = balancedByLevel(pool, studentLevel, limit);
+  const balancedOrFull = balanced.length >= Math.min(limit, 6) ? balanced : shuffle(pool);
+
+  const notRecent = balancedOrFull.filter(
     (question) => !recentQuestionIds.includes(question.id)
   );
 
-  const finalPool = nonRepeated.length >= Math.min(limit, 5) ? nonRepeated : pool;
+  const finalPool =
+    notRecent.length >= Math.min(limit, 6)
+      ? notRecent
+      : uniqueQuestions([...notRecent, ...shuffle(balancedOrFull), ...shuffle(pool)]);
 
   return shuffle(finalPool).slice(0, limit);
 }
@@ -104,13 +151,13 @@ export function buildPracticeSet(params: {
 export function buildQuickTestSet(lessonId: string): PracticeQuestion[] {
   const pool = practiceBank.filter((question) => question.lessonId === lessonId);
 
-  const nhanbiet = shuffle(pool.filter((q) => q.level === "nhanbiet")).slice(0, 3);
-  const thonghieu = shuffle(pool.filter((q) => q.level === "thonghieu")).slice(0, 4);
-  const vandung = shuffle(pool.filter((q) => q.level === "vandung")).slice(0, 3);
+  const easy = shuffle(pool.filter((q) => q.level === "nhanbiet")).slice(0, 3);
+  const medium = shuffle(pool.filter((q) => q.level === "thonghieu")).slice(0, 4);
+  const hard = shuffle(pool.filter((q) => q.level === "vandung")).slice(0, 3);
 
-  const mixed = shuffle([...nhanbiet, ...thonghieu, ...vandung]);
+  const mixed = uniqueQuestions([...easy, ...medium, ...hard]);
 
-  if (mixed.length >= 5) return mixed.slice(0, 10);
+  if (mixed.length >= 5) return shuffle(mixed).slice(0, 10);
 
   return shuffle(pool).slice(0, 10);
 }
@@ -125,11 +172,11 @@ export function buildDiagnosticSet(startLessonOrder: number): PracticeQuestion[]
       ? beforeLessons
       : practiceBank.filter((question) => question.lessonOrder <= startLessonOrder);
 
-  const nhanbiet = shuffle(source.filter((q) => q.level === "nhanbiet")).slice(0, 4);
-  const thonghieu = shuffle(source.filter((q) => q.level === "thonghieu")).slice(0, 4);
-  const vandung = shuffle(source.filter((q) => q.level === "vandung")).slice(0, 4);
+  const easy = shuffle(source.filter((q) => q.level === "nhanbiet")).slice(0, 4);
+  const medium = shuffle(source.filter((q) => q.level === "thonghieu")).slice(0, 4);
+  const hard = shuffle(source.filter((q) => q.level === "vandung")).slice(0, 4);
 
-  return shuffle([...nhanbiet, ...thonghieu, ...vandung]).slice(0, 12);
+  return shuffle(uniqueQuestions([...easy, ...medium, ...hard])).slice(0, 12);
 }
 
 export function calculateResult(

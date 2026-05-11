@@ -91,7 +91,7 @@ export default function RegisterPage() {
 
           <div className="relative mt-10 h-64">
             <Image
-              src="/bu-mascot.png"
+              src="/logos/bu-login.png"
               alt="Bu"
               fill
               className="object-contain drop-shadow-2xl"

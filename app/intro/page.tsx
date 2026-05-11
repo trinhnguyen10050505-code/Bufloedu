@@ -113,7 +113,7 @@ export default function IntroPage() {
 
             <div className="relative mx-auto h-72 w-72">
               <Image
-                src="/bu-mascot.png"
+                src="/logos/bu-logo.png"
                 alt="Bu"
                 fill
                 className="object-contain drop-shadow-2xl"

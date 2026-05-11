@@ -10,9 +10,10 @@ export default function BuLogo({ href = "/" }: BuLogoProps) {
     <Link href={href} className="flex items-center gap-3">
       <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-blue-50 shadow-sm">
         <Image
-          src="/bu-mascot.png"
+          src="/logos/bu-logo.png"
           alt="Bu"
           fill
+          sizes="48px"
           className="object-cover"
           priority
         />

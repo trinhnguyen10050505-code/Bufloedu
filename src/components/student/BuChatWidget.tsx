@@ -98,7 +98,7 @@ export default function BuChatWidget({
         className="fixed right-5 top-24 z-50 flex items-center gap-3 rounded-full border border-blue-100 bg-white/95 px-4 py-3 text-slate-800 shadow-xl backdrop-blur transition hover:-translate-y-1 hover:shadow-2xl"
       >
         <div className="relative h-11 w-11 overflow-hidden rounded-full bg-blue-50">
-          <Image src="/bu-mascot.png" alt="Bu" fill className="object-cover" />
+          <Image src="/logos/bu-chat.png" alt="Bu" fill sizes="44px" className="object-cover" />
         </div>
 
         <div className="hidden text-left sm:block">
@@ -114,7 +114,7 @@ export default function BuChatWidget({
       <div className="flex items-center justify-between bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 px-4 py-4 text-white">
         <div className="flex items-center gap-3">
           <div className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-white/40 bg-white">
-            <Image src="/bu-mascot.png" alt="Bu" fill className="object-cover" />
+            <Image src="/logos/bu-chat.png" alt="Bu" fill sizes="44px" className="object-cover" />
           </div>
 
           <div>
