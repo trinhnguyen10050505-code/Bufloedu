@@ -33,7 +33,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Biến đổi vật lí, biến đổi hóa học, dấu hiệu phản ứng, phản ứng tỏa nhiệt và thu nhiệt.",
     chapter: "Chủ đề Hóa học",
     tags: ["biến đổi", "phản ứng", "năng lượng"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-2/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-2-Phan-ung-Hoa-Hoc/index.html",
     localEntry: "/elearning/lesson-2/index.html",
   },
   {
@@ -45,7 +45,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Mol, số Avogadro, khối lượng mol, thể tích mol chất khí và tỉ khối khí.",
     chapter: "Chủ đề Hóa học",
     tags: ["mol", "Avogadro", "tỉ khối"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-3/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-3-Mol-va-Ti-Khoi-cua-chat-khi/index.html",
     localEntry: "/elearning/lesson-3/index.html",
   },
   {
@@ -57,7 +57,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Dung dịch, chất tan, dung môi, độ tan, nồng độ phần trăm và nồng độ mol.",
     chapter: "Chủ đề Hóa học",
     tags: ["dung dịch", "độ tan", "nồng độ"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-4/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-4-Nong-do-Dung-Dich/index.html",
     localEntry: "/elearning/lesson-4/index.html",
   },
   {
@@ -69,7 +69,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Định luật bảo toàn khối lượng, lập phương trình hóa học và ý nghĩa phương trình.",
     chapter: "Chủ đề Hóa học",
     tags: ["bảo toàn", "phương trình", "cân bằng"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-5/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-5-Dinh-Luat-Bao-Toan-Khoi-Luong-va-Phuong-Trinh-Hoa-Hoc/index.html",
     localEntry: "/elearning/lesson-5/index.html",
   },
   {
@@ -81,7 +81,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Tính số mol, khối lượng, thể tích theo phương trình hóa học và hiệu suất phản ứng.",
     chapter: "Chủ đề Hóa học",
     tags: ["số mol", "hiệu suất", "tính toán"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-6/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-6-Tinh-theo-Phuong-Trinh-Hoa-Hoc/index.html",
     localEntry: "/elearning/lesson-6/index.html",
   },
   {
@@ -93,7 +93,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Tốc độ phản ứng, diện tích tiếp xúc, nhiệt độ, nồng độ, chất xúc tác và chất ức chế.",
     chapter: "Chủ đề Hóa học",
     tags: ["tốc độ", "xúc tác", "nồng độ"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-7/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-7-Toc-Do-Phan-UNG-va-Chất-Xúc-Tác/index.html",
     localEntry: "/elearning/lesson-7/index.html",
   },
   {
@@ -105,7 +105,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Khái niệm acid, tên gọi acid, gốc acid và tính chất hóa học cơ bản.",
     chapter: "Chủ đề Hóa học",
     tags: ["acid", "H+", "gốc acid"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-8/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-8-Acid/index.html",
     localEntry: "/elearning/lesson-8/index.html",
   },
   {
@@ -117,7 +117,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Khái niệm base, phân loại base, tính chất hóa học và thang đo pH.",
     chapter: "Chủ đề Hóa học",
     tags: ["base", "pH", "OH-"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-9/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-9-Base-Thang-Do-pH/index.html",
     localEntry: "/elearning/lesson-9/index.html",
   },
   {
@@ -129,7 +129,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Khái niệm oxide, phân loại oxide và tính chất hóa học của oxide.",
     chapter: "Chủ đề Hóa học",
     tags: ["oxide", "oxide acid", "oxide base"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-10/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-10-Oxide-Tiet2/index.html",
     localEntry: "/elearning/lesson-10/index.html",
   },
   {
@@ -141,7 +141,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Khái niệm muối, tên gọi, tính tan của muối và phản ứng trao đổi.",
     chapter: "Chủ đề Hóa học",
     tags: ["muối", "tính tan", "trao đổi"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-11/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-11-Muoi/index.html",
     localEntry: "/elearning/lesson-11/index.html",
   },
   {
@@ -153,7 +153,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Vai trò, phân loại và sử dụng phân bón hóa học trong đời sống.",
     chapter: "Chủ đề Hóa học",
     tags: ["phân bón", "nông nghiệp", "hóa học"],
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-12/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-12-Phan-Bon-Hoa-Hoc/index.html",
     localEntry: "/elearning/lesson-12/index.html",
   },
 ];

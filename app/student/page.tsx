@@ -330,7 +330,7 @@ export default function StudentDashboardPage() {
           tone={weakLessonTitles.length > 0 ? "amber" : "emerald"}
           items={
             weakLessonTitles.length > 0
-              ? weakLessonTitles.map((title) => `Ôn lại: ${title}`)
+              ? weakLessonTitles.map((title: string) => `Ôn lại: ${title}`)
               : [
                   "Bu chưa thấy phần yếu nổi bật. Em hãy tiếp tục giữ nhịp học nhé.",
                 ]

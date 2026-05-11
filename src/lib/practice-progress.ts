@@ -11,7 +11,7 @@ import {
 import { db } from "@/lib/firebase";
 import { StudentLevel } from "@/types/practice-final";
 
-export type PracticeActivityType =
+export type LearningActivityType =
   | "practice"
   | "quick_test"
   | "diagnostic_test"
@@ -24,7 +24,7 @@ export type PracticeActivityType =
 export async function saveLearningActivity(params: {
   studentId: string;
   lessonId: string;
-  activityType: PracticeActivityType;
+  activityType: LearningActivityType;
   score?: number;
   totalQuestions?: number;
   accuracy?: number;
@@ -73,6 +73,7 @@ export async function hasDoneQuickTest(params: {
   );
 
   const snapshot = await getDocs(q);
+
   return !snapshot.empty;
 }
 

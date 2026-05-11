@@ -8,12 +8,6 @@ import {
 import { practiceBank } from "@/data/practice-bank.generated";
 import { mapAccuracyToStudentLevel } from "@/lib/Bu-level";
 
-export function getQuestionLevelsForStudent(level: StudentLevel): QuestionLevel[] {
-  if (level === "gioi") return ["thonghieu", "vandung"];
-  if (level === "kha") return ["nhanbiet", "thonghieu", "vandung"];
-  return ["nhanbiet", "thonghieu"];
-}
-
 export function shuffle<T>(items: T[]) {
   const copy = [...items];
 
@@ -23,6 +17,65 @@ export function shuffle<T>(items: T[]) {
   }
 
   return copy;
+}
+
+function uniqueQuestions(items: PracticeQuestion[]) {
+  return Array.from(new Map(items.map((item) => [item.id, item])).values());
+}
+
+export function getQuestionLevelsForStudent(level: StudentLevel): QuestionLevel[] {
+  if (level === "gioi") return ["thonghieu", "vandung"];
+  if (level === "kha") return ["nhanbiet", "thonghieu", "vandung"];
+  return ["nhanbiet", "thonghieu"];
+}
+
+function getAdaptiveLevelMix(level: StudentLevel) {
+  if (level === "gioi") {
+    return {
+      nhanbiet: 1,
+      thonghieu: 4,
+      vandung: 7,
+    };
+  }
+
+  if (level === "kha") {
+    return {
+      nhanbiet: 3,
+      thonghieu: 5,
+      vandung: 4,
+    };
+  }
+
+  return {
+    nhanbiet: 5,
+    thonghieu: 5,
+    vandung: 2,
+  };
+}
+
+function removeRecent(pool: PracticeQuestion[], recentQuestionIds: string[]) {
+  const filtered = pool.filter((q) => !recentQuestionIds.includes(q.id));
+  return filtered.length >= 6 ? filtered : pool;
+}
+
+function pickBalanced(pool: PracticeQuestion[], level: StudentLevel, limit: number) {
+  const mix = getAdaptiveLevelMix(level);
+
+  const easy = shuffle(pool.filter((q) => q.level === "nhanbiet"));
+  const medium = shuffle(pool.filter((q) => q.level === "thonghieu"));
+  const hard = shuffle(pool.filter((q) => q.level === "vandung"));
+
+  const selected = uniqueQuestions([
+    ...easy.slice(0, mix.nhanbiet),
+    ...medium.slice(0, mix.thonghieu),
+    ...hard.slice(0, mix.vandung),
+  ]);
+
+  if (selected.length >= Math.min(limit, 6)) {
+    return shuffle(selected).slice(0, limit);
+  }
+
+  return shuffle(uniqueQuestions([...selected, ...pool])).slice(0, limit);
 }
 
 export function getQuestionsByLesson(lessonId: string) {
@@ -40,43 +93,12 @@ export function getLessonStats(lessonId: string) {
   };
 }
 
-function uniqueQuestions(items: PracticeQuestion[]) {
-  return Array.from(new Map(items.map((item) => [item.id, item])).values());
-}
-
-function balancedByLevel(pool: PracticeQuestion[], level: StudentLevel, limit: number) {
-  const easy = shuffle(pool.filter((q) => q.level === "nhanbiet"));
-  const medium = shuffle(pool.filter((q) => q.level === "thonghieu"));
-  const hard = shuffle(pool.filter((q) => q.level === "vandung"));
-
-  if (level === "trungbinh") {
-    return uniqueQuestions([
-      ...easy.slice(0, Math.ceil(limit * 0.45)),
-      ...medium.slice(0, Math.ceil(limit * 0.4)),
-      ...hard.slice(0, Math.ceil(limit * 0.15)),
-    ]);
-  }
-
-  if (level === "kha") {
-    return uniqueQuestions([
-      ...easy.slice(0, Math.ceil(limit * 0.25)),
-      ...medium.slice(0, Math.ceil(limit * 0.45)),
-      ...hard.slice(0, Math.ceil(limit * 0.3)),
-    ]);
-  }
-
-  return uniqueQuestions([
-    ...easy.slice(0, Math.ceil(limit * 0.15)),
-    ...medium.slice(0, Math.ceil(limit * 0.35)),
-    ...hard.slice(0, Math.ceil(limit * 0.5)),
-  ]);
-}
-
 export function buildPracticeSet(params: {
   mode: PracticeMode;
   studentLevel: StudentLevel;
   lessonId?: string;
   weakLessonIds?: string[];
+  recommendedLessonIds?: string[];
   recentQuestionIds?: string[];
   limit?: number;
 }) {
@@ -85,67 +107,91 @@ export function buildPracticeSet(params: {
     studentLevel,
     lessonId,
     weakLessonIds = [],
+    recommendedLessonIds = [],
     recentQuestionIds = [],
     limit = 12,
   } = params;
 
-  let pool = [...practiceBank];
+  let pool: PracticeQuestion[] = [];
 
-  if (mode === "by_lesson" && lessonId) {
-    pool = pool.filter((question) => question.lessonId === lessonId);
+  /**
+   * 1. Bu đề xuất:
+   * KHÔNG phụ thuộc bài đang chọn.
+   * Ưu tiên:
+   * - bài yếu
+   * - bài được đề xuất
+   * - mức hiện tại của học sinh
+   */
+  if (mode === "recommended") {
+    const targetLessonIds =
+      weakLessonIds.length > 0
+        ? weakLessonIds
+        : recommendedLessonIds.length > 0
+        ? recommendedLessonIds
+        : [];
+
+    const allowedLevels = getQuestionLevelsForStudent(studentLevel);
+
+    if (targetLessonIds.length > 0) {
+      pool = practiceBank.filter(
+        (q) =>
+          targetLessonIds.includes(q.lessonId) &&
+          allowedLevels.includes(q.level)
+      );
+    } else {
+      pool = practiceBank.filter((q) => allowedLevels.includes(q.level));
+    }
+
+    pool = removeRecent(pool, recentQuestionIds);
+    return pickBalanced(pool, studentLevel, limit);
   }
 
+  /**
+   * 2. Luyện theo bài:
+   * CHỈ lấy đúng bài đang chọn.
+   * Đây là chế độ duy nhất phụ thuộc select bài học.
+   */
+  if (mode === "by_lesson") {
+    pool = lessonId
+      ? practiceBank.filter((q) => q.lessonId === lessonId)
+      : [...practiceBank];
+
+    pool = removeRecent(pool, recentQuestionIds);
+    return shuffle(uniqueQuestions(pool)).slice(0, limit);
+  }
+
+  /**
+   * 3. Luyện theo mức:
+   * KHÔNG phụ thuộc bài đang chọn.
+   * Lấy toàn ngân hàng câu hỏi theo mức học hiện tại.
+   */
   if (mode === "by_level") {
     const allowedLevels = getQuestionLevelsForStudent(studentLevel);
-    pool = pool.filter((question) => allowedLevels.includes(question.level));
 
-    if (lessonId) {
-      pool = pool.filter((question) => question.lessonId === lessonId);
-    }
+    pool = practiceBank.filter((q) => allowedLevels.includes(q.level));
+    pool = removeRecent(pool, recentQuestionIds);
+
+    return pickBalanced(pool, studentLevel, limit);
   }
 
+  /**
+   * 4. Ôn phần yếu:
+   * KHÔNG phụ thuộc bài đang chọn.
+   * Chỉ lấy bài học sinh từng sai.
+   */
   if (mode === "weak_part") {
-    const targetLessons =
-      weakLessonIds.length > 0 ? weakLessonIds : lessonId ? [lessonId] : [];
-
-    if (targetLessons.length > 0) {
-      pool = pool.filter((question) => targetLessons.includes(question.lessonId));
-    }
-  }
-
-  if (mode === "recommended") {
-    const targetLessons =
-      weakLessonIds.length > 0 ? weakLessonIds : lessonId ? [lessonId] : [];
-
-    if (targetLessons.length > 0) {
-      pool = pool.filter((question) => targetLessons.includes(question.lessonId));
+    if (weakLessonIds.length > 0) {
+      pool = practiceBank.filter((q) => weakLessonIds.includes(q.lessonId));
+    } else {
+      const allowedLevels = getQuestionLevelsForStudent(studentLevel);
+      pool = practiceBank.filter((q) => allowedLevels.includes(q.level));
     }
 
-    const allowedLevels = getQuestionLevelsForStudent(studentLevel);
-    pool = pool.filter((question) => allowedLevels.includes(question.level));
+    pool = removeRecent(pool, recentQuestionIds);
+    return pickBalanced(pool, studentLevel, limit);
   }
 
-  if (pool.length === 0 && lessonId) {
-    pool = practiceBank.filter((question) => question.lessonId === lessonId);
-  }
-
-  if (pool.length === 0) {
-    pool = [...practiceBank];
-  }
-
-  const balanced = balancedByLevel(pool, studentLevel, limit);
-  const balancedOrFull = balanced.length >= Math.min(limit, 6) ? balanced : shuffle(pool);
-
-  const notRecent = balancedOrFull.filter(
-    (question) => !recentQuestionIds.includes(question.id)
-  );
-
-  const finalPool =
-    notRecent.length >= Math.min(limit, 6)
-      ? notRecent
-      : uniqueQuestions([...notRecent, ...shuffle(balancedOrFull), ...shuffle(pool)]);
-
-  return shuffle(finalPool).slice(0, limit);
+  return shuffle(practiceBank).slice(0, limit);
 }
 
 export function buildQuickTestSet(lessonId: string): PracticeQuestion[] {
