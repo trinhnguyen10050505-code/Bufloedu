@@ -48,3 +48,19 @@ export type PracticeResult = {
   answerDetails: PracticeResultDetail[];
   weakLessonIds: string[];
 };
+export type StudentProgressItem = {
+  id: string;
+  studentId: string;
+  mode: PracticeMode;
+  result: PracticeResult;
+};
+export type StudentProgressSummary = {
+  currentLevel: StudentLevel;
+  completedLessonsCount: number;
+  totalFocusMinutes: number;
+  recentResults: StudentProgressItem[];
+  suggestedLessons: string[];
+  suggestedActions: string[];
+  weakTopics: string[];
+  recentlyAnsweredQuestionIds: string[];
+};

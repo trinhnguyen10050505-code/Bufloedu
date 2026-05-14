@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
 type RateRecord = {
   count: number;
   resetAt: number;
@@ -13,10 +15,12 @@ const MAX_MESSAGE_LENGTH = 1200;
 
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0].trim();
-  }
-  return "unknown";
+  if (forwardedFor) return forwardedFor.split(",")[0].trim();
+
+  const realIp = request.headers.get("x-real-ip");
+  if (realIp) return realIp;
+
+  return "local-dev";
 }
 
 function checkRateLimit(key: string) {
@@ -28,6 +32,7 @@ function checkRateLimit(key: string) {
       count: 1,
       resetAt: now + RATE_LIMIT_WINDOW_MS,
     });
+
     return { allowed: true, remaining: RATE_LIMIT_MAX - 1 };
   }
 
@@ -53,6 +58,13 @@ function sanitizeText(input: unknown, maxLength: number) {
   return input.trim().slice(0, maxLength);
 }
 
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    message: "Bu chat API đang hoạt động. Hãy gửi POST để chat.",
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const ip = getClientIp(request);
@@ -61,7 +73,8 @@ export async function POST(request: NextRequest) {
     if (!rate.allowed) {
       return NextResponse.json(
         {
-          error: "Bu đang nhận quá nhiều câu hỏi từ thiết bị này. Em thử lại sau ít phút nhé.",
+          reply:
+            "Bu đang nhận hơi nhiều câu hỏi từ thiết bị này. Em nghỉ một chút rồi hỏi lại Bu nhé.",
         },
         {
           status: 429,
@@ -79,6 +92,7 @@ export async function POST(request: NextRequest) {
     const message = sanitizeText(body?.message, MAX_MESSAGE_LENGTH);
     const lessonTitle = sanitizeText(body?.lessonTitle, 200);
     const currentLevelLabel = sanitizeText(body?.currentLevelLabel, 100);
+
     const weakTopics = Array.isArray(body?.weakTopics)
       ? body.weakTopics
           .filter((item: unknown) => typeof item === "string")
@@ -88,15 +102,20 @@ export async function POST(request: NextRequest) {
 
     if (!message) {
       return NextResponse.json(
-        { error: "Thiếu nội dung câu hỏi." },
+        { reply: "Bu chưa thấy câu hỏi của em. Em nhập lại rõ hơn nhé." },
         { status: 400 }
       );
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
+
     if (!apiKey) {
+      console.error("Missing OPENAI_API_KEY");
       return NextResponse.json(
-        { error: "Thiếu OPENAI_API_KEY trên server." },
+        {
+          reply:
+            "Bu chưa được cấu hình khóa API ở server. Em nhờ người quản trị kiểm tra file .env.local nhé.",
+        },
         { status: 500 }
       );
     }
@@ -106,10 +125,12 @@ export async function POST(request: NextRequest) {
     const systemPrompt = [
       "Bạn là Bu, linh vật hỗ trợ học tập trên website Khoa học tự nhiên.",
       "Bạn luôn gọi mình là Bu và gọi người dùng là em.",
-      "Giọng điệu phải thân thiện, ngắn gọn, rõ ràng, gần gũi với học sinh.",
+      "Giọng điệu thân thiện, ngắn gọn, rõ ràng, gần gũi với học sinh THCS.",
       "Ưu tiên giải thích dễ hiểu, chia nhỏ từng bước, khích lệ học sinh.",
-      "Không dùng giọng quá máy móc. Không lan man. Không quá học thuật.",
-      "Nếu học sinh hỏi về cách học, hãy đề xuất chiến lược cụ thể, ngắn và phù hợp.",
+      "Không làm thay toàn bộ nếu học sinh chưa thử. Hãy gợi ý cách nghĩ trước.",
+      "Không dùng giọng máy móc. Không lan man. Không quá học thuật.",
+      "Nếu học sinh hỏi bài, hãy giải thích theo từng bước ngắn.",
+      "Nếu học sinh hỏi cách học, hãy đề xuất chiến lược cụ thể.",
       "Nếu không chắc, hãy nói rõ Bu chưa chắc và đề nghị em hỏi lại cụ thể hơn.",
       lessonTitle ? `Bài học hiện tại: ${lessonTitle}.` : "",
       currentLevelLabel ? `Mức hiện tại của em: ${currentLevelLabel}.` : "",
@@ -140,32 +161,66 @@ export async function POST(request: NextRequest) {
             content: message,
           },
         ],
-        max_tokens: 350,
+        temperature: 0.45,
+        max_tokens: 450,
       }),
     });
 
     clearTimeout(timeout);
 
+    const rawText = await response.text();
+
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("OpenAI API error:", errorText);
+      console.error("OpenAI API error:", rawText);
+
       return NextResponse.json(
-        { error: "Bu đang hơi bận, em thử lại sau nhé." },
+        {
+          reply:
+            "Bu đang bận chút xíu, em hỏi lại sau nhé!",
+        },
         { status: 502 }
       );
     }
 
-    const data = await response.json();
+    let data: any;
+
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      console.error("OpenAI invalid JSON:", rawText);
+
+      return NextResponse.json(
+        {
+          reply:
+            "Bu nhận được phản hồi không hợp lệ từ AI. Em thử lại sau một chút nhé.",
+        },
+        { status: 502 }
+      );
+    }
 
     const reply =
       data?.choices?.[0]?.message?.content?.trim() ||
       "Bu đang suy nghĩ mà chưa trả lời rõ được. Em hỏi lại Bu một chút nhé.";
 
     return NextResponse.json({ reply });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Bu chat route error:", error);
+
+    if (error?.name === "AbortError") {
+      return NextResponse.json(
+        {
+          reply:
+            "Bu suy nghĩ hơi lâu nên bị ngắt kết nối. Em thử hỏi ngắn hơn một chút nhé.",
+        },
+        { status: 504 }
+      );
+    }
+
     return NextResponse.json(
-      { error: "Bu đang gặp sự cố tạm thời. Em thử lại sau nhé." },
+      {
+        reply:
+          "Bu đang gặp sự cố tạm thời. Em thử lại sau nhé.",
+      },
       { status: 500 }
     );
   }

@@ -45,6 +45,7 @@ export type StudentLearningHistorySummary = {
   weakLessonIds: string[];
   strongLessonIds: string[];
   recentQuestionIds: string[];
+  averageAccuracy: number;
 };
 
 const lessonTitleMap: Record<string, string> = {
@@ -221,6 +222,11 @@ export async function getStudentLearningHistorySummary(
   const currentLevel = calculateCurrentLevel(items);
   const weakLessonIds = getWeakLessonIds(items);
 
+  const scoredItems = items.filter((item) => typeof item.accuracy === "number");
+  const averageAccuracy = scoredItems.length > 0
+    ? Math.round(scoredItems.reduce((sum, item) => sum + (item.accuracy || 0), 0) / scoredItems.length)
+    : 0;
+
   return {
     totalStudyMinutes: Math.round(totalStudySeconds / 60),
     totalPracticeTimes: items.filter((item) => item.activityType === "practice")
@@ -239,5 +245,6 @@ export async function getStudentLearningHistorySummary(
     weakLessonIds,
     strongLessonIds: getStrongLessonIds(lessonHistories),
     recentQuestionIds: collectRecentQuestionIds(items),
+    averageAccuracy,
   };
 }

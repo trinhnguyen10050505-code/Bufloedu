@@ -15,7 +15,11 @@ const navItems = [
   { href: "/student/assignments", label: "Bài được giao", icon: "📝", desc: "Nhiệm vụ từ giáo viên" },
 ];
 
-export default function StudentLayout({ children }: { children: React.ReactNode }) {
+export default function StudentLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <AuthGuard allowRole="student">
       <div className="min-h-screen bg-slate-50">
@@ -27,7 +31,9 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-100">
                 Bu đồng hành
               </p>
+
               <h2 className="mt-2 text-2xl font-bold">Khu học sinh</h2>
+
               <p className="mt-2 text-sm leading-6 text-blue-50">
                 Học bài → luyện tập → quick-test → xem kết quả, không chồng chéo.
               </p>
@@ -41,10 +47,12 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
                   className="group flex gap-3 rounded-2xl px-4 py-3 transition hover:bg-slate-100"
                 >
                   <span className="text-lg">{item.icon}</span>
+
                   <span>
                     <span className="block text-sm font-semibold text-slate-800 group-hover:text-blue-700">
                       {item.label}
                     </span>
+
                     <span className="text-xs text-slate-500">{item.desc}</span>
                   </span>
                 </Link>
@@ -54,15 +62,10 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
 
           <main className="min-w-0 p-4 sm:p-6 lg:p-8">{children}</main>
         </div>
+
+        <StudentAutoStudyTracker />
+        <BuChatWidget />
       </div>
-
-      <StudentAutoStudyTracker />
-
-      <BuChatWidget
-        lessonTitle="Hành trình học tập cùng Bu"
-        currentLevelLabel="Bu luôn đồng hành"
-        weakTopics={[]}
-      />
     </AuthGuard>
   );
 }

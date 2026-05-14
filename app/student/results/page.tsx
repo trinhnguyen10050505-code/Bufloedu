@@ -24,13 +24,6 @@ function formatActivity(type: string) {
   return map[type] || type;
 }
 
-function actionClass(tone: string) {
-  if (tone === "primary") return "bg-blue-600 text-white hover:bg-blue-700";
-  if (tone === "success") return "bg-emerald-600 text-white hover:bg-emerald-700";
-  if (tone === "warning") return "bg-amber-500 text-white hover:bg-amber-600";
-  return "bg-slate-100 text-slate-700 hover:bg-slate-200";
-}
-
 export default function StudentResultsPage() {
   const { profile, loading } = useCurrentUser();
   const [summary, setSummary] = useState<StudentLearningHistorySummary | null>(null);
@@ -151,26 +144,41 @@ export default function StudentResultsPage() {
               Việc nên làm tiếp theo
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              Các nút này được Bu chọn từ lịch sử học gần nhất của em.
+              Dựa vào kết quả học tập của em, Bu gợi ý những hoạt động hữu ích.
             </p>
           </div>
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {(summary?.buSmartActions || []).map((action) => (
-            <Link
-              key={`${action.title}-${action.href}`}
-              href={action.href}
-              className={`rounded-[26px] p-5 transition hover:-translate-y-1 hover:shadow-md ${actionClass(
-                action.tone
-              )}`}
-            >
-              <h3 className="text-lg font-bold">{action.title}</h3>
-              <p className="mt-2 text-sm leading-6 opacity-90">
-                {action.description}
-              </p>
-            </Link>
-          ))}
+          <Link
+            href="/student/exercises"
+            className="rounded-[26px] bg-blue-600 p-5 text-white transition hover:-translate-y-1 hover:shadow-md hover:bg-blue-700"
+          >
+            <h3 className="text-lg font-bold">Luyện thêm</h3>
+            <p className="mt-2 text-sm leading-6 opacity-90">
+              Làm thêm bộ câu mới để tăng kiến thức và kỹ năng của em.
+            </p>
+          </Link>
+
+          <Link
+            href="/student/focus-room"
+            className="rounded-[26px] bg-emerald-600 p-5 text-white transition hover:-translate-y-1 hover:shadow-md hover:bg-emerald-700"
+          >
+            <h3 className="text-lg font-bold">Focus Room</h3>
+            <p className="mt-2 text-sm leading-6 opacity-90">
+              Học tập tập trung trong khoảng thời gian ngắn, tối ưu hiệu quả.
+            </p>
+          </Link>
+
+          <Link
+            href="/student/mindmap"
+            className="rounded-[26px] bg-amber-500 p-5 text-white transition hover:-translate-y-1 hover:shadow-md hover:bg-amber-600"
+          >
+            <h3 className="text-lg font-bold">Ôn lại Mindmap</h3>
+            <p className="mt-2 text-sm leading-6 opacity-90">
+              Ôn tập kiến thức bằng sơ đồ tư duy và hình ảnh minh họa.
+            </p>
+          </Link>
         </div>
       </section>
 

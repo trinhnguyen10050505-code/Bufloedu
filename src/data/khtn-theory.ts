@@ -8,7 +8,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Biến đổi vật lí, biến đổi hóa học, phản ứng hóa học, dấu hiệu nhận biết phản ứng và năng lượng của phản ứng.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-2/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-2-Phan-ung-hoa-hoc-1-/",
     localEntry: "/elearning/lesson-2/index.html",
     theory: [
       {

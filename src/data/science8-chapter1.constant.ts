@@ -228,5 +228,168 @@ questionCount: 15,
 timeLimitMinutes: 20,
 status: 'queued'
 }
+},
+{
+lessonId: 'lesson-8',
+chapter: 'Chương 1: Phản ứng hóa học',
+chapterNumber: 1,
+lessonNumber: 8,
+lessonTitle: 'Bài 8. Phản ứng oxi hóa - khử',
+slug: 'bai-8-phan-ung-oxi-hoa-khu',
+description:
+'Hiểu về phản ứng oxi hóa - khử, cách xác định chất oxi hóa và chất khử trong phản ứng.',
+tags: ['khtn8', 'chuong-1', 'oxi-hoa-khu'],
+video: {
+id: 'video-khtn8-c1-b8',
+title: 'Video bài giảng: Bài 8. Phản ứng oxi hóa - khử',
+duration: '18:30',
+thumbnail: '/images/science8/chapter1/bai8-video.jpg',
+status: 'queued'
+},
+exercise: {
+id: 'exercise-khtn8-c1-b8',
+title: 'Bài tập luyện tập: Bài 8',
+questionCount: 12,
+difficulty: 'medium',
+status: 'queued'
+},
+quiz: {
+id: 'quiz-khtn8-c1-b8',
+title: 'Bài kiểm tra: Bài 8',
+questionCount: 15,
+timeLimitMinutes: 20,
+status: 'queued'
+}
+},
+{lessonId: 'lesson-9',
+chapter: 'Chương 1: Phản ứng hóa học',
+chapterNumber: 1,
+lessonNumber: 9,
+lessonTitle: 'Bài 9. Các loại phản ứng hóa học',
+slug: 'bai-9-cac-loai-phan-ung-hoa-hoc',
+description:
+' Tìm hiểu các loại phản ứng hóa học phổ biến như phản ứng hóa hợp, phân hủy, thế và trao đổi.',
+tags: ['khtn8', 'chuong-1', 'loai-phan-ung-hoa-hoc'],
+video: {
+id: 'video-khtn8-c1-b9',
+title: 'Video bài giảng: Bài 9. Các loại phản ứng hóa học',
+duration: '16:00',
+thumbnail: '/images/science8/chapter1/bai9-video.jpg',
+status: 'queued'
+},
+exercise: {
+id: 'exercise-khtn8-c1-b9',
+title: 'Bài tập luyện tập: Bài 9',
+questionCount: 12,
+difficulty: 'medium',
+status: 'queued'
+},
+quiz: {
+id: 'quiz-khtn8-c1-b9',
+title: 'Bài kiểm tra: Bài 9',
+questionCount: 15,
+timeLimitMinutes: 20,
+status: 'queued'
+}
+},
+{lessonId: 'lesson-10',
+chapter: 'Chương 1: Phản ứng hóa học',
+chapterNumber: 1,
+lessonNumber: 10,
+lessonTitle: 'Bài 10. Tổng kết chương 1',
+slug: 'bai-10-tong-ket-chuong-1',
+description:
+'Ôn tập và củng cố kiến thức về các phản ứng hóa học đã học trong chương 1.',
+tags: ['khtn8', 'chuong-1', 'tong-ket'],
+video: {
+id: 'video-khtn8-c1-b10',
+title: 'Video bài giảng: Bài 10. Tổng kết chương 1',
+duration: '20:00',
+thumbnail: '/images/science8/chapter1/bai10-video.jpg',
+status: 'queued'
+},
+exercise: {
+id: 'exercise-khtn8-c1-b10',
+title: 'Bài tập luyện tập: Bài 10',
+questionCount: 20,
+difficulty: 'hard',
+status: 'queued'
+},
+quiz: {
+id: 'quiz-khtn8-c1-b10',
+title: 'Bài kiểm tra: Bài 10',
+questionCount: 25,
+timeLimitMinutes: 30,
+status: 'queued'
+}
+},
+{lessonId: 'lesson-11',
+chapter: 'Chương 1: Phản ứng hóa học',
+chapterNumber: 1,
+lessonNumber: 11,
+lessonTitle: 'Bài 11. Ôn tập chương 1',
+slug: 'bai-11-on-tap-chuong-1',
+description:
+'Ôn tập và củng cố kiến thức về các phản ứng hóa học đã học trong chương 1.',
+tags: ['khtn8', 'chuong-1', 'on-tap'],
+video: {
+id: 'video-khtn8-c1-b11',
+title: 'Video bài giảng: Bài 11. Ôn tập chương 1',
+duration: '25:00',
+thumbnail: '/images/science8/chapter1/bai11-video.jpg',
+status: 'queued'
+},
+exercise: {
+id: 'exercise-khtn8-c1-b11',
+title: 'Bài tập luyện tập: Bài 11',
+questionCount: 25,
+difficulty: 'hard',
+status: 'queued'
+},
+quiz: {
+id: 'quiz-khtn8-c1-b11',
+title: 'Bài kiểm tra: Bài 11',
+questionCount: 30,
+timeLimitMinutes: 35,
+status: 'queued'
+}
+},
+{lessonId: 'lesson-12',
+chapter: 'Chương 1: Phản ứng hóa học',
+chapterNumber: 1,
+lessonNumber: 12,
+lessonTitle: 'Bài 12. Kiểm tra chương 1',
+slug: 'bai-12-kiem-tra-chuong-1',
+description:
+'Kiểm tra kiến thức đã học trong chương 1 về các phản ứng hóa học.',
+tags: ['khtn8', 'chuong-1', 'kiem-tra'],
+video: {
+id: 'video-khtn8-c1-b12',
+title: 'Video bài giảng: Bài 12. Kiểm tra chương 1',
+duration: '30:00',
+thumbnail: '/images/science8/chapter1/bai12-video.jpg',
+status: 'queued'
+},
+exercise: {
+id: 'exercise-khtn8-c1-b12',
+title: 'Bài tập luyện tập: Bài 12',
+questionCount: 30,
+difficulty: 'hard',
+status: 'queued'
+},
+quiz: {
+id: 'quiz-khtn8-c1-b12',
+title: 'Bài kiểm tra: Bài 12',
+questionCount: 35,
+timeLimitMinutes: 40,
+status: 'queued'
+}
 }
 ];
+
+function levelToNumber(level: string) {
+  if (level === "Bu Thông thái") return 3;
+  if (level === "Bu Vững vàng") return 2;
+  if (level === "Bu Chăm chỉ") return 1;
+     return 0;
+}

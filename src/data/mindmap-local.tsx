@@ -14,20 +14,6 @@ export type LocalMindmapLesson = {
 
 export const localMindmapLessons: LocalMindmapLesson[] = [
   {
-    lessonId: "lesson-1",
-    lessonOrder: 1,
-    title: "Ôn tập kiến thức nền lớp 7",
-    shortTitle: "Kiến thức nền",
-    description: "Hệ thống lại kiến thức nền trước khi học Hóa học 8.",
-    imageUrl: "/mindmaps/lesson-1.png",
-    keywords: ["chất", "vật thể", "nguyên tử", "phân tử"],
-    nodes: [
-      { title: "Chất", content: "Vật chất tạo nên vật thể." },
-      { title: "Nguyên tử", content: "Hạt vô cùng nhỏ tạo nên chất." },
-      { title: "Phân tử", content: "Gồm các nguyên tử liên kết với nhau." },
-    ],
-  },
-  {
     lessonId: "lesson-2",
     lessonOrder: 2,
     title: "Bài 2: Phản ứng hóa học",

@@ -25,6 +25,7 @@ function generateTags(question: RawQuestion): string[] {
   if (text.includes("nồng độ")) tags.push("nong-do");
   if (text.includes("bảo toàn khối lượng")) tags.push("bao-toan-khoi-luong");
   if (text.includes("phương trình hóa học")) tags.push("phuong-trinh-hoa-hoc");
+  if (text.includes("điều kiện chuẩn")) tags.push("dieu-kien-chuan");
 
   if (tags.length === 0) tags.push("general");
 

@@ -1,33 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-be-vietnam-pro",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "BuFloedu - Hệ thống học tập thông minh",
-  description: "Bu - Trợ lý học tập AI hỗ trợ học sinh luyện tập cá nhân hóa, test chẩn đoán, Focus Room, mindmap và theo dõi tiến bộ",
+  title: "Buflo AI",
+  description: "Nền tảng học tập Khoa học tự nhiên cá nhân hóa",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="vi" className={beVietnamPro.variable}>
+      <body className="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
+        {children}
+      </body>
     </html>
   );
 }

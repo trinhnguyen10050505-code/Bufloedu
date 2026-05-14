@@ -33,7 +33,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Biến đổi vật lí, biến đổi hóa học, dấu hiệu phản ứng, phản ứng tỏa nhiệt và thu nhiệt.",
     chapter: "Chủ đề Hóa học",
     tags: ["biến đổi", "phản ứng", "năng lượng"],
-    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-2-Phan-ung-Hoa-Hoc/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-2-Phan-ung-hoa-hoc-1-/index.html",
     localEntry: "/elearning/lesson-2/index.html",
   },
   {

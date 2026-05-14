@@ -286,7 +286,7 @@ export const lessonsContent = {
   "lesson-6": {
     id: "lesson-6",
     title: "Bài 6",
-    summary: "Em cập nhật nội dung bài 6 tại đây.",
+    summary: "Tính theo phương trình hóa học",
     objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
     elearning: {
       type: "html5-package",
@@ -312,7 +312,7 @@ export const lessonsContent = {
   "lesson-7": {
     id: "lesson-7",
     title: "Bài 7",
-    summary: "Em cập nhật nội dung bài 7 tại đây.",
+    summary: "Tốc độ phản ứng và chất xúc tác",
     objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
     elearning: {
       type: "html5-package",
@@ -334,4 +334,135 @@ export const lessonsContent = {
       },
     ],
   },
+
+  "lesson-8": {
+    id: "lesson-8",
+    title: "Bài 8",
+    summary: "Em cập nhật nội dung bài 8 tại đây.",
+    objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
+    elearning: {
+      type: "html5-package",
+      title: "Bài giảng E-learning: Bài 8",
+      entry: "/elearning/lesson-8/index.html",
+      duration: "00:00",
+      note: "Bu sẽ đồng hành cùng em ở bài học này.",
+    },
+    resources: [],
+    theory: [
+      {
+        title: "Nội dung chính",
+        sections: [
+          {
+            subtitle: "Mục 1",
+            content: "Em cập nhật lý thuyết bài 8 tại đây.",
+          },
+        ],
+      },
+    ],
+  },
+
+  "lesson-9": {
+    id: "lesson-9",
+    title: "Bài 9",
+    summary: "Em cập nhật nội dung bài 9 tại đây.",
+    objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
+    elearning: {
+      type: "html5-package",
+      title: "Bài giảng E-learning: Bài 9",
+      entry: "/elearning/lesson-9/index.html",
+      duration: "00:00",
+      note: "Bu sẽ đồng hành cùng em ở bài học này.",
+    },
+    resources: [],
+    theory: [
+      {
+        title: "Nội dung chính",
+        sections: [
+          {
+            subtitle: "Mục 1",
+            content: "Em cập nhật lý thuyết bài 9 tại đây.",
+          },
+        ],
+      },
+    ],
+  },
+
+  "lesson-10": {
+    id: "lesson-10",
+    title: "Bài 10",
+    summary: "Em cập nhật nội dung bài 10 tại đây.",
+    objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
+    elearning: {
+      type: "html5-package",
+      title: "Bài giảng E-learning: Bài 10",
+      entry: "/elearning/lesson-10/index.html",
+      duration: "00:00",
+      note: "Bu sẽ đồng hành cùng em ở bài học này.",
+    },
+    resources: [],
+    theory: [
+      {
+        title: "Nội dung chính",
+        sections: [
+          {
+            subtitle: "Mục 1",
+            content: "Em cập nhật lý thuyết bài 10 tại đây.",
+          },
+        ],
+      },
+    ],
+  },
+
+  "lesson-11": {
+    id: "lesson-11",
+    title: "Bài 11",
+    summary: "Em cập nhật nội dung bài 11 tại đây.",
+    objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
+    elearning: {
+      type: "html5-package",
+      title: "Bài giảng E-learning: Bài 11",
+      entry: "/elearning/lesson-11/index.html",
+      duration: "00:00",
+      note: "Bu sẽ đồng hành cùng em ở bài học này.",
+    },
+    resources: [],
+    theory: [
+      {
+        title: "Nội dung chính",
+        sections: [
+          {
+            subtitle: "Mục 1",
+            content: "Em cập nhật lý thuyết bài 11 tại đây.",
+          },
+        ],
+      },
+    ],
+  },
+  
+  "lesson-12": {
+    id: "lesson-12",
+    title: "Bài 12",
+    summary: "Em cập nhật nội dung bài 12 tại đây.",
+    objectives: ["Cập nhật mục tiêu 1", "Cập nhật mục tiêu 2"],
+    elearning: {
+      type: "html5-package",
+      title: "Bài giảng E-learning: Bài 12",
+      entry: "/elearning/lesson-12/index.html",
+      duration: "00:00",
+      note: "Bu sẽ đồng hành cùng em ở bài học này.",
+    },
+    resources: [],
+    theory: [
+      {
+        title: "Nội dung chính",
+        sections: [
+          {
+            subtitle: "Mục 1",
+            content: "Em cập nhật lý thuyết bài 12 tại đây.",
+          },
+        ],
+      },
+    ],
+  },
+  
 };
