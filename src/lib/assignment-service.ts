@@ -20,6 +20,7 @@ export type AssignmentDoc = {
   lessonId: string;
   type: AssignmentType;
   dueDate?: string;
+  fileUrl?: string;
   createdAt?: any;
 };
 
@@ -32,6 +33,7 @@ export async function createAssignment(params: {
   lessonId: string;
   type: AssignmentType;
   dueDate?: string;
+  fileUrl?: string;
 }) {
   const docRef = await addDoc(collection(db, "assignments"), {
     teacherId: params.teacherId,
@@ -42,6 +44,7 @@ export async function createAssignment(params: {
     lessonId: params.lessonId,
     type: params.type,
     dueDate: params.dueDate || "",
+    fileUrl: params.fileUrl || "",
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hook/useCurrentUser";
 import { getGeneratedMaterialsForUser } from "@/lib/materials";
+import ChemText from "@/lib/ChemText";
 
 export default function StudentGeneratedMaterialsPage() {
   const { profile, loading } = useCurrentUser();
@@ -118,7 +119,7 @@ export default function StudentGeneratedMaterialsPage() {
                   {(item.mcqQuestions || []).map((question: any, index: number) => (
                     <div key={`${item.id}-q-${index}`} className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
                       <p className="font-semibold text-slate-800">
-                        Câu {index + 1}. {question.question}
+                        Câu {index + 1}. <ChemText>{question.question}</ChemText>
                       </p>
                       <ul className="mt-3 space-y-2 text-slate-600">
                         {(question.options || []).map((option: string) => (
@@ -128,7 +129,7 @@ export default function StudentGeneratedMaterialsPage() {
                       <p className="mt-4 text-sm font-semibold text-emerald-700">
                         Đáp án đúng: {question.correctAnswer}
                       </p>
-                      <p className="mt-2 text-sm text-slate-600">{question.explanation}</p>
+                      <p className="mt-2 text-sm text-slate-600"><ChemText>{question.explanation}</ChemText></p>
                     </div>
                   ))}
                 </div>

@@ -47,6 +47,20 @@ export const rawQuestionBank: RawQuestion[] = [
     explanation: "Biến đổi hóa học luôn tạo ra chất mới."
   },
   {
+    id: "b2-nb-4",
+    lessonId: "lesson-2",
+    level: "nhanbiet",
+    question: "Trong các quá trình sau, quá trình nào là biến đổi hóa học?",
+    options: [
+      "Nước bay hơi",
+      "Đường cháy thành than",
+      "Băng tan",
+      "Nước đông đá"
+    ],
+    correctAnswer: "Đường cháy thành than",
+    explanation: "Đường cháy tạo ra chất mới (than), đây là biến đổi hóa học."
+  },
+  {
     id: "b2-th-1",
     lessonId: "lesson-2",
     level: "thonghieu",
@@ -87,6 +101,48 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Phản ứng đốt cháy khí gas",
     explanation: "Phản ứng đốt cháy giải phóng nhiệt ra môi trường."
+  },
+  {
+    id: "b2-th-4",
+    lessonId: "lesson-2",
+    level: "thonghieu",
+    question: "Dấu hiệu nào sau đây chứng tỏ đã có phản ứng hoá học xảy ra?",
+    options: [
+      "Thay đổi màu sắc",
+      "Xuất hiện chất kết tủa",
+      "Tỏa nhiệt và phát sáng",
+      "Tất cả các dấu hiệu trên"
+    ],
+    correctAnswer: "Tất cả các dấu hiệu trên",
+    explanation: "Các dấu hiệu này đều là biểu hiện của phản ứng hóa học."
+  },
+  {
+    id: "b2-th-5",
+    lessonId: "lesson-2",
+    level: "thonghieu",
+    question: "Trước và sau phản ứng hóa học, yếu tố nào thay đổi?",
+    options: [
+      "Khối lượng các nguyên tử",
+      "Số lượng các nguyên tử",
+      "Liên kết giữa các nguyên tử",
+      "Thành phần các nguyên tố"
+    ],
+    correctAnswer: "Liên kết giữa các nguyên tử",
+    explanation: "Trong phản ứng hóa học, liên kết thay đổi để tạo thành chất mới."
+  },
+  {
+    id: "b2-th-6",
+    lessonId: "lesson-2",
+    level: "thonghieu",
+    question: "Phản ứng nào sau đây là phản ứng thu nhiệt?",
+    options: [
+      "Phản ứng nung đá vôi CaCO3",
+      "Phản ứng đốt cháy khí gas",
+      "Phản ứng hòa tan viên C sủi vào nước",
+      "Phản ứng phân hủy đường"
+    ],
+    correctAnswer: "Phản ứng nung đá vôi CaCO3",
+    explanation: "Phản ứng nung đá vôi cần cung cấp nhiệt để xảy ra."
   },
   {
     id: "b2-vd-1",
@@ -151,24 +207,6 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b2-vd-5",
     lessonId: "lesson-2",
     level: "vandung",
-    question: "Khí nào sau đây nặng nhất trong các khí sau?",
-    options: ["CH4", "CO2", "N2", "H2"],
-    correctAnswer: "CO2",
-    explanation: "CO2 có phân tử khối lớn nhất trong các lựa chọn."
-  },
-  {
-    id: "b2-vd-6",
-    lessonId: "lesson-2",
-    level: "vandung",
-    question: "Khí nào sau đây nhẹ nhất trong các khí sau?",
-    options: ["CH4", "CO2", "N2", "H2"],
-    correctAnswer: "H2",
-    explanation: "H2 có phân tử khối nhỏ nhất trong các lựa chọn."
-  },
-  {
-    id: "b2-vd-7",
-    lessonId: "lesson-2",
-    level: "vandung",
     question: "Phản ứng nào sau đây là phản ứng tỏa nhiệt?",
     options: [
       "Phản ứng nung đá vôi CaCO3",
@@ -180,21 +218,7 @@ export const rawQuestionBank: RawQuestion[] = [
     explanation: "Phản ứng đốt cháy giải phóng nhiệt ra môi trường."
   },
   {
-    id: "b2-vd-8",
-    lessonId: "lesson-2",
-    level: "vandung",
-    question: "Phản ứng nào sau đây là phản ứng thu nhiệt?",
-    options: [
-      "Phản ứng nung đá vôi CaCO3",
-      "Phản ứng đốt cháy khí gas",
-      "Phản ứng hòa tan viên C sủi vào nước",
-      "Phản ứng phân hủy đường"
-    ],
-    correctAnswer: "Phản ứng nung đá vôi CaCO3",
-    explanation: "Phản ứng nung đá vôi cần cung cấp nhiệt để xảy ra."
-  },
-  {
-    id: "b2-vd-9",
+    id: "b2-vd-6",
     lessonId: "lesson-2",
     level: "vandung",
     question: "Khí nào sau đây có khối lượng mol lớn nhất?",
@@ -203,7 +227,7 @@ export const rawQuestionBank: RawQuestion[] = [
     explanation: "CO2 có phân tử khối lớn nhất trong các lựa chọn."
   },
   {
-    id: "b2-vd-10",
+    id: "b2-vd-7",
     lessonId: "lesson-2",
     level: "vandung",
     question: "Khí nào sau đây có khối lượng mol nhỏ nhất?",
@@ -242,6 +266,33 @@ export const rawQuestionBank: RawQuestion[] = [
     explanation: "CO2 có phân tử khối lớn nhất trong các lựa chọn."
   },
   {
+    id: "b3-nb-4",
+    lessonId: "lesson-3",
+    level: "nhanbiet",
+    question: "Khí nào nhẹ nhất trong các khí sau?",
+    options: ["CH4", "CO2", "N2", "H2"],
+    correctAnswer: "H2",
+    explanation: "H2 có phân tử khối nhỏ nhất trong các lựa chọn."
+  },
+  {
+    id: "b3-nb-5",
+    lessonId: "lesson-3",
+    level: "nhanbiet",
+    question: "Khối lượng mol của khí O2 là:",
+    options: ["32 g/mol", "34 g/mol", "36 g/mol", "38 g/mol"],
+    correctAnswer: "32 g/mol",
+    explanation: "Khối lượng mol của O2 là 2 × 16 = 32 g/mol."
+  },
+  {
+    id: "b3-nb-6",
+    lessonId: "lesson-3",
+    level: "nhanbiet",
+    question: "Khối lượng mol của khí N2 là:",
+    options: ["28 g/mol", "30 g/mol", "32 g/mol", "34 g/mol"],
+    correctAnswer: "28 g/mol",
+    explanation: "Khối lượng mol của N2 là 2 × 14 = 28 g/mol."
+  },
+  {
     id: "b3-th-1",
     lessonId: "lesson-3",
     level: "thonghieu",
@@ -272,6 +323,24 @@ export const rawQuestionBank: RawQuestion[] = [
     options: ["NH3", "CO2", "N2O", "H2S"],
     correctAnswer: "NH3",
     explanation: "NH3 có khối lượng mol nhỏ hơn khối lượng mol trung bình của không khí."
+  },
+  {
+    id: "b3-th-4",
+    lessonId: "lesson-3",
+    level: "thonghieu",
+    question: "Khí nào sau đây nặng hơn không khí?",
+    options: ["NH3", "CO2", "N2O", "H2S"],
+    correctAnswer: "CO2",
+    explanation: "CO2 có khối lượng mol lớn hơn khối lượng mol trung bình của không khí."
+  },
+  {
+    id: "b3-th-5",
+    lessonId: "lesson-3",
+    level: "thonghieu",
+    question: "Khí nào sau đây có tỉ khối đối với không khí nhỏ nhất?",
+    options: ["NH3", "CO2", "N2O", "H2S"],
+    correctAnswer: "NH3",
+    explanation: "NH3 có tỉ khối đối với không khí nhỏ nhất."
   },
   {
     id: "b3-vd-1",
@@ -418,6 +487,62 @@ export const rawQuestionBank: RawQuestion[] = [
     explanation: "CM là số mol chất tan trong 1 lít dung dịch."
   },
   {
+    id: "b4-nb-4",
+    lessonId: "lesson-4",
+    level: "nhanbiet",
+    question: "Dung môi là chất:",
+    options: [
+      "có mặt trong dung dịch",
+      "không tan trong dung dịch",
+      "tan trong dung dịch",
+      "có khả năng hòa tan các chất khác"
+    ],
+    correctAnswer: "có khả năng hòa tan các chất khác",
+    explanation: "Dung môi là chất có khả năng hòa tan các chất khác."
+  },
+  {
+    id: "b4-nb-5",
+    lessonId: "lesson-4",
+    level: "nhanbiet",
+    question: "Chất tan là chất:",
+    options: [
+      "có mặt trong dung dịch",
+      "không tan trong dung dịch",
+      "tan trong dung dịch",
+      "có khả năng hòa tan các chất khác"
+    ],
+    correctAnswer: "tan trong dung dịch",
+    explanation: "Chất tan là chất tan trong dung dịch."
+  },
+  {
+    id: "b4-nb-6",
+    lessonId: "lesson-4",
+    level: "nhanbiet",
+    question: "Dung dịch bão hòa là dung dịch:",
+    options: [
+      "chứa ít chất tan nhất",
+      "chứa nhiều chất tan nhất",
+      "không thể hòa tan thêm chất tan nào khác",
+      "có thể hòa tan thêm chất tan"
+    ],
+    correctAnswer: "không thể hòa tan thêm chất tan nào khác",
+    explanation: "Dung dịch bão hòa là dung dịch không thể hòa tan thêm chất tan nào khác."
+  },
+  {
+    id: "b4-nb-7",
+    lessonId: "lesson-4",
+    level: "nhanbiet",
+    question: "Dung dịch chưa bão hòa là dung dịch:",
+    options: [
+      "chứa ít chất tan nhất",
+      "chứa nhiều chất tan nhất",
+      "không thể hòa tan thêm chất tan nào khác",
+      "có thể hòa tan thêm chất tan"
+    ],
+    correctAnswer: "có thể hòa tan thêm chất tan",
+    explanation: "Dung dịch chưa bão hòa là dung dịch có thể hòa tan thêm chất tan."
+  },
+  {
     id: "b4-th-1",
     lessonId: "lesson-4",
     level: "thonghieu",
@@ -483,15 +608,6 @@ export const rawQuestionBank: RawQuestion[] = [
   },
   {
     id: "b4-th-7",
-    lessonId: "lesson-4",
-    level: "thonghieu",
-    question: "Muốn pha 100 mL dung dịch H2SO4 3M thì số mol H2SO4 cần lấy là:",
-    options: ["0,3 mol", "3 mol", "0,03 mol", "0,1 mol"],
-    correctAnswer: "0,3 mol",
-    explanation: "n = C × V = 3 × 0,1 = 0,3 mol."
-  },
-  {
-    id: "b4-th-8",
     lessonId: "lesson-4",
     level: "thonghieu",
     question: "Muốn pha 100 mL dung dịch H2SO4 3M thì số mol H2SO4 cần lấy là:",
@@ -569,7 +685,56 @@ export const rawQuestionBank: RawQuestion[] = [
     correctAnswer: "25%",
     explanation: "C% = 50 / (50 + 150) × 100 = 25%."
   },
-
+  {
+    id: "b4-vd-8",
+    lessonId: "lesson-4",
+    level: "vandung",
+    question:
+      "Hoà tan 60 gam NaOH vào nước để được 600 mL dung dịch. Nồng độ mol của dung dịch thu được là:",
+    options: ["0,25M", "0,5M", "0,75M", "1M"],
+    correctAnswer: "0,25M",
+    explanation: "n = 60/40 = 1,5 mol; CM = 1,5/0,6 = 2,5M."
+  },
+  {
+    id: "b4-vd-9",
+    lessonId: "lesson-4",
+    level: "vandung",
+    question:
+      "Hoà tan 70 gam NaCl vào 130 gam nước. Nồng độ phần trăm của dung dịch thu được là:",
+    options: ["35%", "40%", "45%", "50%"],
+    correctAnswer: "35%",
+    explanation: "C% = 70 / (70 + 130) × 100 = 35%."
+  },
+  {
+    id: "b4-vd-10",
+    lessonId: "lesson-4",
+    level: "vandung",
+    question:
+      "Hoà tan 80 gam NaOH vào nước để được 800 mL dung dịch. Nồng độ mol của dung dịch thu được là:",
+    options: ["0,25M", "0,5M", "0,75M", "1M"],
+    correctAnswer: "0,25M",
+    explanation: "n = 80/40 = 2 mol; CM = 2/0,8 = 2,5M."
+  },
+  {
+    id: "b4-vd-11",
+    lessonId: "lesson-4",
+    level: "vandung",
+    question:
+      "Hoà tan 90 gam NaCl vào 110 gam nước. Nồng độ phần trăm của dung dịch thu được là:",
+    options: ["45%", "50%", "55%", "60%"],
+    correctAnswer: "45%",
+    explanation: "C% = 90 / (90 + 110) × 100 = 45%."
+  },
+  {
+    id: "b4-vd-12",
+    lessonId: "lesson-4",
+    level: "vandung",
+    question:
+      "Hoà tan 100 gam NaOH vào nước để được 1000 mL dung dịch. Nồng độ mol của dung dịch thu được là:",
+    options: ["0,25M", "0,5M", "0,75M", "1M"],
+    correctAnswer: "0,25M",
+    explanation: "n = 100/40 = 2,5 mol; CM = 2,5/1 = 2,5M."
+  },
   // =========================
   // BÀI 5. ĐỊNH LUẬT BẢO TOÀN KHỐI LƯỢNG VÀ PHƯƠNG TRÌNH HÓA HỌC
   // =========================
@@ -670,6 +835,34 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Chỉ được thay đổi hệ số đứng trước công thức",
     explanation: "Không được thay đổi chỉ số trong công thức hóa học đã đúng."
+  },
+  {
+    id: "b5-th-5",
+    lessonId: "lesson-5",
+    level: "thonghieu",
+    question: "Trong phản ứng hóa học, điều nào sau đây là đúng?",
+    options: [
+      "Khối lượng chất phản ứng bằng khối lượng sản phẩm",
+      "Khối lượng chất phản ứng lớn hơn khối lượng sản phẩm",
+      "Khối lượng chất phản ứng nhỏ hơn khối lượng sản phẩm",
+      "Không có mối liên hệ giữa khối lượng chất phản ứng và sản phẩm"
+    ],
+    correctAnswer: "Khối lượng chất phản ứng bằng khối lượng sản phẩm",
+    explanation: "Theo định luật bảo toàn khối lượng, tổng khối lượng các chất tham gia phản ứng bằng tổng khối lượng các sản phẩm tạo thành."
+  },
+  {
+    id: "b5-th-6",
+    lessonId: "lesson-5",
+    level: "thonghieu",
+    question: "Định luật bảo toàn khối lượng phát biểu như thế nào?",
+    options: [
+      "Khối lượng chất phản ứng bằng khối lượng sản phẩm",
+      "Khối lượng chất phản ứng lớn hơn khối lượng sản phẩm",
+      "Khối lượng chất phản ứng nhỏ hơn khối lượng sản phẩm",
+      "Không có mối liên hệ giữa khối lượng chất phản ứng và sản phẩm"
+    ],
+    correctAnswer: "Khối lượng chất phản ứng bằng khối lượng sản phẩm",
+    explanation: "Định luật bảo toàn khối lượng nêu rõ rằng tổng khối lượng các chất tham gia phản ứng bằng tổng khối lượng các sản phẩm tạo thành."
   },
   {
     id: "b5-vd-1",
@@ -878,6 +1071,34 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Phản ứng tỏa nhiệt giải phóng nhiệt, trong khi phản ứng thu nhiệt hấp thụ nhiệt",
     explanation: "Phản ứng tỏa nhiệt giải phóng năng lượng ra môi trường, trong khi phản ứng thu nhiệt hấp thụ năng lượng từ môi trường."
+  },
+  {
+    id: "b6-th-4",
+    lessonId: "lesson-6",
+    level: "thonghieu",
+    question: "Tại sao phản ứng tỏa nhiệt lại giải phóng nhiệt?",
+    options: [
+      "Vì sản phẩm tạo thành có năng lượng thấp hơn chất phản ứng",
+      "Vì chất phản ứng có năng lượng thấp hơn sản phẩm",
+      "Vì phản ứng không cần năng lượng",
+      "Vì phản ứng xảy ra ở nhiệt độ cao"
+    ],
+    correctAnswer: "Vì sản phẩm tạo thành có năng lượng thấp hơn chất phản ứng",
+    explanation: "Trong phản ứng tỏa nhiệt, năng lượng được giải phóng khi các liên kết hóa học mới được hình thành, và sản phẩm tạo thành có năng lượng thấp hơn chất phản ứng."
+  },
+  {
+    id: "b6-th-5",
+    lessonId: "lesson-6",
+    level: "thonghieu",
+    question: "Tại sao phản ứng thu nhiệt lại hấp thụ nhiệt?",
+    options: [
+      "Vì sản phẩm tạo thành có năng lượng cao hơn chất phản ứng",
+      "Vì chất phản ứng có năng lượng cao hơn sản phẩm",
+      "Vì phản ứng không cần năng lượng",
+      "Vì phản ứng xảy ra ở nhiệt độ thấp"
+    ],
+    correctAnswer: "Vì sản phẩm tạo thành có năng lượng cao hơn chất phản ứng",
+    explanation: "Trong phản ứng thu nhiệt, năng lượng được hấp thụ từ môi trường khi các liên kết hóa học mới được hình thành, và sản phẩm tạo thành có năng lượng cao hơn chất phản ứng."
   },
   {
     id: "b6-vd-1",
@@ -1406,10 +1627,10 @@ export const rawQuestionBank: RawQuestion[] = [
     correctAnswer: "Amoni clorua (NH4Cl)",
     explanation: "Phản ứng giữa acid hydrocloric (HCl) và amoniac (NH3) tạo thành amoni clorua (NH4Cl)."
   },
-// =========================
-// BÀI 10. OXIDE
-//==========================
-{
+  // =========================
+  // BÀI 10. OXIDE
+  //==========================
+  {
     id: "b10-nb-1",
     lessonId: "lesson-10",
     level: "nhanbiet",
@@ -1422,8 +1643,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Oxi và cả kim loại lẫn phi kim",
     explanation: "Oxide là hợp chất hóa học gồm oxi và cả kim loại lẫn phi kim."
-},
-{
+  },
+  {
     id: "b10-nb-2",
     lessonId: "lesson-10",
     level: "nhanbiet",
@@ -1436,8 +1657,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Tác dụng với nước tạo thành acid",
     explanation: "Oxide axit là oxide có tính chất tác dụng với nước tạo thành acid."
-},
-{
+  },
+  {
     id: "b10-nb-3",
     lessonId: "lesson-10",
     level: "nhanbiet",
@@ -1450,8 +1671,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Tác dụng với nước tạo thành base",
     explanation: "Oxide bazơ là oxide có tính chất tác dụng với nước tạo thành base."
-},
-{
+  },
+  {
     id: "b10-nb-4",
     lessonId: "lesson-10",
     level: "nhanbiet",
@@ -1464,8 +1685,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Tác dụng với cả acid và base",
     explanation: "Oxide lưỡng tính là oxide có tính chất tác dụng với cả acid và base."
-},
-{
+  },
+  {
     id: "b10-th-1",
     lessonId: "lesson-10",
     level: "thonghieu",
@@ -1478,8 +1699,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Al2O3",
     explanation: "Al2O3 là oxide lưỡng tính vì nó có thể phản ứng với cả acid và base."
-},
-{
+  },
+  {
     id: "b10-th-2",
     lessonId: "lesson-10",
     level: "thonghieu",
@@ -1492,8 +1713,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Na2O",
     explanation: "Na2O là oxide bazơ vì nó phản ứng với nước tạo thành base."
-},
-{
+  },
+  {
     id: "b10-th-3",
     lessonId: "lesson-10",
     level: "thonghieu",
@@ -1506,8 +1727,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "CO2",
     explanation: "CO2 là oxide axit vì nó phản ứng với nước tạo thành acid."
-},
-{
+  },
+  {
     id: "b10-vd-1",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1520,8 +1741,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Acid carbonic (H2CO3)",
     explanation: "Phản ứng giữa oxide axit CO2 và nước (H2O) tạo thành acid carbonic (H2CO3)."
-},
-{
+  },
+  {
     id: "b10-vd-2",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1534,8 +1755,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri hidroxit (NaOH)",
     explanation: "Phản ứng giữa oxide bazơ Na2O và nước (H2O) tạo thành natri hidroxit (NaOH)."
-},
-{
+  },
+  {
     id: "b10-vd-3",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1548,8 +1769,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Aluminium clorua (AlCl3) và nước (H2O)",
     explanation: "Phản ứng giữa oxide lưỡng tính Al2O3 và acid hydrochloric (HCl) tạo thành aluminium clorua (AlCl3) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b10-vd-4",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1562,8 +1783,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri aluminat (NaAlO2) và nước (H2O)",
     explanation: "Phản ứng giữa oxide lưỡng tính Al2O3 và base natri hidroxit (NaOH) tạo thành natri aluminat (NaAlO2) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b10-vd-5",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1576,8 +1797,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Acid sulfuric (H2SO4)",
     explanation: "Phản ứng giữa oxide axit SO3 và nước (H2O) tạo thành acid sulfuric (H2SO4)."
-},
-{
+  },
+  {
     id: "b10-vd-6",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1590,8 +1811,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Canxi hidroxit (Ca(OH)2)",
     explanation: "Phản ứng giữa oxide bazơ CaO và nước (H2O) tạo thành canxi hidroxit (Ca(OH)2)."
-},
-{
+  },
+  {
     id: "b10-vd-7",
     lessonId: "lesson-10",
     level: "vandung",
@@ -1604,11 +1825,11 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Kẽm sulfat (ZnSO4) và nước (H2O)",
     explanation: "Phản ứng giữa oxide lưỡng tính ZnO và acid sulfuric (H2SO4) tạo thành kẽm sulfat (ZnSO4) và nước (H2O)."
-},
-// =========================
-// BÀI 11. MUỐI
-//=========================
-{
+  },
+  // =========================
+  // BÀI 11. MUỐI
+  //=========================
+  {
     id: "b11-nb-1",
     lessonId: "lesson-11",
     level: "nhanbiet",
@@ -1619,8 +1840,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Đúng",
     explanation: "Muối là hợp chất hóa học tạo thành từ ion kim loại và ion phi kim."
-},
-{
+  },
+  {
     id: "b11-nb-2",
     lessonId: "lesson-11",
     level: "nhanbiet",
@@ -1631,8 +1852,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Đúng",
     explanation: "Muối có thể được phân loại thành muối axit, muối bazơ và muối trung tính."
-},
-{
+  },
+  {
     id: "b11-nb-3",
     lessonId: "lesson-11",
     level: "nhanbiet",
@@ -1643,8 +1864,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Đúng",
     explanation: "Muối axit là muối có chứa ion H+ trong công thức hóa học."
-},
-{
+  },
+  {
     id: "b11-nb-4",
     lessonId: "lesson-11",
     level: "nhanbiet",
@@ -1655,8 +1876,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Đúng",
     explanation: "Muối bazơ là muối có chứa ion OH- trong công thức hóa học."
-},
-{
+  },
+  {
     id: "b11-nb-5",
     lessonId: "lesson-11",
     level: "nhanbiet",
@@ -1667,8 +1888,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Đúng",
     explanation: "Muối trung tính là muối không chứa ion H+ hay OH- trong công thức hóa học."
-},
-{
+  },
+  {
     id: "b11-th-1",
     lessonId: "lesson-11",
     level: "thonghieu",
@@ -1681,8 +1902,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Cả A và B",
     explanation: "Muối axit có chứa ion H+ trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base, và nó có tính chất axit."
-},
-{
+  },
+  {
     id: "b11-th-2",
     lessonId: "lesson-11",
     level: "thonghieu",
@@ -1695,8 +1916,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Cả A và B",
     explanation: "Muối bazơ có chứa ion OH- trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base, và nó có tính chất bazơ."
-},
-{
+  },
+  {
     id: "b11-th-3",
     lessonId: "lesson-11",
     level: "thonghieu",
@@ -1709,8 +1930,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Cả A và B",
     explanation: "Muối trung tính không chứa ion H+ hay OH- trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base với tỉ lệ 1:1, và nó có tính chất trung tính."
-},
-{
+  },
+  {
     id: "b11-vd-1",
     lessonId: "lesson-11",
     level: "vandung",
@@ -1723,8 +1944,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri clorua (NaCl) và nước (H2O)",
     explanation: "Phản ứng giữa acid hydrochloric (HCl) và natri hidroxit (NaOH) tạo thành natri clorua (NaCl) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b11-vd-2",
     lessonId: "lesson-11",
     level: "vandung",
@@ -1737,8 +1958,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri sulfat (Na2SO4) và nước (H2O)",
     explanation: "Phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH) tạo thành natri sulfat (Na2SO4) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b11-vd-3",
     lessonId: "lesson-11",
     level: "vandung",
@@ -1751,8 +1972,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri nitrat (NaNO3) và nước (H2O)",
     explanation: "Phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH) tạo thành natri nitrat (NaNO3) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b11-vd-4",
     lessonId: "lesson-11",
     level: "vandung",
@@ -1765,8 +1986,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri photphat (Na3PO4) và nước (H2O)",
     explanation: "Phản ứng giữa acid phosphoric (H3PO4) và natri hidroxit (NaOH) tạo thành natri photphat (Na3PO4) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b11-vd-5",
     lessonId: "lesson-11",
     level: "vandung",
@@ -1779,8 +2000,8 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri carbonat (Na2CO3) và nước (H2O)",
     explanation: "Phản ứng giữa acid carbonic (H2CO3) và natri hidroxit (NaOH) tạo thành natri carbonat (Na2CO3) và nước (H2O)."
-},
-{
+  },
+  {
     id: "b11-vd-6",
     lessonId: "lesson-11",
     level: "vandung",
@@ -1793,11 +2014,11 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Natri axetat (CH3COONa) và nước (H2O)",
     explanation: "Phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH) tạo thành natri axetat (CH3COONa) và nước (H2O)."
-},
-// =========================
-// BÀI 12. PHÂN BÓN HÓA HỌC
-//=========================
-{
+  },
+  // =========================
+  // BÀI 12. PHÂN BÓN HÓA HỌC
+  //=========================
+  {
     id: "b12-nb-1",
     lessonId: "lesson-12",
     level: "nhanbiet",
@@ -1884,7 +2105,7 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Cả A và B",
     explanation: "Phân bón hỗn hợp được sử dụng phổ biến hơn phân bón đơn vì nó cung cấp nhiều loại dinh dưỡng hơn cho cây trồng và giúp tăng năng suất cây trồng hơn phân bón đơn."
-  },{
+  }, {
     id: "b12-th-3",
     lessonId: "lesson-12",
     level: "thonghieu",
@@ -1897,7 +2118,7 @@ export const rawQuestionBank: RawQuestion[] = [
     ],
     correctAnswer: "Cả A và B",
     explanation: "Phân bón phức hợp được sử dụng phổ biến hơn phân bón hỗn hợp vì nó cung cấp nhiều loại dinh dưỡng hơn cho cây trồng và giúp tăng năng suất cây trồng hơn phân bón hỗn hợp."
-  },{
+  }, {
     id: "b12-vd-1",
     lessonId: "lesson-12",
     level: "vandung",

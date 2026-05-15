@@ -14,7 +14,7 @@ function mapDifficulty(level: QuestionLevel): "easy" | "medium" | "hard" {
 }
 
 function generateTags(question: RawQuestion): string[] {
-  const text = `${question.question} ${question.explanation}`.toLowerCase();
+  const text = `$<ChemText>{question.question}</ChemText> $<ChemText>{question.explanation}</ChemText>`.toLowerCase();
   const tags: string[] = [];
 
   if (text.includes("biến đổi vật lí")) tags.push("bien-doi-vat-li");

@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={beVietnamPro.variable}>
+    <html lang="vi" className={beVietnamPro.variable} suppressHydrationWarning>
       <body className="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
         {children}
       </body>

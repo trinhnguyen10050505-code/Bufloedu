@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { buildChemistryPromptGuard } from "@/lib/chemistry-language";
 
 export const runtime = "nodejs";
 
@@ -135,6 +136,7 @@ export async function POST(request: NextRequest) {
       lessonTitle ? `Bài học hiện tại: ${lessonTitle}.` : "",
       currentLevelLabel ? `Mức hiện tại của em: ${currentLevelLabel}.` : "",
       weakTopics.length > 0 ? `Phần cần chú ý: ${weakTopics.join(", ")}.` : "",
+      buildChemistryPromptGuard(),
     ]
       .filter(Boolean)
       .join(" ");

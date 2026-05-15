@@ -12,6 +12,7 @@ import {
   updateStudentAfterAssessment,
 } from "@/lib/practice-progress";
 import { PracticeQuestion } from "@/types/practice-final";
+import ChemText from "@/lib/ChemText";
 
 type AnswerMap = Record<string, string>;
 
@@ -327,7 +328,7 @@ export default function QuickTestPage() {
                   </p>
 
                   <h2 className="mt-2 text-lg font-bold leading-7 text-slate-800">
-                    Câu {index + 1}. {question.question}
+                    Câu {index + 1}. <ChemText>{question.question}</ChemText>
                   </h2>
                 </div>
 
@@ -372,7 +373,7 @@ export default function QuickTestPage() {
                       }`}
                     >
                       <span className="font-semibold">{option.id}.</span>{" "}
-                      {option.text}
+                      <ChemText>{option.text}</ChemText>
                     </button>
                   );
                 })}

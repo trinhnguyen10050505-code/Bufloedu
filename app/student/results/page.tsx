@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/hook/useCurrentUser";
+import ChemText from "@/lib/ChemText";
 import { getBuLevelMeta } from "@/lib/Bu-level";
 import {
   getStudentLearningHistorySummary,

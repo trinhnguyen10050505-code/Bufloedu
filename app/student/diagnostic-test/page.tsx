@@ -22,6 +22,7 @@ import {
   saveLearningActivity,
   updateStudentAfterAssessment,
 } from "@/lib/practice-progress";
+import ChemText from "@/lib/ChemText";
 
 type AnswerMap = Record<string, string>;
 
@@ -213,7 +214,7 @@ export default function DiagnosticTestPage() {
                   </p>
 
                   <h2 className="mt-2 text-xl font-black leading-8 text-slate-900">
-                    Câu {index + 1}. {question.question}
+                    Câu {index + 1}. <ChemText>{question.question}</ChemText>
                   </h2>
                 </div>
 
@@ -261,7 +262,7 @@ export default function DiagnosticTestPage() {
                       }`}
                     >
                       <span className="font-black">{option.id}.</span>{" "}
-                      {option.text}
+                      <ChemText>{option.text}</ChemText>
                     </button>
                   );
                 })}
@@ -279,7 +280,7 @@ export default function DiagnosticTestPage() {
                       : "Bu thấy em cần xem lại kiến thức ở câu này."}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {question.explanation}
+                    <ChemText>{question.explanation}</ChemText>
                   </p>
                 </div>
               ) : null}
