@@ -23,6 +23,8 @@ export default function BuChatWidget({
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
+  const [apiError, setApiError] = useState<string | null>(null);
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
@@ -34,7 +36,7 @@ export default function BuChatWidget({
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, sending, open]);
+  }, [messages, sending, open, apiError]);
 
   async function sendMessage() {
     const text = input.trim();
@@ -42,13 +44,15 @@ export default function BuChatWidget({
 
     setInput("");
     setSending(true);
+    setApiError(null);
     setMessages((prev) => [...prev, { role: "user", content: text }]);
 
     try {
       const response = await fetch("/api/bu-chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-store",
+        headers: { 
+          "Content-Type": "application/json" 
+        },
         body: JSON.stringify({
           message: text,
           lessonTitle,
@@ -59,25 +63,19 @@ export default function BuChatWidget({
 
       const data = await response.json();
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            data.reply ||
-            data.error ||
-            "Bu chưa phản hồi được. Em thử hỏi lại ngắn hơn nhé.",
-        },
-      ]);
+      if (!response.ok || data.error) {
+        setApiError(data.error || "Lỗi máy chủ. Em thử lại sau nhé.");
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: data.reply || "Bu chưa phản hồi được. Em thử lại nhé.",
+          },
+        ]);
+      }
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "Bu đang lỗi kết nối tạm thời. Em thử lại sau một chút nhé.",
-        },
-      ]);
+      setApiError("Bu đang lỗi kết nối tạm thời. Em thử lại sau một chút nhé.");
     } finally {
       setSending(false);
     }
@@ -180,12 +178,20 @@ export default function BuChatWidget({
             <Image
               src="/bu-macost.png"
               alt="Bu"
-              width={28}
-              height={28}
+              width={38}
+              height={38}
               className="mr-2 mt-1 h-7 w-7 object-contain"
             />
             <div className="rounded-3xl rounded-bl-md bg-white px-4 py-3 text-sm text-slate-500 shadow-sm">
               Bu đang suy nghĩ...
+            </div>
+          </div>
+        ) : null}
+        
+        {apiError ? (
+          <div className="flex justify-center">
+            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 shadow-sm">
+              <span className="font-semibold">Đã xảy ra lỗi:</span> {apiError}
             </div>
           </div>
         ) : null}

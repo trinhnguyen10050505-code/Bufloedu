@@ -1832,13 +1832,13 @@ export const rawQuestionBank: RawQuestion[] = [
     level: "vandung",
     question: "Trong phản ứng giữa oxide lưỡng tính ZnO và sulfuric acid (H2SO4), sản phẩm tạo thành là:",
     options: [
-      "Kẽm sulfate (ZnSO4) và nước (H2O)",
-      "Kẽm sulfate (ZnSO4) và oxygen (O2)",
+      "Zinc sulfate (ZnSO4) và nước (H2O)",
+      "Zinc sulfate (ZnSO4) và oxygen (O2)",
       "ZnO và H2SO4",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Kẽm sulfate (ZnSO4) và nước (H2O)",
-    explanation: "Phản ứng giữa oxide lưỡng tính ZnO và sulfuric acid (H2SO4) tạo thành kẽm sulfate (ZnSO4) và nước (H2O)."
+    correctAnswer: "Zinc sulfate (ZnSO4) và nước (H2O)",
+    explanation: "Phản ứng giữa oxide lưỡng tính ZnO và sulfuric acid (H2SO4) tạo thành Zinc sulfate (ZnSO4) và nước (H2O)."
   },
   // =========================
   // BÀI 11. MUỐI
