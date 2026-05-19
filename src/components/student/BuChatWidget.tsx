@@ -58,6 +58,7 @@ export default function BuChatWidget({
           lessonTitle,
           currentLevelLabel,
           weakTopics,
+          history: messages.slice(-6),
         }),
       });
 

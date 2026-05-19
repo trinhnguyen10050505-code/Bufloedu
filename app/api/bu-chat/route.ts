@@ -1,27 +1,78 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GEMINI_MODELS = [
+  "gemini-3-flash-preview",
+  "gemini-2.5-flash",
   "gemini-2.0-flash",
 ];
 
-function buildPrompt(message: string) {
+function buildPrompt(params: {
+  message: string;
+  lessonTitle?: string;
+  currentLevelLabel?: string;
+  weakTopics?: string[];
+}) 
+{
+  const {
+    message,
+    lessonTitle,
+    currentLevelLabel,
+    weakTopics = [],
+  } = params;
+
   return `
-Bạn là Bu, trợ lý học tập môn Khoa học tự nhiên cho học sinh THCS.
+Bạn là Bu — trợ lý học tập môn Khoa học tự nhiên cho học sinh THCS.
 
-Nguyên tắc trả lời:
-- Gọi mình là "Bu", gọi học sinh là "em".
-- Trả lời ngắn gọn, dễ hiểu, thân thiện.
-- Không làm bài thay hoàn toàn nếu em hỏi bài tập.
-- Ưu tiên gợi ý từng bước, nhắc khái niệm, nhắc công thức.
-- Với Hóa học, viết công thức đúng như H2O, CO2, H2CO3, NaOH, HCl.
-- Nếu câu hỏi quá rộng, hãy hỏi lại em đang vướng phần nào.
+VAI TRÒ:
+- hỗ trợ học sinh hiểu bài
+- giải thích dễ hiểu
+- gần gũi như giáo viên hỗ trợ học sinh
+- KHÔNG được trả lời quá ngắn
+- KHÔNG được từ chối các câu hỏi kiến thức cơ bản
 
-Câu hỏi của học sinh:
+THÔNG TIN HỌC SINH:
+- Bài hiện tại: ${lessonTitle || "chưa xác định"}
+- Mức hiện tại: ${currentLevelLabel || "chưa xác định"}
+- Phần còn yếu: ${
+    weakTopics.length > 0
+      ? weakTopics.join(", ")
+      : "chưa có dữ liệu"
+  }
+
+NGUYÊN TẮC:
+1. Gọi mình là "Bu", gọi học sinh là "em".
+2. Nếu học sinh hỏi khái niệm:
+   - giải thích khái niệm
+   - cho ví dụ
+   - cách nhớ ngắn
+   - một lưu ý dễ nhầm
+3. Nếu học sinh hỏi tên chất:
+   - tên tiếng Việt
+   - công thức
+   - tính chất cơ bản
+4. Với Hóa học:
+   - viết đúng công thức: H2O, CO2, HCl, H2SO4...
+5. Không trả lời kiểu:
+   "Bu chưa hiểu câu hỏi"
+   nếu học sinh đang hỏi kiến thức phổ thông bình thường.
+6. Trả lời 4-8 câu.
+7. Giọng điệu thân thiện, dễ hiểu.
+
+CÂU HỎI HỌC SINH:
 ${message}
 `.trim();
 }
 
-async function callGemini(model: string, apiKey: string, message: string) {
+async function callGemini(
+  model: string,
+  apiKey: string,
+  params: {
+    message: string;
+    lessonTitle?: string;
+    currentLevelLabel?: string;
+    weakTopics?: string[];
+  }
+) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const response = await fetch(url, {
@@ -33,25 +84,26 @@ async function callGemini(model: string, apiKey: string, message: string) {
       contents: [
         {
           role: "user",
-          parts: [{ text: buildPrompt(message) }],
+          parts: [{ text: buildPrompt(params) }],
         },
       ],
       generationConfig: {
-        temperature: 0.6,
-        maxOutputTokens: 420,
+        temperature: 0.45,
+        maxOutputTokens: 900,
       },
     }),
   });
 
   const data = await response.json();
-  console.log("Gemini status:", response.status);
-  console.log("Gemini data:", JSON.stringify(data, null, 2));
+
   if (!response.ok) {
+    console.log("Gemini failed model:", model);
+    console.log("Gemini status:", response.status);
+    console.log("Gemini data:", JSON.stringify(data, null, 2));
+
     return {
       ok: false,
-      error:
-        data?.error?.message ||
-        `Không gọi được model ${model}.`,
+      error: data?.error?.message || `Không gọi được model ${model}.`,
     };
   }
 
@@ -90,9 +142,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const errors: string[] = [];
+    const tried = new Set<string>();
 
     for (const model of GEMINI_MODELS) {
+      if (!model || tried.has(model)) continue;
+      tried.add(model);
+
       const result = await callGemini(model, apiKey, message);
 
       if (result.ok) {
@@ -101,15 +156,12 @@ export async function POST(request: NextRequest) {
           model,
         });
       }
-
-      errors.push(`${model}: ${result.error}`);
     }
 
     return NextResponse.json(
       {
         error:
-          "Bu chưa về nhà, em đợi Bu nhé!",
-        details: errors,
+          "Bu chưa kết nối được Gemini. Em kiểm tra lại GEMINI_API_KEY hoặc model trong .env.local.",
       },
       { status: 502 }
     );

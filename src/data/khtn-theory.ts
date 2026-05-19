@@ -57,7 +57,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Mol, số Avogadro, khối lượng mol, thể tích mol chất khí, tỉ khối khí và khối lượng mol trung bình.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-3/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai3-Mol-Tikhoichatkhi-Tiet1/",
     localEntry: "/elearning/lesson-3/index.html",
     theory: [
       {
@@ -101,7 +101,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Dung dịch, chất tan, dung môi, độ tan, nồng độ phần trăm, nồng độ mol và pha chế dung dịch.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-4/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai4-Dungdich-Nongdo-Tiet1/",
     localEntry: "/elearning/lesson-4/index.html",
     theory: [
       {
@@ -141,7 +141,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Định luật bảo toàn khối lượng, lập phương trình hóa học và ý nghĩa của phương trình hóa học.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-5/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai5-Dinh-luat-bao-toan-khoi-luong/",
     localEntry: "/elearning/lesson-5/index.html",
     theory: [
       {
@@ -175,7 +175,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Tính số mol, khối lượng, thể tích theo phương trình hóa học và hiệu suất phản ứng.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-6/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai6-Tinh-theo-phuong-trinh-hoa-hoc/",
     localEntry: "/elearning/lesson-6/index.html",
     theory: [
       {
@@ -334,7 +334,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Khái niệm muối, tên gọi, tính tan của muối và một số phản ứng hóa học của muối.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-11/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai11-Muoi/",
     localEntry: "/elearning/lesson-11/index.html",
     theory: [
       {
@@ -356,7 +356,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Vai trò, phân loại và sử dụng phân bón hóa học hợp lí trong đời sống.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-12/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-12-Phan-bon-hoa-hoc-tiet1/",
     localEntry: "/elearning/lesson-12/index.html",
     theory: [
       {
