@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GEMINI_MODELS = [
+  "gemini-3.1-pro-preview",
   "gemini-3-flash-preview",
-  "gemini-2.5-flash",
-  "gemini-2.0-flash",
+  "gemini-3.1-flash-lite",
 ];
 
 function buildPrompt(params: {
@@ -148,7 +148,12 @@ export async function POST(request: NextRequest) {
       if (!model || tried.has(model)) continue;
       tried.add(model);
 
-      const result = await callGemini(model, apiKey, message);
+      const result = await callGemini(model, apiKey, {
+        message,
+        lessonTitle: body?.lessonTitle,
+        currentLevelLabel: body?.currentLevelLabel,
+        weakTopics: body?.weakTopics,
+      });
 
       if (result.ok) {
         return NextResponse.json({
