@@ -145,7 +145,7 @@ export default function DiagnosticTestPage() {
                 20 câu
               </span>
               <span className="rounded-full bg-white/15 px-4 py-2 text-sm font-bold">
-                Nhận biết → Vận dụng cao
+                Nhận biết → Vận dụng
               </span>
               <span className="rounded-full bg-amber-100 px-4 py-2 text-sm font-bold text-amber-700">
                 Chỉ dùng để chẩn đoán nền

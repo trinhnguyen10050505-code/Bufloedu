@@ -121,7 +121,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = process.env.BU_CHAT_MODEL || "gpt-4o-mini";
+    let model = process.env.BU_CHAT_MODEL || "gpt-4o-mini";
+    let apiUrl = "https://api.openai.com/v1/chat/completions";
+
+    // Hỗ trợ tự động chuyển sang Google Gemini nếu người dùng nhập Google API Key (bắt đầu bằng AIza)
+    if (apiKey.startsWith("AIza")) {
+      apiUrl = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+      if (model === "gpt-4o-mini") {
+        model = "gemini-1.5-flash"; // Dùng model tương đương của Gemini
+      }
+    }
 
     const systemPrompt = [
       "Bạn là Bu, linh vật hỗ trợ học tập trên website Khoa học tự nhiên.",
@@ -144,7 +153,7 @@ export async function POST(request: NextRequest) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20_000);
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch(apiUrl, {
       method: "POST",
       signal: controller.signal,
       headers: {
@@ -174,6 +183,36 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       console.error("OpenAI API error:", rawText);
+      
+      if (response.status === 401) {
+        return NextResponse.json(
+          {
+            reply:
+              "Bu chưa được cấu hình API Key chính xác (lỗi 401). Em nhờ người quản trị cập nhật lại khóa chuẩn trong file .env.local nhé.",
+          },
+          { status: 401 }
+        );
+      }
+      
+      if (response.status === 429) {
+        return NextResponse.json(
+          {
+            reply:
+              "Tài khoản AI hiện tại đã hết hạn mức sử dụng (hết tiền/quota). Em nhờ người quản trị nạp thêm hoặc đổi API Key khác nhé.",
+          },
+          { status: 429 }
+        );
+      }
+      
+      if (response.status === 404 && apiKey.startsWith("AIza")) {
+        return NextResponse.json(
+          {
+            reply:
+              "Khóa Google API bạn nhập vào không phải là khóa của Gemini (hoặc chưa bật quyền AI). Hãy vào Google AI Studio (aistudio.google.com) để tạo khóa chuẩn nhé!",
+          },
+          { status: 404 }
+        );
+      }
 
       return NextResponse.json(
         {

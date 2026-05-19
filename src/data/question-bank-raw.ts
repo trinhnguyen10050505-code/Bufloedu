@@ -899,7 +899,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 2 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng nước tạo thành là:",
+      "Khi 2 mol khí hidro (H2) phản ứng với 1 mol khí oxygen (O2) để tạo thành nước (H2O), khối lượng nước tạo thành là:",
     options: ["18 gam", "36 gam", "9 gam", "27 gam"],
     correctAnswer: "18 gam",
     explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
@@ -909,7 +909,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxy (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxygen (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["44 gam", "36 gam", "80 gam", "58 gam"],
     correctAnswer: "80 gam",
     explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O. Khối lượng mol của CO2 là 44 g/mol và H2O là 18 g/mol."
@@ -919,7 +919,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxygen (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["18 gam", "36 gam", "9 gam", "27 gam"],
     correctAnswer: "18 gam",
     explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
@@ -929,7 +929,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxy (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxygen (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["44 gam", "36 gam", "80 gam", "58 gam"],
     correctAnswer: "80 gam",
     explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O. Khối lượng mol của CO2 là 44 g/mol và H2O là 18 g/mol."
@@ -939,7 +939,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxygen (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["18 gam", "36 gam", "9 gam", "27 gam"],
     correctAnswer: "18 gam",
     explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
@@ -949,7 +949,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxy (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxygen (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["44 gam", "36 gam", "80 gam", "58 gam"],
     correctAnswer: "80 gam",
     explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O. Khối lượng mol của CO2 là 44 g/mol và H2O là 18 g/mol."
@@ -959,7 +959,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxygen (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["18 gam", "36 gam", "9 gam", "27 gam"],
     correctAnswer: "18 gam",
     explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
@@ -969,7 +969,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxy (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí metan (CH4) phản ứng với 2 mol khí oxygen (O2) để tạo thành carbon dioxide (CO2) và nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["44 gam", "36 gam", "80 gam", "58 gam"],
     correctAnswer: "80 gam",
     explanation: "Phương trình phản ứng: CH4 + 2O2 → CO2 + 2H2O. Khối lượng mol của CO2 là 44 g/mol và H2O là 18 g/mol."
@@ -979,7 +979,7 @@ export const rawQuestionBank: RawQuestion[] = [
     lessonId: "lesson-5",
     level: "vandung",
     question:
-      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxy (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
+      "Khi 1 mol khí hidro (H2) phản ứng với 1 mol khí oxygen (O2) để tạo thành nước (H2O), khối lượng sản phẩm tạo thành là:",
     options: ["18 gam", "36 gam", "9 gam", "27 gam"],
     correctAnswer: "18 gam",
     explanation: "Phương trình phản ứng: 2H2 + O2 → 2H2O. Khối lượng mol của H2O là 18 g/mol."
@@ -1174,6 +1174,20 @@ export const rawQuestionBank: RawQuestion[] = [
     explanation: "Chất xúc tác có thể tăng tốc độ phản ứng và giảm năng lượng hoạt hóa."
   },
   {
+    id: "b7-nb-4",
+    lessonId: "lesson-7",
+    level: "nhanbiet",
+    question: "Tốc độ phản ứng hóa học có thể được tăng lên bằng cách nào sau đây?",
+    options: [
+      "Tăng nhiệt độ",
+      "Tăng áp suất",
+      "Tăng nồng độ chất phản ứng",
+      "Tất cả các cách trên"
+    ],
+    correctAnswer: "Tất cả các cách trên",
+    explanation: "Tốc độ phản ứng có thể được tăng lên bằng cách tăng nhiệt độ, áp suất và nồng độ chất phản ứng."
+  },
+  {
     id: "b7-th-1",
     lessonId: "lesson-7",
     level: "thonghieu",
@@ -1320,57 +1334,57 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b8-vd-1",
     lessonId: "lesson-8",
     level: "vandung",
-    question: "Trong phản ứng giữa acid clohidric (HCl) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid clohidric (HCl) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri clorua (NaCl) và nước (H2O)",
-      "Natri clorua (NaCl) và oxi (O2)",
-      "Natri hidroxit (NaOH) và clo (Cl2)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium cloride (NaCl) và nước (H2O)",
+      "Sodium cloride (NaCl) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và clorine (Cl2)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri clorua (NaCl) và nước (H2O)",
-    explanation: "Phản ứng giữa acid clohidric (HCl) và natri hidroxit (NaOH) tạo thành natri clorua (NaCl) và nước (H2O)."
+    correctAnswer: "Sodium cloride (NaCl) và nước (H2O)",
+    explanation: "Phản ứng giữa acid clohidric (HCl) và Sodium hydroxide (NaOH) tạo thành Sodium cloride (NaCl) và nước (H2O)."
   },
   {
     id: "b8-vd-2",
     lessonId: "lesson-8",
     level: "vandung",
-    question: "Trong phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri sulfat (Na2SO4) và nước (H2O)",
-      "Natri sulfat (Na2SO4) và oxi (O2)",
-      "Natri hidroxit (NaOH) và sulfur (S)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium sulfate (Na2SO4) và nước (H2O)",
+      "Sodium sulfate (Na2SO4) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và sulfur (S)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri sulfat (Na2SO4) và nước (H2O)",
-    explanation: "Phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH) tạo thành natri sulfat (Na2SO4) và nước (H2O)."
+    correctAnswer: "Sodium sulfate (Na2SO4) và nước (H2O)",
+    explanation: "Phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH) tạo thành Sodium sulfate (Na2SO4) và nước (H2O)."
   },
   {
     id: "b8-vd-3",
     lessonId: "lesson-8",
     level: "vandung",
-    question: "Trong phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri nitrat (NaNO3) và nước (H2O)",
-      "Natri nitrat (NaNO3) và oxi (O2)",
-      "Natri hidroxit (NaOH) và nitơ (N2)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium sulfate (Na2SO4) và nước (H2O)",
+      "Sodium sulfate (Na2SO4) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và sulfur (S)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri nitrat (NaNO3) và nước (H2O)",
-    explanation: "Phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH) tạo thành natri nitrat (NaNO3) và nước (H2O)."
+    correctAnswer: "Sodium sulfate (Na2SO4) và nước (H2O)",
+    explanation: "Phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH) tạo thành Sodium sulfate (Na2SO4) và nước (H2O)."
   },
   {
     id: "b8-vd-4",
     lessonId: "lesson-8",
     level: "vandung",
-    question: "Trong phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid acetic (CH3COOH) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri axetat (CH3COONa) và nước (H2O)",
-      "Natri axetat (CH3COONa) và oxi (O2)",
-      "Natri hidroxit (NaOH) và axit (CH3COOH)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium acetate (CH3COONa) và nước (H2O)",
+      "Sodium acetate (CH3COONa) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và acetic acid (CH3COOH)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri axetat (CH3COONa) và nước (H2O)",
-    explanation: "Phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH) tạo thành natri axetat (CH3COONa) và nước (H2O)."
+    correctAnswer: "Sodium acetate (CH3COONa) và nước (H2O)",
+    explanation: "Phản ứng giữa acid acetic (CH3COOH) và Sodium hydroxide (NaOH) tạo thành Sodium acetate (CH3COONa) và nước (H2O)."
   },
   // =========================
   // BÀI 9. BASE. THANG PH
@@ -1423,13 +1437,13 @@ export const rawQuestionBank: RawQuestion[] = [
     level: "nhanbiet",
     question: "Thang pH được sử dụng để đo:",
     options: [
-      "Độ axit hoặc bazơ của một dung dịch",
+      "Độ acid hoặc base của một dung dịch",
       "Nồng độ của các ion H+ trong dung dịch",
       "Cả A và B",
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Cả A và B",
-    explanation: "Thang pH được sử dụng để đo độ axit hoặc bazơ của một dung dịch và nồng độ của các ion H+ trong dung dịch."
+    explanation: "Thang pH được sử dụng để đo độ acid hoặc base của một dung dịch và nồng độ của các ion H+ trong dung dịch."
   },
   {
     id: "b9-nb-5",
@@ -1437,13 +1451,13 @@ export const rawQuestionBank: RawQuestion[] = [
     level: "nhanbiet",
     question: "Dung dịch có pH nhỏ hơn 7 được gọi là:",
     options: [
-      "Dung dịch axit",
-      "Dung dịch bazơ",
+      "Dung dịch acid",
+      "Dung dịch base",
       "Dung dịch trung tính",
       "Không có định nghĩa chính xác"
     ],
-    correctAnswer: "Dung dịch axit",
-    explanation: "Dung dịch có pH nhỏ hơn 7 được gọi là dung dịch axit."
+    correctAnswer: "Dung dịch acid",
+    explanation: "Dung dịch có pH nhỏ hơn 7 được gọi là dung dịch acid."
   },
   {
     id: "b9-nb-6",
@@ -1451,8 +1465,8 @@ export const rawQuestionBank: RawQuestion[] = [
     level: "nhanbiet",
     question: "Dung dịch có pH lớn hơn 7 được gọi là:",
     options: [
-      "Dung dịch axit",
-      "Dung dịch bazơ",
+      "Dung dịch acid",
+      "Dung dịch base",
       "Dung dịch trung tính",
       "Không có định nghĩa chính xác"
     ],
@@ -1505,127 +1519,127 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b9-th-4",
     lessonId: "lesson-9",
     level: "thonghieu",
-    question: "Tại sao thang pH được sử dụng để đo độ axit hoặc bazơ của một dung dịch?",
+    question: "Tại sao thang pH được sử dụng để đo độ acid hoặc base của một dung dịch?",
     options: [
-      "Vì thang pH cung cấp một cách đơn giản để xác định tính axit hoặc bazơ của dung dịch",
+      "Vì thang pH cung cấp một cách đơn giản để xác định tính acid hoặc base của dung dịch",
       "Vì thang pH đo nồng độ của các ion H+ trong dung dịch",
       "Cả A và B",
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Cả A và B",
-    explanation: "Thang pH cung cấp một cách đơn giản để xác định tính axit hoặc bazơ của dung dịch và đo nồng độ của các ion H+ trong dung dịch."
+    explanation: "Thang pH cung cấp một cách đơn giản để xác định tính acid hoặc base của dung dịch và đo nồng độ của các ion H+ trong dung dịch."
   },
   {
     id: "b9-th-5",
     lessonId: "lesson-9",
     level: "thonghieu",
-    question: "Tại sao dung dịch có pH nhỏ hơn 7 được gọi là dung dịch axit?",
+    question: "Tại sao dung dịch có pH nhỏ hơn 7 được gọi là dung dịch acid?",
     options: [
-      "Vì dung dịch axit có nồng độ ion H+ cao hơn",
-      "Vì dung dịch axit có nồng độ ion OH- thấp hơn",
+      "Vì dung dịch acid có nồng độ ion H+ cao hơn",
+      "Vì dung dịch acid có nồng độ ion OH- thấp hơn",
       "Cả A và B",
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Cả A và B",
-    explanation: "Dung dịch có pH nhỏ hơn 7 được gọi là dung dịch axit vì nó có nồng độ ion H+ cao hơn và nồng độ ion OH- thấp hơn."
+    explanation: "Dung dịch có pH nhỏ hơn 7 được gọi là dung dịch acid vì nó có nồng độ ion H+ cao hơn và nồng độ ion OH- thấp hơn."
   },
   {
     id: "b9-vd-1",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid clohidric (HCl) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid clohidric (HCl) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri clorua (NaCl) và nước (H2O)",
-      "Natri clorua (NaCl) và oxi (O2)",
-      "Natri hidroxit (NaOH) và clo (Cl2)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium cloride (NaCl) và nước (H2O)",
+      "Sodium cloride (NaCl) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và clo (Cl2)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri clorua (NaCl) và nước (H2O)",
-    explanation: "Phản ứng giữa acid clohidric (HCl) và natri hidroxit (NaOH) tạo thành natri clorua (NaCl) và nước (H2O)."
+    correctAnswer: "Sodium chloride (NaCl) và nước (H2O)",
+    explanation: "Phản ứng giữa Hydrochloric acid (HCl) và Sodium hydroxide (NaOH) tạo thành Sodium chloride (NaCl) và nước (H2O)."
   },
   {
     id: "b9-vd-2",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri sulfat (Na2SO4) và nước (H2O)",
-      "Natri sulfat (Na2SO4) và oxi (O2)",
-      "Natri hidroxit (NaOH) và sulfur (S)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium sulfate (Na2SO4) và nước (H2O)",
+      "Sodium sulfate (Na2SO4) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và sulfur (S)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri sulfat (Na2SO4) và nước (H2O)",
-    explanation: "Phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH) tạo thành natri sulfat (Na2SO4) và nước (H2O)."
+    correctAnswer: "Sodium sulfate (Na2SO4) và nước (H2O)",
+    explanation: "Phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH) tạo thành Sodium sulfate (Na2SO4) và nước (H2O)."
   },
   {
     id: "b9-vd-3",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid nitric (HNO3) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri nitrat (NaNO3) và nước (H2O)",
-      "Natri nitrat (NaNO3) và oxi (O2)",
-      "Natri hidroxit (NaOH) và nitơ (N2)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium nitrat (NaNO3) và nước (H2O)",
+      "Sodium nitrat (NaNO3) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và nitrogen (N2)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri nitrat (NaNO3) và nước (H2O)",
-    explanation: "Phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH) tạo thành natri nitrat (NaNO3) và nước (H2O)."
+    correctAnswer: "Sodium nitrat (NaNO3) và nước (H2O)",
+    explanation: "Phản ứng giữa acid nitric (HNO3) và Sodium hydroxide (NaOH) tạo thành Sodium nitrat (NaNO3) và nước (H2O)."
   },
   {
     id: "b9-vd-4",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid phosphoric (H3PO4) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid phosphoric (H3PO4) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri photphat (Na3PO4) và nước (H2O)",
-      "Natri photphat (Na3PO4) và oxi (O2)",
-      "Natri hidroxit (NaOH) và phospho (P)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium phosphate (Na3PO4) và nước (H2O)",
+      "Sodium phosphate (Na3PO4) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và phosphorus (P)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri photphat (Na3PO4) và nước (H2O)",
-    explanation: "Phản ứng giữa acid phosphoric (H3PO4) và natri hidroxit (NaOH) tạo thành natri photphat (Na3PO4) và nước (H2O)."
+    correctAnswer: "Sodium phosphate (Na3PO4) và nước (H2O)",
+    explanation: "Phản ứng giữa phosphoric acid (H3PO4) và Sodium hydroxide (NaOH) tạo thành Sodium phosphate (Na3PO4) và nước (H2O)."
   },
   {
     id: "b9-vd-5",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid acetic (CH3COOH) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri axetat (CH3COONa) và nước (H2O)",
-      "Natri axetat (CH3COONa) và oxi (O2)",
-      "Natri hidroxit (NaOH) và axit (CH3COOH)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium acetate (CH3COONa) và nước (H2O)",
+      "Sodium acetate (CH3COONa) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và acid (CH3COOH)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri axetat (CH3COONa) và nước (H2O)",
-    explanation: "Phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH) tạo thành natri axetat (CH3COONa) và nước (H2O)."
+    correctAnswer: "Sodium acetate (CH3COONa) và nước (H2O)",
+    explanation: "Phản ứng giữa acid acetic (CH3COOH) và Sodium hydroxide (NaOH) tạo thành Sodium acetate (CH3COONa) và nước (H2O)."
   },
   {
     id: "b9-vd-6",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid hydrofluoric (HF) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid hydrofluoric (HF) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri fluorua (NaF) và nước (H2O)",
-      "Natri fluorua (NaF) và oxi (O2)",
-      "Natri hidroxit (NaOH) và fluor (F2)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium fluorua (NaF) và nước (H2O)",
+      "Sodium fluorua (NaF) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và fluorine (F2)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri fluorua (NaF) và nước (H2O)",
-    explanation: "Phản ứng giữa acid hydrofluoric (HF) và natri hidroxit (NaOH) tạo thành natri fluorua (NaF) và nước (H2O)."
+    correctAnswer: "Sodium fluorua (NaF) và nước (H2O)",
+    explanation: "Phản ứng giữa acid hydrofluoric (HF) và Sodium hydroxide (NaOH) tạo thành Sodium fluorua (NaF) và nước (H2O)."
   },
   {
     id: "b9-vd-7",
     lessonId: "lesson-9",
     level: "vandung",
-    question: "Trong phản ứng giữa acid hydrocloric (HCl) và amoniac (NH3), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa hydrochloric acid (HCl) và amoniac (NH3), sản phẩm tạo thành là:",
     options: [
-      "Amoni clorua (NH4Cl)",
-      "Amoni clorua (NH4Cl) và nước (H2O)",
-      "Amoni hidroxit (NH4OH) và clo (Cl2)",
-      "Nước (H2O) và oxi (O2)"
+      "Amoni cloride (NH4Cl)",
+      "Amoni cloride (NH4Cl) và nước (H2O)",
+      "Amoni hydroxide (NH4OH) và clorine (Cl2)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Amoni clorua (NH4Cl)",
-    explanation: "Phản ứng giữa acid hydrocloric (HCl) và amoniac (NH3) tạo thành amoni clorua (NH4Cl)."
+    correctAnswer: "Amoni cloride (NH4Cl)",
+    explanation: "Phản ứng giữa hydrochloric acid (HCl) và amoniac (NH3) tạo thành amoni cloride (NH4Cl)."
   },
   // =========================
   // BÀI 10. OXIDE
@@ -1636,19 +1650,19 @@ export const rawQuestionBank: RawQuestion[] = [
     level: "nhanbiet",
     question: "Oxide là hợp chất hóa học gồm:",
     options: [
-      "Oxi và kim loại",
-      "Oxi và phi kim",
-      "Oxi và cả kim loại lẫn phi kim",
+      "Oxygen và kim loại",
+      "Oxygen và phi kim",
+      "Oxygen và cả kim loại lẫn phi kim",
       "Không có định nghĩa chính xác"
     ],
-    correctAnswer: "Oxi và cả kim loại lẫn phi kim",
-    explanation: "Oxide là hợp chất hóa học gồm oxi và cả kim loại lẫn phi kim."
+    correctAnswer: "Oxygen và cả kim loại lẫn phi kim",
+    explanation: "Oxide là hợp chất hóa học gồm oxygen và cả kim loại lẫn phi kim."
   },
   {
     id: "b10-nb-2",
     lessonId: "lesson-10",
     level: "nhanbiet",
-    question: "Oxide axit là oxide có tính chất:",
+    question: "Oxide acid là oxide có tính chất:",
     options: [
       "Tác dụng với nước tạo thành acid",
       "Tác dụng với nước tạo thành base",
@@ -1656,13 +1670,13 @@ export const rawQuestionBank: RawQuestion[] = [
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Tác dụng với nước tạo thành acid",
-    explanation: "Oxide axit là oxide có tính chất tác dụng với nước tạo thành acid."
+    explanation: "Oxide acid là oxide có tính chất tác dụng với nước tạo thành acid."
   },
   {
     id: "b10-nb-3",
     lessonId: "lesson-10",
     level: "nhanbiet",
-    question: "Oxide bazơ là oxide có tính chất:",
+    question: "Oxide base là oxide có tính chất:",
     options: [
       "Tác dụng với nước tạo thành acid",
       "Tác dụng với nước tạo thành base",
@@ -1670,7 +1684,7 @@ export const rawQuestionBank: RawQuestion[] = [
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Tác dụng với nước tạo thành base",
-    explanation: "Oxide bazơ là oxide có tính chất tác dụng với nước tạo thành base."
+    explanation: "Oxide base là oxide có tính chất tác dụng với nước tạo thành base."
   },
   {
     id: "b10-nb-4",
@@ -1704,7 +1718,7 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b10-th-2",
     lessonId: "lesson-10",
     level: "thonghieu",
-    question: "Oxide nào sau đây là oxide bazơ?",
+    question: "Oxide nào sau đây là oxide base?",
     options: [
       "CO2",
       "Na2O",
@@ -1712,13 +1726,13 @@ export const rawQuestionBank: RawQuestion[] = [
       "SO3"
     ],
     correctAnswer: "Na2O",
-    explanation: "Na2O là oxide bazơ vì nó phản ứng với nước tạo thành base."
+    explanation: "Na2O là oxide base vì nó phản ứng với nước tạo thành base."
   },
   {
     id: "b10-th-3",
     lessonId: "lesson-10",
     level: "thonghieu",
-    question: "Oxide nào sau đây là oxide axit?",
+    question: "Oxide nào sau đây là oxide acid?",
     options: [
       "CO2",
       "Na2O",
@@ -1726,35 +1740,35 @@ export const rawQuestionBank: RawQuestion[] = [
       "SO3"
     ],
     correctAnswer: "CO2",
-    explanation: "CO2 là oxide axit vì nó phản ứng với nước tạo thành acid."
+    explanation: "CO2 là oxide acid vì nó phản ứng với nước tạo thành acid."
   },
   {
     id: "b10-vd-1",
     lessonId: "lesson-10",
     level: "vandung",
-    question: "Trong phản ứng giữa oxide axit CO2 và nước (H2O), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa oxide acid CO2 và nước (H2O), sản phẩm tạo thành là:",
     options: [
-      "Acid carbonic (H2CO3)",
-      "Acid carbonic (H2CO3) và oxi (O2)",
+      "Carbonic acid (H2CO3)",
+      "Carbonic acid (H2CO3) và oxygen (O2)",
       "CO2 và nước (H2O)",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Acid carbonic (H2CO3)",
-    explanation: "Phản ứng giữa oxide axit CO2 và nước (H2O) tạo thành acid carbonic (H2CO3)."
+    correctAnswer: "Carbonic acid (H2CO3)",
+    explanation: "Phản ứng giữa oxide acid CO2 và nước (H2O) tạo thành carbonic acid (H2CO3)."
   },
   {
     id: "b10-vd-2",
     lessonId: "lesson-10",
     level: "vandung",
-    question: "Trong phản ứng giữa oxide bazơ Na2O và nước (H2O), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa oxide base Na2O và nước (H2O), sản phẩm tạo thành là:",
     options: [
-      "Natri hidroxit (NaOH)",
-      "Natri hidroxit (NaOH) và oxi (O2)",
+      "Sodium hydroxide (NaOH)",
+      "Sodium hydroxide (NaOH) và oxygen (O2)",
       "Na2O và nước (H2O)",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Natri hidroxit (NaOH)",
-    explanation: "Phản ứng giữa oxide bazơ Na2O và nước (H2O) tạo thành natri hidroxit (NaOH)."
+    correctAnswer: "Sodium hydroxide (NaOH)",
+    explanation: "Phản ứng giữa oxide base Na2O và nước (H2O) tạo thành sodium hydroxide (NaOH)."
   },
   {
     id: "b10-vd-3",
@@ -1762,69 +1776,69 @@ export const rawQuestionBank: RawQuestion[] = [
     level: "vandung",
     question: "Trong phản ứng giữa oxide lưỡng tính Al2O3 và acid hydrochloric (HCl), sản phẩm tạo thành là:",
     options: [
-      "Aluminium clorua (AlCl3) và nước (H2O)",
-      "Aluminium clorua (AlCl3) và oxi (O2)",
+      "Aluminium chloride (AlCl3) và nước (H2O)",
+      "Aluminium chloride (AlCl3) và oxygen (O2)",
       "Al2O3 và HCl",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Aluminium clorua (AlCl3) và nước (H2O)",
-    explanation: "Phản ứng giữa oxide lưỡng tính Al2O3 và acid hydrochloric (HCl) tạo thành aluminium clorua (AlCl3) và nước (H2O)."
+    correctAnswer: "Aluminium chloride (AlCl3) và nước (H2O)",
+    explanation: "Phản ứng giữa oxide lưỡng tính Al2O3 và acid hydrochloric (HCl) tạo thành aluminium chloride (AlCl3) và nước (H2O)."
   },
   {
     id: "b10-vd-4",
     lessonId: "lesson-10",
     level: "vandung",
-    question: "Trong phản ứng giữa oxide lưỡng tính Al2O3 và base natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa oxide lưỡng tính Al2O3 và base sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri aluminat (NaAlO2) và nước (H2O)",
-      "Natri aluminat (NaAlO2) và oxi (O2)",
+      "Sodium aluminat (NaAlO2) và nước (H2O)",
+      "Sodium aluminat (NaAlO2) và oxygen (O2)",
       "Al2O3 và NaOH",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Natri aluminat (NaAlO2) và nước (H2O)",
-    explanation: "Phản ứng giữa oxide lưỡng tính Al2O3 và base natri hidroxit (NaOH) tạo thành natri aluminat (NaAlO2) và nước (H2O)."
+    correctAnswer: "Sodium aluminat (NaAlO2) và nước (H2O)",
+    explanation: "Phản ứng giữa oxide lưỡng tính Al2O3 và base sodium hydroxide (NaOH) tạo thành sodium aluminat (NaAlO2) và nước (H2O)."
   },
   {
     id: "b10-vd-5",
     lessonId: "lesson-10",
     level: "vandung",
-    question: "Trong phản ứng giữa oxide axit SO3 và nước (H2O), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa oxide acid SO3 và nước (H2O), sản phẩm tạo thành là:",
     options: [
-      "Acid sulfuric (H2SO4)",
-      "Acid sulfuric (H2SO4) và oxi (O2)",
+      "Sulfuric acid (H2SO4)",
+      "Sulfuric acid (H2SO4) và oxygen (O2)",
       "SO3 và nước (H2O)",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Acid sulfuric (H2SO4)",
-    explanation: "Phản ứng giữa oxide axit SO3 và nước (H2O) tạo thành acid sulfuric (H2SO4)."
+    correctAnswer: "Sulfuric acid (H2SO4)",
+    explanation: "Phản ứng giữa oxide acid SO3 và nước (H2O) tạo thành sulfuric acid (H2SO4)."
   },
   {
     id: "b10-vd-6",
     lessonId: "lesson-10",
     level: "vandung",
-    question: "Trong phản ứng giữa oxide bazơ CaO và nước (H2O), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa oxide base CaO và nước (H2O), sản phẩm tạo thành là:",
     options: [
       "Canxi hidroxit (Ca(OH)2)",
-      "Canxi hidroxit (Ca(OH)2) và oxi (O2)",
+      "Canxi hidroxit (Ca(OH)2) và oxygen (O2)",
       "CaO và nước (H2O)",
       "Không có phản ứng xảy ra"
     ],
     correctAnswer: "Canxi hidroxit (Ca(OH)2)",
-    explanation: "Phản ứng giữa oxide bazơ CaO và nước (H2O) tạo thành canxi hidroxit (Ca(OH)2)."
+    explanation: "Phản ứng giữa oxide base CaO và nước (H2O) tạo thành canxi hidroxit (Ca(OH)2)."
   },
   {
     id: "b10-vd-7",
     lessonId: "lesson-10",
     level: "vandung",
-    question: "Trong phản ứng giữa oxide lưỡng tính ZnO và acid sulfuric (H2SO4), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa oxide lưỡng tính ZnO và sulfuric acid (H2SO4), sản phẩm tạo thành là:",
     options: [
-      "Kẽm sulfat (ZnSO4) và nước (H2O)",
-      "Kẽm sulfat (ZnSO4) và oxi (O2)",
+      "Kẽm sulfate (ZnSO4) và nước (H2O)",
+      "Kẽm sulfate (ZnSO4) và oxygen (O2)",
       "ZnO và H2SO4",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Kẽm sulfat (ZnSO4) và nước (H2O)",
-    explanation: "Phản ứng giữa oxide lưỡng tính ZnO và acid sulfuric (H2SO4) tạo thành kẽm sulfat (ZnSO4) và nước (H2O)."
+    correctAnswer: "Kẽm sulfate (ZnSO4) và nước (H2O)",
+    explanation: "Phản ứng giữa oxide lưỡng tính ZnO và sulfuric acid (H2SO4) tạo thành kẽm sulfate (ZnSO4) và nước (H2O)."
   },
   // =========================
   // BÀI 11. MUỐI
@@ -1845,37 +1859,37 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b11-nb-2",
     lessonId: "lesson-11",
     level: "nhanbiet",
-    question: "Muối có thể được phân loại thành muối axit, muối bazơ và muối trung tính.",
+    question: "Muối có thể được phân loại thành muối acid, muối bazơ và muối trung tính.",
     options: [
       "Đúng",
       "Sai"
     ],
     correctAnswer: "Đúng",
-    explanation: "Muối có thể được phân loại thành muối axit, muối bazơ và muối trung tính."
+    explanation: "Muối có thể được phân loại thành muối acid, muối bazơ và muối trung tính."
   },
   {
     id: "b11-nb-3",
     lessonId: "lesson-11",
     level: "nhanbiet",
-    question: "Muối axit là muối có chứa ion H+ trong công thức hóa học.",
+    question: "Muối acid là muối có chứa ion H+ trong công thức hóa học.",
     options: [
       "Đúng",
       "Sai"
     ],
     correctAnswer: "Đúng",
-    explanation: "Muối axit là muối có chứa ion H+ trong công thức hóa học."
+    explanation: "Muối acid là muối có chứa ion H+ trong công thức hóa học."
   },
   {
     id: "b11-nb-4",
     lessonId: "lesson-11",
     level: "nhanbiet",
-    question: "Muối bazơ là muối có chứa ion OH- trong công thức hóa học.",
+    question: "Muối base là muối có chứa ion OH- trong công thức hóa học.",
     options: [
       "Đúng",
       "Sai"
     ],
     correctAnswer: "Đúng",
-    explanation: "Muối bazơ là muối có chứa ion OH- trong công thức hóa học."
+    explanation: "Muối base là muối có chứa ion OH- trong công thức hóa học."
   },
   {
     id: "b11-nb-5",
@@ -1893,29 +1907,29 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b11-th-1",
     lessonId: "lesson-11",
     level: "thonghieu",
-    question: "Tại sao muối axit có chứa ion H+ trong công thức hóa học?",
+    question: "Tại sao muối acid có chứa ion H+ trong công thức hóa học?",
     options: [
-      "Vì muối axit được tạo thành từ phản ứng giữa acid và base",
-      "Vì muối axit có tính chất axit",
+      "Vì muối acid được tạo thành từ phản ứng giữa acid và base",
+      "Vì muối acid có tính chất acid",
       "Cả A và B",
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Cả A và B",
-    explanation: "Muối axit có chứa ion H+ trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base, và nó có tính chất axit."
+    explanation: "Muối acid có chứa ion H+ trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base, và nó có tính chất acid."
   },
   {
     id: "b11-th-2",
     lessonId: "lesson-11",
     level: "thonghieu",
-    question: "Tại sao muối bazơ có chứa ion OH- trong công thức hóa học?",
+    question: "Tại sao muối base có chứa ion OH- trong công thức hóa học?",
     options: [
-      "Vì muối bazơ được tạo thành từ phản ứng giữa acid và base",
-      "Vì muối bazơ có tính chất bazơ",
+      "Vì muối base được tạo thành từ phản ứng giữa acid và base",
+      "Vì muối base có tính chất base",
       "Cả A và B",
       "Không có định nghĩa chính xác"
     ],
     correctAnswer: "Cả A và B",
-    explanation: "Muối bazơ có chứa ion OH- trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base, và nó có tính chất bazơ."
+    explanation: "Muối base có chứa ion OH- trong công thức hóa học vì nó được tạo thành từ phản ứng giữa acid và base, và nó có tính chất base."
   },
   {
     id: "b11-th-3",
@@ -1935,85 +1949,85 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b11-vd-1",
     lessonId: "lesson-11",
     level: "vandung",
-    question: "Trong phản ứng giữa acid hydrochloric (HCl) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid hydrochloric (HCl) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri clorua (NaCl) và nước (H2O)",
-      "Natri clorua (NaCl) và oxi (O2)",
-      "Natri hidroxit (NaOH) và clo (Cl2)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium clorua (NaCl) và nước (H2O)",
+      "Sodium clorua (NaCl) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và clorine (Cl2)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri clorua (NaCl) và nước (H2O)",
-    explanation: "Phản ứng giữa acid hydrochloric (HCl) và natri hidroxit (NaOH) tạo thành natri clorua (NaCl) và nước (H2O)."
+    correctAnswer: "Sodium clorua (NaCl) và nước (H2O)",
+    explanation: "Phản ứng giữa acid hydrochloric (HCl) và Sodium hydroxide (NaOH) tạo thành Sodium clorua (NaCl) và nước (H2O)."
   },
   {
     id: "b11-vd-2",
     lessonId: "lesson-11",
     level: "vandung",
-    question: "Trong phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri sulfat (Na2SO4) và nước (H2O)",
-      "Natri sulfat (Na2SO4) và oxi (O2)",
-      "Natri hidroxit (NaOH) và sulfuric (H2SO4)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium sulfate (Na2SO4) và nước (H2O)",
+      "Sodium sulfate (Na2SO4) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và sulfuric (H2SO4)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri sulfat (Na2SO4) và nước (H2O)",
-    explanation: "Phản ứng giữa acid sulfuric (H2SO4) và natri hidroxit (NaOH) tạo thành natri sulfat (Na2SO4) và nước (H2O)."
+    correctAnswer: "Sodium sulfate (Na2SO4) và nước (H2O)",
+    explanation: "Phản ứng giữa sulfuric acid (H2SO4) và Sodium hydroxide (NaOH) tạo thành Sodium sulfate (Na2SO4) và nước (H2O)."
   },
   {
     id: "b11-vd-3",
     lessonId: "lesson-11",
     level: "vandung",
-    question: "Trong phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid nitric (HNO3) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri nitrat (NaNO3) và nước (H2O)",
-      "Natri nitrat (NaNO3) và oxi (O2)",
-      "Natri hidroxit (NaOH) và nitric (HNO3)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium nitrate (NaNO3) và nước (H2O)",
+      "Sodium nitrate (NaNO3) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và nitric (HNO3)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri nitrat (NaNO3) và nước (H2O)",
-    explanation: "Phản ứng giữa acid nitric (HNO3) và natri hidroxit (NaOH) tạo thành natri nitrat (NaNO3) và nước (H2O)."
+    correctAnswer: "Sodium nitrate (NaNO3) và nước (H2O)",
+    explanation: "Phản ứng giữa nitric acid (HNO3) và Sodium hydroxide (NaOH) tạo thành Sodium nitrate (NaNO3) và nước (H2O)."
   },
   {
     id: "b11-vd-4",
     lessonId: "lesson-11",
     level: "vandung",
-    question: "Trong phản ứng giữa acid phosphoric (H3PO4) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid phosphoric (H3PO4) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri photphat (Na3PO4) và nước (H2O)",
-      "Natri photphat (Na3PO4) và oxi (O2)",
-      "Natri hidroxit (NaOH) và phosphoric (H3PO4)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium phosphate (Na3PO4) và nước (H2O)",
+      "Sodium phosphate (Na3PO4) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và phosphoric acid (H3PO4)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri photphat (Na3PO4) và nước (H2O)",
-    explanation: "Phản ứng giữa acid phosphoric (H3PO4) và natri hidroxit (NaOH) tạo thành natri photphat (Na3PO4) và nước (H2O)."
+    correctAnswer: "Sodium phosphate (Na3PO4) và nước (H2O)",
+    explanation: "Phản ứng giữa phosphoric acid (H3PO4) và Sodium hydroxide (NaOH) tạo thành Sodium phosphate (Na3PO4) và nước (H2O)."
   },
   {
     id: "b11-vd-5",
     lessonId: "lesson-11",
     level: "vandung",
-    question: "Trong phản ứng giữa acid carbonic (H2CO3) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acid carbonic (H2CO3) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri carbonat (Na2CO3) và nước (H2O)",
-      "Natri carbonat (Na2CO3) và oxi (O2)",
-      "Natri hidroxit (NaOH) và carbonic (H2CO3)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium carbonate (Na2CO3) và nước (H2O)",
+      "Sodium carbonate (Na2CO3) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và carbonic acid (H2CO3)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri carbonat (Na2CO3) và nước (H2O)",
-    explanation: "Phản ứng giữa acid carbonic (H2CO3) và natri hidroxit (NaOH) tạo thành natri carbonat (Na2CO3) và nước (H2O)."
+    correctAnswer: "Sodium carbonate (Na2CO3) và nước (H2O)",
+    explanation: "Phản ứng giữa carbonic acid (H2CO3) và Sodium hydroxide (NaOH) tạo thành Sodium carbonate (Na2CO3) và nước (H2O)."
   },
   {
     id: "b11-vd-6",
     lessonId: "lesson-11",
     level: "vandung",
-    question: "Trong phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa acetic acid (CH3COOH) và Sodium hydroxide (NaOH), sản phẩm tạo thành là:",
     options: [
-      "Natri axetat (CH3COONa) và nước (H2O)",
-      "Natri axetat (CH3COONa) và oxi (O2)",
-      "Natri hidroxit (NaOH) và acetic (CH3COOH)",
-      "Nước (H2O) và oxi (O2)"
+      "Sodium acetate (CH3COONa) và nước (H2O)",
+      "Sodium acetate (CH3COONa) và oxygen (O2)",
+      "Sodium hydroxide (NaOH) và acetic acid (CH3COOH)",
+      "Nước (H2O) và oxygen (O2)"
     ],
-    correctAnswer: "Natri axetat (CH3COONa) và nước (H2O)",
-    explanation: "Phản ứng giữa acid acetic (CH3COOH) và natri hidroxit (NaOH) tạo thành natri axetat (CH3COONa) và nước (H2O)."
+    correctAnswer: "Sodium acetate (CH3COONa) và nước (H2O)",
+    explanation: "Phản ứng giữa acetic acid (CH3COOH) và Sodium hydroxide (NaOH) tạo thành Sodium acetate (CH3COONa) và nước (H2O)."
   },
   // =========================
   // BÀI 12. PHÂN BÓN HÓA HỌC
@@ -2126,7 +2140,7 @@ export const rawQuestionBank: RawQuestion[] = [
     options: [
       "Amoni nitrat hòa tan trong nước",
       "Amoni nitrat và nước (H2O)",
-      "Amoni nitrat và oxi (O2)",
+      "Amoni nitrat và oxygen (O2)",
       "Không có phản ứng xảy ra"
     ],
     correctAnswer: "Amoni nitrat hòa tan trong nước",
@@ -2140,7 +2154,7 @@ export const rawQuestionBank: RawQuestion[] = [
     options: [
       "Superphosphate hòa tan trong nước",
       "Superphosphate và nước (H2O)",
-      "Superphosphate và oxi (O2)",
+      "Superphosphate và oxygen (O2)",
       "Không có phản ứng xảy ra"
     ],
     correctAnswer: "Superphosphate hòa tan trong nước",
@@ -2150,14 +2164,14 @@ export const rawQuestionBank: RawQuestion[] = [
     id: "b12-vd-3",
     lessonId: "lesson-12",
     level: "vandung",
-    question: "Trong phản ứng giữa phân bón kali clorua (KCl) và nước (H2O), sản phẩm tạo thành là:",
+    question: "Trong phản ứng giữa phân bón potassium cloride (KCl) và nước (H2O), sản phẩm tạo thành là:",
     options: [
-      "Kali clorua hòa tan trong nước",
-      "Kali clorua và nước (H2O)",
-      "Kali clorua và oxi (O2)",
+      "Potassium cloride hòa tan trong nước",
+      "Potassium cloride và nước (H2O)",
+      "Potassium cloride và oxygen (O2)",
       "Không có phản ứng xảy ra"
     ],
-    correctAnswer: "Kali clorua hòa tan trong nước",
-    explanation: "Phản ứng giữa phân bón kali clorua (KCl) và nước (H2O) tạo thành kali clorua hòa tan trong nước."
+    correctAnswer: "Potassium cloride hòa tan trong nước",
+    explanation: "Phản ứng giữa phân bón potassium cloride (KCl) và nước (H2O) tạo thành potassium cloride hòa tan trong nước."
   },
 ]

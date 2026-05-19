@@ -33,8 +33,7 @@ function getLevel(text: string): string | null {
 
   if (
     lower.includes("mức độ 3") ||
-    lower.includes("vận dụng") ||
-    lower.includes("vận dụng cao")
+    lower.includes("vận dụng")
   ) {
     return "vandung";
   }

@@ -20,7 +20,7 @@ export default function DebugFirebasePage() {
   }, []);
 
   return (
-    <pre className="m-10 rounded-3xl bg-white p-6 text-sm text-slate-800 shadow">
+    <pre className="m-10 rounded-[24px] sm:rounded-3xl bg-white p-6 text-sm text-slate-800 shadow">
       {JSON.stringify(info, null, 2)}
     </pre>
   );

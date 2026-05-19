@@ -127,7 +127,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/login"
-                  className="rounded-2xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
+                  className="rounded-2xl bg-blue-500 px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
                 >
                   Đăng nhập ngay
                 </Link>
@@ -258,7 +258,7 @@ export default function HomePage() {
               {flowSteps.map((step, index) => (
                 <div
                   key={step}
-                  className="rounded-3xl border border-slate-200 bg-slate-50 p-5"
+                  className="rounded-[24px] sm:rounded-3xl border border-slate-200 bg-slate-50 p-5"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 font-bold text-white">
                     {index + 1}

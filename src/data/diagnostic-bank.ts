@@ -3,8 +3,7 @@ import { StudentLevel } from "@/types/practice-final";
 export type DiagnosticQuestionLevel =
   | "nhanbiet"
   | "thonghieu"
-  | "vandung"
-  | "vandungcao";
+  | "vandung";
 
 export type DiagnosticOption = {
   id: "A" | "B" | "C" | "D";
@@ -192,7 +191,7 @@ export const diagnosticBank: DiagnosticQuestion[] = [
       { id: "D", text: "Neon (Z = 10)." },
     ],
     correctOptionId: "B",
-    level: "vandungcao",
+    level: "vandung",
     explanation:
       "Gọi proton là p, electron = p, neutron = p + 1. Tổng: p + p + p + 1 = 28 nên 3p = 27, p = 9. Z = 9 là Fluorine.",
   },
@@ -370,7 +369,7 @@ export const diagnosticBank: DiagnosticQuestion[] = [
       { id: "D", text: "S2O7." },
     ],
     correctOptionId: "B",
-    level: "vandungcao",
+    level: "vandung",
     explanation:
       "M(X) = 2,5 × 32 = 80 amu. S chiếm 40% nên khối lượng S = 32 amu, tương ứng 1 nguyên tử S. Khối lượng O = 48 amu, tương ứng 3 nguyên tử O. Công thức là SO3.",
   },

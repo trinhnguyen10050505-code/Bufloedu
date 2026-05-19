@@ -10,7 +10,7 @@ export function getBuLevelMeta(level: StudentLevel) {
   if (level === "gioi") {
     return {
       key: "gioi",
-      label: "Bu Năng nổ",
+      label: "Bu Thông thái",
       realLevel: "Giỏi",
       shortDescription:
         "Em đang học rất tốt, có thể thử câu vận dụng và học bài mới.",
@@ -27,7 +27,7 @@ export function getBuLevelMeta(level: StudentLevel) {
   if (level === "kha") {
     return {
       key: "kha",
-      label: "Bu Thông minh",
+      label: "Bu Vững vàng",
       realLevel: "Khá",
       shortDescription:
         "Em đã hiểu phần lớn kiến thức, cần luyện thêm để chắc hơn.",

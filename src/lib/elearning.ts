@@ -59,7 +59,7 @@ export const elearningRegistry: Record<string, ElearningSource> = {
   },
   "lesson-9": {
     lessonId: "lesson-9",
-    title: "E-learning - Tính chất của axit, bazơ và muối",
+    title: "E-learning - Tính chất của acid, base và muối",
     mode: "local_html",
     entry: "/elearning/lesson-9/index.html",
     note: "Đặt nguyên package vào public/elearning/lesson-9/",

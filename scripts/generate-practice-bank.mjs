@@ -39,8 +39,7 @@ function detectLevel(line, currentLevel) {
 
   if (
     value.includes("mức độ 3") ||
-    value.includes("vận dụng") ||
-    value.includes("vận dụng cao")
+    value.includes("vận dụng")
   ) {
     return "vandung";
   }

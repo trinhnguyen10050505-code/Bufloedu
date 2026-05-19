@@ -18,7 +18,7 @@ export function getLessonPracticeStats(lessonId: string): LessonPracticeStats {
   };
 
   for (const question of questions) {
-    stats[question.level]++;
+    stats[question.level as keyof Omit<LessonPracticeStats, "total">]++;
   }
 
   return stats;

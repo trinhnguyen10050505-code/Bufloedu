@@ -80,7 +80,7 @@ export default function StudentResultsPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/student/exercises"
-            className="rounded-2xl bg-white px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
+            className="rounded-2xl bg-blue-900 px-5 py-3 font-semibold text-blue hover:bg-blue-50"
           >
             Bu trộn bộ luyện mới
           </Link>
@@ -252,7 +252,7 @@ export default function StudentResultsPage() {
                   <div className="flex flex-col gap-2">
                     <Link
                       href={`/student/lessons/${lesson.lessonId}`}
-                      className="rounded-2xl bg-slate-900 px-4 py-2 text-center text-sm font-semibold text-white hover:bg-slate-800"
+                      className="rounded-2xl bg-blue px-4 py-2 text-center text-sm font-semibold text-white hover:bg-slate-800"
                     >
                       Ôn bài
                     </Link>

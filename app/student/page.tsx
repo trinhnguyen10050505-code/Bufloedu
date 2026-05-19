@@ -187,9 +187,10 @@ export default function StudentDashboardPage() {
             <div className="mt-7 flex flex-wrap gap-4">
               <Link
                 href="/student/diagnostic-test"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-bold text-blue-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-50"
+                className="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-6 py-3 font-black text-white shadow-sm transition hover:bg-blue-700"
               >
-                <ClipboardList size={19} />
+                <ClipboardList size={19}/>
+
                 Làm test chẩn đoán
               </Link>
 
