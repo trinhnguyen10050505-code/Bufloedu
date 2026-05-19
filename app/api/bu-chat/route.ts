@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "Bu chưa kết nối được Gemini. Có thể API key chưa bật đúng quyền hoặc các model hiện tại chưa khả dụng với key này.",
+          "Bu chưa về nhà, em đợi Bu nhé!",
         details: errors,
       },
       { status: 502 }
