@@ -209,7 +209,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Tốc độ phản ứng, các yếu tố ảnh hưởng đến tốc độ phản ứng, chất xúc tác và chất ức chế.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-7/index.html",
+    elearningUrl: "https://hitmanno512005-gif.github.io/Bai7-Tocdophanung/",
     localEntry: "/elearning/lesson-7/index.html",
     theory: [
       {
@@ -242,7 +242,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Khái niệm acid, tính chất hóa học của acid và ứng dụng của một số acid thông dụng.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-8/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-8-Acid/",
     localEntry: "/elearning/lesson-8/index.html",
     theory: [
       {
@@ -265,7 +265,7 @@ export const khtnTheory: LessonTheory[] = [
     description:
       "Khái niệm base, phân loại base, tính chất hóa học và thang đo pH.",
     chapter: "Chủ đề Hóa học",
-    elearningUrl: "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/lesson-9/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-9-Base-Tiet1/",
     localEntry: "/elearning/lesson-9/index.html",
     theory: [
       {

@@ -93,7 +93,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Tốc độ phản ứng, diện tích tiếp xúc, nhiệt độ, nồng độ, chất xúc tác và chất ức chế.",
     chapter: "Chủ đề Hóa học",
     tags: ["tốc độ", "xúc tác", "nồng độ"],
-    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-7-Toc-Do-Phan-UNG-va-Chất-Xúc-Tác/index.html",
+    elearningUrl: "https://hitmanno512005-gif.github.io/Bai7-Tocdophanung/",
     localEntry: "/elearning/lesson-7/index.html",
   },
   {
@@ -105,7 +105,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Khái niệm acid, tên gọi acid, gốc acid và tính chất hóa học cơ bản.",
     chapter: "Chủ đề Hóa học",
     tags: ["acid", "H+", "gốc acid"],
-    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-8-Acid/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-8-Acid/",
     localEntry: "/elearning/lesson-8/index.html",
   },
   {
@@ -117,7 +117,7 @@ export const lessonCatalog: LessonCatalogItem[] = [
       "Khái niệm base, phân loại base, tính chất hóa học và thang đo pH.",
     chapter: "Chủ đề Hóa học",
     tags: ["base", "pH", "OH-"],
-    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-9-Base-Thang-Do-pH/index.html",
+    elearningUrl: "https://phuocnguyenbpbt-svg.github.io/Bai-9-Base-Tiet1/",
     localEntry: "/elearning/lesson-9/index.html",
   },
   {

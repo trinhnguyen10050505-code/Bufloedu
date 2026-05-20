@@ -33,9 +33,9 @@ export default function StudentGardenWide({
 
   const stats = [
     {
-      label: "Thời gian học",
+      label: "Tích lũy",
       value: `${studyMinutes}p`,
-      sub: "Hôm nay",
+      sub: "Thời gian học",
       icon: Clock3,
       color: "text-green-600",
       bg: "bg-green-50",
